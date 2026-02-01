@@ -1,0 +1,78 @@
+.table-card {
+  border: 1px solid rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
+}
+
+.fs-xs {
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.fw-extrabold {
+  font-weight: 800;
+  color: #1a202c;
+}
+
+/* Badge Styles */
+.badge {
+  font-size: 0.75rem;
+  letter-spacing: 0.3px;
+}
+
+.badge.bg-light {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+}
+
+.badge.bg-soft-gray {
+  background-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+.badge.bg-danger {
+  background-color: #fee2e2 !important;
+  color: #ef4444 !important;
+}
+
+/* Due Date Circle */
+.due-day-circle {
+  width: 36px;
+  height: 36px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.table thead th {
+  border-bottom: 2px solid #f1f5f9;
+  background-color: white;
+  color: #64748b !important;
+  font-weight: 700;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.table tbody td {
+  border-bottom: 1px solid #f8fafc;
+  vertical-align: middle;
+  transition: background-color 0.2s;
+}
+
+.table-hover tbody tr:hover td {
+  background-color: #f8fafc;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+[dir='rtl'] .table {
+  text-align: right;
+}

@@ -1,0 +1,92 @@
+<footer class="felosy-footer" [dir]="langService.isAr() ? 'rtl' : 'ltr'">
+  <div class="container py-5">
+    <div class="row gy-4 align-items-start">
+      <!-- Brand -->
+      <div class="col-lg-5">
+        <div class="footer-brand">
+          <img src="assets/images/logo.jpeg" alt="Felosy Logo" class="footer-brand__logo" />
+          <div>
+            <h3 class="footer-brand__name mb-1">
+              {{ content().brand }}
+            </h3>
+            <p class="footer-brand__tagline mb-0">{{ content().tagline }}</p>
+          </div>
+        </div>
+        <div class="mt-4">
+          <p class="text-white-50 mb-1 d-flex align-items-center gap-2">
+            <i class="bi bi-envelope text-info"></i> {{ content().email }}
+          </p>
+          <p class="text-white-50 mb-0 d-flex align-items-center gap-2">
+            <i class="bi bi-telephone text-info"></i> {{ content().phone }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div class="col-lg-3 col-md-6">
+        <h6 class="footer-title">{{ content().quickLinks }}</h6>
+        <ul class="footer-links" role="list">
+          <li>
+            <a class="footer-link" routerLink="/">{{ content().about }}</a>
+          </li>
+          <li>
+            <a class="footer-link" routerLink="/">{{ content().features }}</a>
+          </li>
+          <li>
+            <a class="footer-link" routerLink="/">{{ content().contactLink }}</a>
+          </li>
+          <li>
+            <a class="footer-link" routerLink="/">{{ content().privacy }}</a>
+          </li>
+          <li>
+            <a class="footer-link" routerLink="/">{{ content().terms }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div class="col-lg-4 col-md-6">
+        <h6 class="footer-title">{{ content().contact }}</h6>
+
+        <div class="socials mb-4">
+          @for (s of socials(); track s.label) {
+            <a class="social-btn" [href]="s.href" [attr.aria-label]="s.label">
+              <i class="bi" [class]="'bi-' + s.icon"></i>
+            </a>
+          }
+        </div>
+
+        <div class="mini-note">
+          <span class="dot"></span>
+          <span>Secure • Fast • Simple</span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="footer-bottom mt-4 pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2"
+    >
+      <p class="mb-0">{{ content().copyright }}</p>
+      <p class="mb-0 text-white-50 small">
+        {{ content().poweredBy }}
+        <a
+          href="#"
+          target="_blank"
+          class="text-info text-decoration-none fw-bold hover-glow d-inline-flex align-items-center gap-1"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="mb-1"
+          >
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+          </svg>
+          COREDEV
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

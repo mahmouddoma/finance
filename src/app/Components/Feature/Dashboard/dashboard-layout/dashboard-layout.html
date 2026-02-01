@@ -1,0 +1,55 @@
+<app-header></app-header>
+
+<main class="container my-5 py-5 min-vh-100">
+  <div class="dashboard-container py-4">
+    <div class="row g-5">
+      <!-- Main Content -->
+      <div class="col-lg-9">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+          <div>
+            <h1 class="fw-bold mb-1">{{ getContent().welcome }}</h1>
+            <p class="text-secondary mb-0">{{ getContent().subtitle }}</p>
+          </div>
+          <button class="btn btn-dark rounded-circle p-2" (click)="showSetupDialog.set(true)">
+            <i class="bi bi-gear fs-5"></i>
+          </button>
+        </div>
+
+        <section class="mb-5">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold m-0">{{ getContent().overview }}</h4>
+            <button
+              class="btn btn-dark rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2"
+              (click)="showAddDialog.set(true)"
+            >
+              <i class="bi bi-plus-circle-fill"></i>
+              <span>{{ getContent().addBtn }}</span>
+            </button>
+          </div>
+          <app-summary-cards></app-summary-cards>
+        </section>
+
+        <section>
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold m-0">{{ getContent().obligations }}</h4>
+          </div>
+          <app-obligation-list></app-obligation-list>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-3">
+        <app-timeline-sidebar></app-timeline-sidebar>
+      </div>
+    </div>
+
+    <app-add-obligation-dialog
+      *ngIf="showAddDialog()"
+      (close)="showAddDialog.set(false)"
+    ></app-add-obligation-dialog>
+    <app-setup-basic-info
+      *ngIf="showSetupDialog()"
+      (close)="showSetupDialog.set(false)"
+    ></app-setup-basic-info>
+  </div>
+</main>

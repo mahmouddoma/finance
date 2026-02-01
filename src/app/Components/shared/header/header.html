@@ -1,0 +1,70 @@
+<header class="felosy-header sticky-top">
+  <nav class="container felosy-nav" aria-label="Main navigation">
+    <!-- Brand -->
+    <a class="brand" href="#" (click)="closeMobile()">
+      <img src="assets/images/logo.jpeg" alt="Felosy Logo" class="brand__logo" />
+      <!-- <span class="brand__name d-none d-sm-inline">{{ content().title }}</span> -->
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="nav-links d-none d-lg-flex" role="list">
+      @for (item of navItems(); track item.key) {
+        <li>
+          <a class="nav-link" [href]="item.href">{{ labelFor(item.key) }}</a>
+        </li>
+      }
+    </ul>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button type="button" class="icon-btn d-none d-lg-inline-flex" (click)="toggleLang()">
+        <i class="bi bi-translate"></i>
+        <span class="ms-2">{{ content().langBtn }}</span>
+      </button>
+
+      <button type="button" class="btn felosy-btn d-none d-lg-inline-flex text-light">
+        {{ content().login }}
+      </button>
+
+      <!-- Mobile burger -->
+      <button
+        type="button"
+        class="icon-btn d-inline-flex d-lg-none"
+        (click)="toggleMobile()"
+        [attr.aria-expanded]="mobileOpen()"
+        aria-controls="mobileMenu"
+      >
+        <i class="bi" [class.bi-list]="!mobileOpen()" [class.bi-x]="mobileOpen()"></i>
+        <span class="ms-2">{{ mobileOpen() ? content().close : content().menu }}</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  @if (mobileOpen()) {
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="container mobile-menu__inner">
+        <ul class="mobile-links" role="list">
+          @for (item of navItems(); track item.key) {
+            <li>
+              <a class="mobile-link" [href]="item.href" (click)="closeMobile()">
+                {{ labelFor(item.key) }}
+              </a>
+            </li>
+          }
+        </ul>
+
+        <div class="mobile-actions">
+          <button type="button" class="icon-btn w-100" (click)="toggleLang()">
+            <i class="bi bi-translate"></i>
+            <span class="ms-2 text-light">{{ content().langBtn }}</span>
+          </button>
+
+          <button type="button" class="btn felosy-btn w-100 mt-2 text-light">
+            {{ content().login }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</header>

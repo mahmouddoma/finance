@@ -1,0 +1,38 @@
+<div class="table-card bg-white rounded-4 shadow-sm border overflow-hidden">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="bg-light">
+        <tr>
+          @for (header of getHeaders(); track header) {
+            <th class="py-3 px-4 text-secondary text-uppercase fs-xs fw-bold">{{ header }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of obligations(); track item.title) {
+          <tr>
+            <td class="py-4 px-4 fw-bold">{{ item.title }}</td>
+            <td class="py-4 px-4">
+              <span
+                class="badge rounded-pill px-3 py-2 fw-medium"
+                [ngClass]="{
+                  'bg-light text-secondary': item.type === 'FixedPayment',
+                  'bg-soft-gray text-secondary': item.type === 'Installment',
+                  'bg-danger text-white': item.type === 'Debt',
+                }"
+              >
+                {{ langService.isAr() ? item.typeAr : item.type }}
+              </span>
+            </td>
+            <td class="py-4 px-4 fw-extrabold fs-5">{{ item.amount }}</td>
+            <td class="py-4 px-4">
+              <div class="due-day-circle">{{ item.dueDay }}</div>
+            </td>
+            <td class="py-4 px-4 text-secondary">{{ item.wallet }}</td>
+            <td class="py-4 px-4 text-secondary fs-xs">{{ item.period }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

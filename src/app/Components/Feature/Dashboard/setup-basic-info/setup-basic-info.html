@@ -1,0 +1,46 @@
+<div class="modal-backdrop fade show"></div>
+<div class="modal fade show d-block" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow-lg p-3">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bold fs-4">{{ getContent().title }}</h5>
+        <button type="button" class="btn-close" (click)="close.emit()"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-secondary mb-4">{{ getContent().subtitle }}</p>
+
+        <form (ngSubmit)="onSubmit()">
+          @for (field of fields; track field.key) {
+            <div class="mb-3">
+              <label class="form-label fw-bold small text-dark">{{
+                langService.isAr() ? field.labelAr : field.labelEn
+              }}</label>
+              <div class="input-group">
+                <input
+                  type="number"
+                  class="form-control rounded-3 py-2 bg-light border-0 shadow-none text-muted"
+                  [(ngModel)]="field.value"
+                  [name]="field.key"
+                  placeholder="0.00"
+                />
+              </div>
+            </div>
+          }
+
+          <div *ngIf="errorMessage" class="alert alert-danger py-2 small mb-3">
+            {{ errorMessage }}
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-dark w-100 rounded-pill py-3 mt-3 fw-bold shadow-sm"
+            [disabled]="loading"
+          >
+            <span *ngIf="!loading">{{ getContent().submit }}</span>
+            <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

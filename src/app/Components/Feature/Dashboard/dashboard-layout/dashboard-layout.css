@@ -1,0 +1,22 @@
+.btn-dark-felosy {
+  background-color: var(--primary-dark);
+  color: white;
+  border-radius: 12px;
+  border: none;
+  padding: 8px 12px;
+  transition: opacity 0.2s;
+}
+
+.btn-dark-felosy:hover {
+  opacity: 0.9;
+  color: white;
+}
+
+.rounded-pill {
+  border-radius: 50px !important;
+}
+
+[dir='rtl'] .bi-plus-circle {
+  margin-left: 0.5rem;
+  margin-right: 0 !important;
+}

@@ -1,0 +1,30 @@
+.modal-content {
+  max-width: 480px;
+  margin: auto;
+}
+
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+.bg-light {
+  background-color: #f3f4f6 !important;
+}
+
+.form-control:focus {
+  border-color: #000 !important;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.btn-dark {
+  background-color: #000;
+  border: none;
+}
+
+.btn-dark:hover {
+  background-color: #222;
+}
+
+[dir='rtl'] .modal-header .btn-close {
+  margin: -0.5rem auto -0.5rem -0.5rem;
+}

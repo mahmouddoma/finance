@@ -1,0 +1,51 @@
+.timeline-sidebar {
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  max-width: 320px;
+}
+
+.bg-light {
+  background-color: #f3f4f6 !important;
+}
+
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+.year-card {
+  background: white;
+}
+
+.month-item {
+  color: #4a5568;
+  border: none;
+  background: transparent;
+  transition: all 0.2s;
+  text-align: inherit;
+}
+
+.month-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.month-item.active {
+  background-color: #1a202c;
+  color: white;
+}
+
+.month-item i {
+  font-size: 1.1rem;
+}
+
+.font-ar {
+  font-family: var(--font-ar);
+}
+
+[dir='rtl'] .month-item {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+
+[dir='rtl'] .month-item i {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}

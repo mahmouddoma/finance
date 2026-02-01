@@ -1,12 +1,17 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './Components/shared/header/header';
+import { FooterComponent } from './Components/shared/footer/footer';
+import { LanguageService } from './Core/Services/Language/language.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterOutlet, FooterComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('finance');
+  readonly langService = inject(LanguageService);
+  currentLang = this.langService.currentLang;
 }

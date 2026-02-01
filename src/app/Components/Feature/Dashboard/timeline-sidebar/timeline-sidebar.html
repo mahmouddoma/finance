@@ -1,0 +1,58 @@
+<aside class="timeline-sidebar bg-white p-4 rounded-4 shadow-sm border h-100">
+  <!-- <div class="mb-4">
+    <label class="text-secondary small fw-bold mb-2 d-block">{{ getContent().langLabel }}</label>
+    <div class="d-flex gap-2 p-1 bg-light rounded-3">
+      <button
+        class="btn flex-fill py-2 rounded-3 border-0 transition-all font-ar"
+        [class.bg-dark]="lang() === 'ar'"
+        [class.text-white]="lang() === 'ar'"
+        (click)="langChange.emit('ar')"
+      >
+        عربي
+      </button>
+      <button
+        class="btn flex-fill py-2 rounded-3 border-0 transition-all"
+        [class.bg-dark]="lang() === 'en'"
+        [class.text-white]="lang() === 'en'"
+        (click)="langChange.emit('en')"
+      >
+        English
+      </button>
+    </div>
+  </div> -->
+
+  <!-- Year Selection -->
+  <div class="mb-4">
+    <label class="text-secondary small fw-bold mb-2 d-block">{{ getContent().yearLabel }}</label>
+    <div class="year-card d-flex align-items-center justify-content-between p-2 rounded-3 border">
+      <button class="btn btn-outline-secondary border-0 btn-sm" (click)="changeYear(-1)">
+        <i class="bi" [ngClass]="langService.isAr() ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
+      </button>
+      <span class="fw-bold fs-5">{{ currentYear() }}</span>
+      <button class="btn btn-outline-secondary border-0 btn-sm" (click)="changeYear(1)">
+        <i class="bi" [ngClass]="langService.isAr() ? 'bi-chevron-left' : 'bi-chevron-right'"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Month List -->
+  <div>
+    <label class="text-secondary small fw-bold mb-3 d-block">{{ getContent().monthLabel }}</label>
+    <div class="month-list d-flex flex-column gap-1">
+      @for (month of getContent().months; track month; let i = $index) {
+        <button
+          class="month-item btn d-flex align-items-center justify-content-between py-2 px-3 rounded-3"
+          [class.active]="selectedMonth() === i"
+          (click)="selectMonth(i)"
+        >
+          <span class="fw-bold">{{ month }}</span>
+          <i
+            class="bi"
+            [class.bi-calendar3]="selectedMonth() !== i"
+            [class.bi-calendar-check]="selectedMonth() === i"
+          ></i>
+        </button>
+      }
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,52 @@
+/* app.css */
+:root {
+  /* Logo Colors */
+  --primary-dark: #0a1d37;
+  --primary-green: #00e676;
+  --primary-green-hover: #00c853;
+  --text-white: #ffffff;
+  --text-dark: #0a1d37;
+  --bg-light: #f8f9fa;
+
+  /* Fonts */
+  --font-en: 'Inter', sans-serif;
+  --font-ar: 'Cairo', sans-serif;
+}
+
+[dir='rtl'] {
+  font-family: var(--font-ar);
+}
+
+[dir='ltr'] {
+  font-family: var(--font-en);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+.brand-bg {
+  background-color: var(--primary-dark);
+  color: var(--text-white);
+}
+
+.accent-color {
+  color: var(--primary-green);
+}
+
+.btn-primary-felosy {
+  background-color: var(--primary-green);
+  color: var(--primary-dark);
+  border: none;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.btn-primary-felosy:hover {
+  background-color: var(--primary-green-hover);
+}

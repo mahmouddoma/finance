@@ -1,0 +1,75 @@
+<app-auth-header></app-auth-header>
+
+<div
+  class="auth-wrapper min-vh-100 d-flex align-items-center justify-content-center p-4"
+  [dir]="langService.isAr() ? 'rtl' : 'ltr'"
+>
+  <div
+    class="form-card p-4 p-md-5 glass-card rounded-5 border-0 shadow-lg w-100 max-w-500 animate-fade-in"
+  >
+    <div class="text-center mb-5">
+      <div class="logo-orb mb-4 mx-auto">
+        <i class="bi bi-patch-check-fill fs-1 text-info"></i>
+      </div>
+      <h2 class="fw-bold text-white mb-2">{{ getContent().title }}</h2>
+      <p class="text-white-50 small">{{ getContent().subtitle }}</p>
+    </div>
+
+    <form (ngSubmit)="onVerify()" #verifyForm="ngForm">
+      <div class="mb-5">
+        <label class="form-label text-white-50 ps-1 small">{{ getContent().otpLabel }}</label>
+        <div class="input-group dark-input-group">
+          <span class="input-group-text bg-transparent border-0 pe-0">
+            <i class="bi bi-key text-info"></i>
+          </span>
+          <input
+            type="text"
+            class="form-control bg-transparent border-0 text-white py-3 ps-3 text-center fs-4 letter-spacing-5"
+            name="otpCode"
+            [(ngModel)]="otpCode"
+            required
+            maxlength="6"
+            #otp="ngModel"
+            placeholder="......"
+          />
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger-glass slide-in mb-4">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success-glass slide-in mb-4">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        {{ successMessage }}
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-info-felosy w-100 py-3 fw-bold rounded-pill shadow-lg mb-4"
+        [disabled]="!verifyForm.valid || loading"
+      >
+        <span *ngIf="!loading">{{ getContent().submitBtn }}</span>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+      </button>
+
+      <div class="d-flex flex-column gap-3 text-center">
+        <button
+          type="button"
+          class="btn btn-link text-info text-decoration-none fw-bold small hover-glow p-0"
+          (click)="resendOTP()"
+          [disabled]="resending"
+        >
+          <span *ngIf="!resending">{{ getContent().resendBtn }}</span>
+          <span *ngIf="resending" class="spinner-border spinner-border-sm"></span>
+        </button>
+
+        <a routerLink="/login" class="text-white-50 text-decoration-none small hover-white">
+          <i class="bi bi-chevron-left me-1 small"></i>
+          {{ getContent().backToLogin }}
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

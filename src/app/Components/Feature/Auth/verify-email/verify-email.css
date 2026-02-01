@@ -1,0 +1,83 @@
+.auth-wrapper {
+  background: radial-gradient(circle at center, #1a202c, #0f172a, #0d1117);
+  overflow-x: hidden;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.max-w-500 {
+  max-width: 500px;
+}
+
+.logo-orb {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(56, 189, 248, 0.1);
+}
+
+.dark-input-group {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dark-input-group:focus-within {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.letter-spacing-5 {
+  letter-spacing: 5px;
+}
+
+.btn-info-felosy {
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+  border: none;
+  color: white;
+}
+
+.alert-danger-glass {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border-radius: 12px;
+}
+
+.alert-success-glass {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.hover-glow:hover {
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.hover-white:hover {
+  color: white !important;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

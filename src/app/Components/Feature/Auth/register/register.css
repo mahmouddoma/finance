@@ -1,0 +1,128 @@
+.auth-wrapper {
+  background: radial-gradient(circle at bottom left, #0f172a, #1a202c, #0d1117);
+  overflow-x: hidden;
+}
+
+.marketing-section {
+  background: linear-gradient(225deg, rgba(56, 189, 248, 0.05) 0%, transparent 100%);
+  border-inline-start: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.marketing-title {
+  background: linear-gradient(to right, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.text-light-blue {
+  color: #bae6fd;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.3s ease;
+}
+
+.icon-box-small {
+  width: 40px;
+  height: 40px;
+  background: rgba(56, 189, 248, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tiny {
+  font-size: 0.75rem;
+}
+
+.max-w-600 {
+  max-width: 700px;
+}
+
+.dark-input-group {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dark-input-group:focus-within {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+}
+
+.btn-info-felosy {
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-info-felosy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+  color: white;
+}
+
+.alert-danger-glass {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.hover-glow:hover {
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+.animate-fade-in-left {
+  animation: fadeInLeft 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+[dir='rtl'] .marketing-section {
+  border-inline-start: 0;
+  border-inline-end: 1px solid rgba(255, 255, 255, 0.05);
+}
+/* Fix Autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #1a2236 inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

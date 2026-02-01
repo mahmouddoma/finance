@@ -1,0 +1,184 @@
+<app-auth-header></app-auth-header>
+
+<div
+  class="auth-wrapper min-vh-100 d-flex flex-column flex-md-row"
+  [dir]="langService.isAr() ? 'rtl' : 'ltr'"
+>
+  <!-- Marketing Section -->
+  <div
+    class="marketing-section d-flex align-items-center justify-content-center p-4 p-md-5 col-md-5 order-md-2"
+  >
+    <div class="marketing-content animate-fade-in text-center text-md-start">
+      <h1 class="display-5 fw-bold text-white mb-4 marketing-title">
+        {{ getMarketingContent().hero }}
+      </h1>
+      <p class="fs-6 text-light-blue mb-5 opacity-75">
+        {{ getMarketingContent().subHero }}
+      </p>
+
+      <div class="benefits-stack d-flex flex-column gap-3 mb-5">
+        <div
+          class="benefit-card p-3 rounded-4 glass-card border-0 d-flex align-items-center gap-3"
+          *ngFor="let benefit of getMarketingContent().benefits"
+        >
+          <div class="icon-box-small">
+            <i [class]="benefit.icon + ' text-info fs-4'"></i>
+          </div>
+          <div class="text-start">
+            <h6 class="fw-bold text-white mb-1">{{ benefit.title }}</h6>
+            <p class="text-white-50 tiny mb-0">{{ benefit.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div
+    class="form-section d-flex align-items-center justify-content-center p-4 col-md-7 order-md-1"
+  >
+    <div
+      class="form-card p-4 p-md-5 glass-card rounded-5 border-0 shadow-lg w-100 max-w-600 animate-fade-in-left"
+    >
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-white mb-2">{{ getContent().title }}</h2>
+        <p class="text-white-50 small">{{ getContent().subtitle }}</p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="row g-4">
+        <div class="col-md-6 text-start">
+          <label class="form-label text-white-50 ps-1 small">{{ getContent().emailLabel }}</label>
+          <div class="input-group dark-input-group">
+            <span
+              class="input-group-text bg-transparent border-0 d-flex align-items-center justify-content-center icon-container"
+              style="width: 50px"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-info opacity-75"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+            </span>
+            <input
+              type="email"
+              class="form-control bg-transparent border-0 text-white py-3 ps-2"
+              name="email"
+              [(ngModel)]="model.email"
+              required
+              #email="ngModel"
+              [placeholder]="getContent().emailLabel"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-6 text-start">
+          <label class="form-label text-white-50 ps-1 small">{{ getContent().phoneLabel }}</label>
+          <div class="input-group dark-input-group">
+            <span
+              class="input-group-text bg-transparent border-0 d-flex align-items-center justify-content-center icon-container"
+              style="width: 50px"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-info opacity-75"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                ></path>
+              </svg>
+            </span>
+            <input
+              type="tel"
+              class="form-control bg-transparent border-0 text-white py-3 ps-2"
+              name="phoneNumber"
+              [(ngModel)]="model.phoneNumber"
+              required
+              #phone="ngModel"
+              [placeholder]="getContent().phoneLabel"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 text-start">
+          <label class="form-label text-white-50 ps-1 small">{{
+            getContent().passwordLabel
+          }}</label>
+          <div class="input-group dark-input-group">
+            <span
+              class="input-group-text bg-transparent border-0 d-flex align-items-center justify-content-center icon-container"
+              style="width: 50px"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-info opacity-75"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </span>
+            <input
+              type="password"
+              class="form-control bg-transparent border-0 text-white py-3 ps-2"
+              name="password"
+              [(ngModel)]="model.password"
+              required
+              #password="ngModel"
+              [placeholder]="getContent().passwordLabel"
+            />
+          </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="col-12">
+          <div class="alert alert-danger-glass slide-in mb-0">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            {{ errorMessage }}
+          </div>
+        </div>
+
+        <div class="col-12 mt-5">
+          <button
+            type="submit"
+            class="btn btn-info-felosy w-100 py-3 fw-bold rounded-pill shadow-lg ripple mb-4"
+            [disabled]="!registerForm.valid || loading"
+          >
+            <span *ngIf="!loading">{{ getContent().submitBtn }}</span>
+            <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+          </button>
+
+          <div class="text-center">
+            <span class="text-white-50">{{ getContent().haveAccount }}</span>
+            <a routerLink="/login" class="ms-2 text-info text-decoration-none fw-bold hover-glow">
+              {{ getContent().loginLink }}
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+<div class="modal-backdrop fade show"></div>
+<div class="modal fade show d-block" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow-lg p-3">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bold fs-4">{{ getContent().title }}</h5>
+        <button type="button" class="btn-close" (click)="close.emit()"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-secondary mb-4">{{ getContent().subtitle }}</p>
+
+        <!-- Type Selector -->
+        <div class="bg-light p-1 rounded-3 d-flex mb-4">
+          @for (type of getContent().types; track type.key) {
+            <button
+              class="btn flex-fill rounded-3 py-2 border-0 shadow-none transition-all"
+              [class.bg-white]="selectedType() === type.key"
+              [class.fw-bold]="selectedType() === type.key"
+              (click)="setType(type.key)"
+            >
+              {{ type.label }}
+            </button>
+          }
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #obligationForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label fw-bold small">{{ getContent().labels.title }}</label>
+            <input
+              type="text"
+              class="form-control rounded-3 py-2 border-light shadow-none"
+              [(ngModel)]="fields.title"
+              name="title"
+              required
+              placeholder="e.g. Rent, Car Loan..."
+            />
+          </div>
+
+          <div class="row">
+            <div class="col-6 mb-3">
+              <label class="form-label fw-bold small">{{ getContent().labels.amount }}</label>
+              <input
+                type="number"
+                class="form-control rounded-3 py-2 border-light shadow-none"
+                [(ngModel)]="fields.amount"
+                name="amount"
+                required
+                placeholder="0.00"
+              />
+            </div>
+            <div class="col-6 mb-3">
+              <label class="form-label fw-bold small">{{ getContent().labels.dueDay }}</label>
+              <input
+                type="number"
+                class="form-control rounded-3 py-2 border-light shadow-none"
+                [(ngModel)]="fields.dueDate"
+                name="dueDate"
+                required
+                min="1"
+                max="31"
+                placeholder="1"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6 mb-3">
+              <label class="form-label fw-bold small">{{ getContent().labels.startDate }}</label>
+              <input
+                type="date"
+                class="form-control rounded-3 py-2 border-light shadow-none"
+                [(ngModel)]="fields.startDate"
+                name="startDate"
+                required
+              />
+            </div>
+            <div class="col-6 mb-3">
+              <label class="form-label fw-bold small">{{ getContent().labels.endDate }}</label>
+              <input
+                type="date"
+                class="form-control rounded-3 py-2 border-light shadow-none"
+                [(ngModel)]="fields.endDate"
+                name="endDate"
+                required
+              />
+            </div>
+          </div>
+
+          <div *ngIf="errorMessage" class="alert alert-danger mb-3 py-2 small">
+            {{ errorMessage }}
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-dark w-100 rounded-3 py-2 mt-2 fw-bold shadow-sm"
+            [disabled]="!obligationForm.valid || loading"
+          >
+            <span *ngIf="!loading">{{ getContent().labels.save }}</span>
+            <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

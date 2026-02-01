@@ -1,0 +1,24 @@
+<div class="row g-4">
+  @for (card of cards(); track card.title) {
+    <div class="col-xl-3 col-md-6">
+      <div
+        class="summary-card shadow-sm border-0 h-100 p-4 bg-white rounded-4 transition-transform"
+      >
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <span class="text-secondary fw-semibold fs-6">{{ card.title }}</span>
+          <div class="icon-box" [ngClass]="'text-' + card.color">
+            <i class="bi" [ngClass]="card.icon"></i>
+          </div>
+        </div>
+
+        <h3 class="fw-bold mb-2 fs-2">{{ card.amount }}</h3>
+        <p
+          class="mb-0 fs-13"
+          [ngClass]="card.color === 'purple' ? 'text-success' : 'text-secondary'"
+        >
+          {{ card.note }}
+        </p>
+      </div>
+    </div>
+  }
+</div>
