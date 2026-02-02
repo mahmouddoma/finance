@@ -1,23 +1,43 @@
-<div class="row g-4">
-  @for (card of cards(); track card.title) {
+<div class="row g-4 mb-5">
+  @for (card of cards(); track card.title; let first = $first) {
     <div class="col-xl-3 col-md-6">
       <div
-        class="summary-card shadow-sm border-0 h-100 p-4 bg-white rounded-4 transition-transform"
+        class="summary-card h-100 p-4 border-0 transition-all card-hover"
+        [class.bg-dark-felosy]="first"
+        [class.bg-white]="!first"
+        [class.text-white]="first"
+        [class.shadow-soft]="!first"
       >
-        <div class="d-flex justify-content-between align-items-start mb-3">
-          <span class="text-secondary fw-semibold fs-6">{{ card.title }}</span>
-          <div class="icon-box" [ngClass]="'text-' + card.color">
-            <i class="bi" [ngClass]="card.icon"></i>
+        <div class="d-flex justify-content-between align-items-start mb-4">
+          <div class="card-info">
+            <span class="fs-xs fw-bold text-uppercase opacity-75 d-block mb-1">{{
+              card.title
+            }}</span>
+            <div class="amount-container d-flex align-items-baseline gap-1">
+              <h2 class="fw-extrabold m-0 amount-text">{{ card.amountValue }}</h2>
+              <span class="fs-xs opacity-75 currency-text">{{ card.currency }}</span>
+            </div>
+          </div>
+          <div
+            class="icon-wrapper p-3 rounded-4 shadow-sm"
+            [class.bg-white-10]="first"
+            [class]="'bg-soft-' + card.color + ' text-' + card.color"
+          >
+            <i class="bi fs-4" [ngClass]="card.icon"></i>
           </div>
         </div>
 
-        <h3 class="fw-bold mb-2 fs-2">{{ card.amount }}</h3>
-        <p
-          class="mb-0 fs-13"
-          [ngClass]="card.color === 'purple' ? 'text-success' : 'text-secondary'"
-        >
-          {{ card.note }}
-        </p>
+        <div class="card-footer-info d-flex align-items-center gap-2">
+          <div
+            class="trend-badge d-flex align-items-center gap-1"
+            [class.positive]="card.isPositive"
+          >
+            <span class="fs-xs fw-bold opacity-75">{{ card.note }}</span>
+          </div>
+        </div>
+
+        <!-- Background watermark -->
+        <i class="bi watermark opacity-03" [ngClass]="card.icon"></i>
       </div>
     </div>
   }

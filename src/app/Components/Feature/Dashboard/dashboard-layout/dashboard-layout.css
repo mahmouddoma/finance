@@ -1,3 +1,250 @@
+.dashboard-wrapper {
+  background-color: #fcfcfc;
+}
+
+.max-width-1200 {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Sidebar Styles */
+.fixed-sidebar {
+  width: 0;
+  height: calc(100vh - 140px);
+  position: fixed;
+  top: 90px;
+  right: 0;
+  z-index: 1000;
+  overflow: hidden;
+  background: white;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.fixed-sidebar.open {
+  width: 320px;
+  visibility: visible;
+  opacity: 1;
+}
+
+[dir='rtl'] .fixed-sidebar {
+  right: auto;
+  left: 0;
+  border-right: 1px solid #eee;
+  border-left: none;
+}
+
+[dir='ltr'] .fixed-sidebar {
+  border-left: 1px solid #eee;
+}
+
+/* Content Area Transitions */
+.content-area {
+  transition: padding 0.3s ease-in-out;
+}
+
+[dir='rtl'] .content-area.sidebar-offset {
+  padding-left: 320px !important;
+}
+
+[dir='rtl'] .content-area.sidebar-collapsed {
+  padding-left: 72px !important;
+}
+
+[dir='ltr'] .content-area.sidebar-offset {
+  padding-right: 320px !important;
+}
+
+[dir='ltr'] .content-area.sidebar-collapsed {
+  padding-right: 72px !important;
+}
+
+/* Scrollbar styling for sidebar */
+.sidebar-content::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: #eee;
+  border-radius: 10px;
+}
+
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
+
+.dashboard-layout-root {
+  background-color: #f9fafb; /* Lighter background for premium feel */
+  overflow-x: hidden;
+}
+
+.content-area {
+  min-height: 100vh;
+  padding-top: 0; /* Removing top padding as utility bar is inside */
+}
+
+/* Utility Bar */
+.utility-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.bg-light-soft {
+  background-color: #f1f5f9;
+}
+
+.form-control.bg-light-soft {
+  border-color: transparent;
+  font-size: 0.9rem;
+}
+
+.form-control.bg-light-soft:focus {
+  background-color: #fff;
+  border-color: #e2e8f0;
+  box-shadow: none;
+}
+
+/* Buttons and Typography */
+.btn-dark-felosy {
+  background: #1e2025;
+  color: white;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-dark-felosy:hover {
+  background: #2d3139;
+  color: white;
+}
+
+.btn-white {
+  background: white;
+  color: #1e2025;
+  border: none;
+}
+
+.fs-xs {
+  font-size: 0.75rem;
+}
+.fw-extrabold {
+  font-weight: 800;
+}
+
+/* Cards and Effects */
+.shadow-soft {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.bg-soft-red {
+  background: rgba(255, 77, 77, 0.12);
+}
+.bg-soft-orange {
+  background: rgba(255, 165, 0, 0.12);
+}
+.bg-soft-green {
+  background: rgba(0, 208, 156, 0.12);
+}
+.bg-soft-blue {
+  background: rgba(59, 130, 246, 0.12);
+}
+.bg-soft-purple {
+  background: rgba(168, 85, 247, 0.12);
+}
+.text-red {
+  color: #ff4d4d;
+}
+.text-orange {
+  color: #ffa500;
+}
+.text-green {
+  color: #00d09c;
+}
+.text-blue {
+  color: #3b82f6;
+}
+.text-purple {
+  color: #a855f7;
+}
+.text-dark-felosy {
+  color: #1e2025;
+}
+.section-label h5 {
+  letter-spacing: -0.5px;
+  color: #1e2025;
+}
+
+/* Decision Card */
+.decision-card {
+  box-shadow: 0 20px 40px rgba(30, 32, 37, 0.15);
+}
+
+.decision-card h5 {
+  color: #ffffff;
+}
+
+.decision-card p {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.decision-card .fs-xs.fw-bold {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.alert-text {
+  color: #2d3748;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.bg-white-10 {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Sidebar Wrapper */
+.sidebar-wrapper {
+  width: 320px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-left: 1px solid #f1f5f9;
+}
+
+.sidebar-wrapper.collapsed {
+  width: 72px;
+  border-left: 1px solid #f1f5f9;
+}
+
+/* RTL Support */
+[dir='rtl'] .sidebar-wrapper {
+  border-left: none;
+  border-right: 1px solid #f1f5f9;
+}
+
+[dir='rtl'] .sidebar-wrapper.collapsed {
+  border-right: 1px solid #f1f5f9;
+  border-left: none;
+}
+
+[dir='rtl'] .search-container .bi-search {
+  left: auto;
+  right: 1rem;
+}
+
+[dir='rtl'] .search-container input {
+  padding-left: 1rem;
+  padding-right: 3rem;
+}
+
+/* Transition */
+.transition-all {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .btn-dark-felosy {
   background-color: var(--primary-dark);
   color: white;

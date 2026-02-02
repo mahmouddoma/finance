@@ -1,0 +1,26 @@
+.wallet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+.shadow-soft {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+.fs-xs {
+  font-size: 0.72rem;
+  letter-spacing: 0.3px;
+}
+.fw-extrabold {
+  font-weight: 800;
+}
+.wallet-card h6 {
+  color: #1e2025;
+}
+.wallet-card .text-secondary {
+  color: #64748b !important;
+}
+.progress {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.progress-bar {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}

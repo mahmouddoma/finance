@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+
+.opacity-01 {
+  opacity: 0.01 !important;
+}
+.opacity-02 {
+  opacity: 0.02 !important;
+}
+.opacity-03 {
+  opacity: 0.03 !important;
+}
+.opacity-04 {
+  opacity: 0.04 !important;
+}
+.opacity-05 {
+  opacity: 0.05 !important;
+}
+.opacity-08 {
+  opacity: 0.08 !important;
+}
+.opacity-10 {
+  opacity: 0.1 !important;
+}
+.opacity-20 {
+  opacity: 0.2 !important;
+}
+.opacity-50 {
+  opacity: 0.5 !important;
+}
+.opacity-75 {
+  opacity: 0.75 !important;
+}

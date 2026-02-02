@@ -1,51 +1,105 @@
 .timeline-sidebar {
-  border: 1px solid rgba(0, 0, 0, 0.05) !important;
-  max-width: 320px;
+  border: 1px solid #e9ecef !important;
+  max-width: 100%;
 }
 
 .bg-light {
-  background-color: #f3f4f6 !important;
+  background-color: #f8f9fa !important;
 }
 
 .transition-all {
   transition: all 0.2s ease-in-out;
 }
 
+/* Year Card Styling */
 .year-card {
   background: white;
+  border: 1px solid #dee2e6;
+  height: 48px;
 }
 
+.year-card button {
+  color: #adb5bd;
+}
+
+.year-card button:hover {
+  color: #212529;
+  background: transparent;
+}
+
+/* Month Item Styling */
 .month-item {
-  color: #4a5568;
+  color: #495057; /* Gray text */
   border: none;
   background: transparent;
   transition: all 0.2s;
-  text-align: inherit;
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .month-item:hover {
-  background: rgba(0, 0, 0, 0.03);
+  background: #f8f9fa; /* Light hover */
 }
 
 .month-item.active {
-  background-color: #1a202c;
+  background-color: #1e2025; /* Match Felosy Dark */
   color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .month-item i {
-  font-size: 1.1rem;
+  font-size: 1rem;
+  opacity: 0.7;
 }
 
-.font-ar {
-  font-family: var(--font-ar);
+.month-item.active i {
+  opacity: 1;
 }
 
-[dir='rtl'] .month-item {
+/* RTL Adjustments */
+:host-context([dir='rtl']) .month-item {
   text-align: right;
-  flex-direction: row-reverse;
 }
 
-[dir='rtl'] .month-item i {
+:host-context([dir='rtl']) .month-item .bi {
+  margin-right: auto;
   margin-left: 0;
-  margin-right: 0.5rem;
+}
+
+/* Ensure labels are aligned */
+label {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.rotate-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-size: 1.1rem !important;
+  letter-spacing: 2px;
+  opacity: 0.3;
+}
+
+.mini-month {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.timeline-sidebar-container.mini {
+  padding: 0;
+  overflow: hidden;
+}
+
+.btn-light-soft {
+  background: #f8fafc;
+  border-color: #f1f5f9;
+}
+
+.btn-light-soft:hover {
+  background: #f1f5f9;
 }

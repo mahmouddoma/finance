@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
 import { AccountService } from '../../../../Core/Services/Account/account.service';
 import { ObligationView } from '../../../../Core/Models/User/user.models';
+import { BoardService } from '../../../../Core/Services/Board/board.service';
 
 @Component({
   selector: 'app-obligation-list',
@@ -14,42 +15,77 @@ import { ObligationView } from '../../../../Core/Models/User/user.models';
 export class ObligationList implements OnInit {
   readonly langService = inject(LanguageService);
   private accountService = inject(AccountService);
+  protected boardService = inject(BoardService);
 
-  obligationList = signal<ObligationView[]>([]);
+  obligationList = signal<any[]>([]);
 
   ngOnInit() {
-    this.accountService.getAccountUser().subscribe({
-      next: (data) => this.obligationList.set(data.listObligation || []),
-      error: (err) => console.error('Failed to fetch obligations', err),
-    });
+    // Initial fetch if needed, though Dashboard now manages board fetch via sidebar
   }
 
   readonly obligations = computed(() => {
     const isAr = this.langService.isAr();
-    const list = this.obligationList();
+    const board = this.boardService.currentBoard();
+
+    if (!board) return [];
+
     const currency = isAr ? 'ج.م' : 'EGP';
 
-    return list.map((item) => ({
+    // Combine instances and tickets
+    const instances = board.obligationInstances.map((item) => ({
       title: item.title,
-      type: item.type, // 'FixedPayment' | 'Installment' | 'Debt'
+      type: this.getTypeEn(item.type),
       typeAr: this.getTypeAr(item.type),
       amount: `${item.amount.toLocaleString()} ${currency}`,
-      dueDay: item.dueDay,
+      dueDay: this.parseDueDay(item.dueDate),
       wallet: isAr ? item.wallet?.nameAr || 'غير محدد' : item.wallet?.nameEn || 'N/A',
-      period: `${new Date(item.startDate).toLocaleDateString()} - ${new Date(item.endDate).toLocaleDateString()}`,
+      period: item.dueDate,
+      status: item.status,
     }));
+
+    const tickets = board.tickets.map((item) => ({
+      title: item.title,
+      type: isAr ? 'تذكرة' : 'Ticket',
+      typeAr: 'تذكرة',
+      amount: item.amount ? `${item.amount.toLocaleString()} ${currency}` : '—',
+      dueDay: this.parseDueDay(item.dueDate),
+      wallet: isAr ? item.wallet?.nameAr || 'غير محدد' : item.wallet?.nameEn || 'N/A',
+      period: item.dueDate,
+      status: item.status,
+    }));
+
+    return [...instances, ...tickets];
   });
 
-  private getTypeAr(type: string): string {
+  private parseDueDay(dateStr: string): string | number {
+    if (!dateStr) return '—';
+    const date = new Date(dateStr);
+    return isNaN(date.getTime()) ? '—' : date.getDate();
+  }
+
+  private getTypeEn(type: number): string {
     switch (type) {
-      case 'FixedPayment':
+      case 1:
+        return 'FixedPayment';
+      case 2:
+        return 'Installment';
+      case 3:
+        return 'DebtPayment';
+      default:
+        return 'FixedPayment';
+    }
+  }
+
+  private getTypeAr(type: number): string {
+    switch (type) {
+      case 1:
         return 'ثابت';
-      case 'Installment':
+      case 2:
         return 'قسط';
-      case 'Debt':
+      case 3:
         return 'دين';
       default:
-        return type;
+        return 'ثابت';
     }
   }
 
