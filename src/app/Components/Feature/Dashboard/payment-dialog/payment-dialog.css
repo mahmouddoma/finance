@@ -1,0 +1,44 @@
+.modal-content {
+  max-width: 480px;
+  margin: auto;
+}
+
+.item-summary {
+  border: 1px dashed #dee2e6;
+}
+
+.bg-light {
+  background-color: #f3f4f6 !important;
+}
+
+.form-control:focus {
+  border-color: #000 !important;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+[dir='rtl'] .modal-header .btn-close {
+  margin: -0.5rem -0.5rem -0.5rem auto;
+}
+
+[dir='rtl'] .text-end {
+  text-align: left !important;
+}
+
+[dir='rtl'] .item-summary {
+  text-align: right;
+}
+
+.btn-dark-felosy {
+  background: #111;
+  color: white;
+  border: none;
+}
+
+.btn-dark-felosy:hover {
+  background: #222;
+}
+
+.btn-dark-felosy:disabled {
+  background: #666;
+  opacity: 0.7;
+}

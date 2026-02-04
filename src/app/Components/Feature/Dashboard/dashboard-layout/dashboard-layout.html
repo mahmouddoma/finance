@@ -36,8 +36,7 @@
       <div class="d-flex justify-content-between align-items-center mb-5">
         <div class="d-flex align-items-center gap-3">
           <div
-            class="bg-dark rounded-3 p-2 d-flex align-items-center justify-content-center shadow-lg"
-            style="width: 46px; height: 46px"
+            class="bg-dark rounded-3 p-2 d-flex align-items-center justify-content-center shadow-lg icon-md"
           >
             <i class="bi bi-grid-fill text-white fs-4"></i>
           </div>
@@ -160,8 +159,7 @@
       } @else {
         <!-- Empty State / Create Board -->
         <div
-          class="text-center py-5 bg-white shadow-soft rounded-4 border border-dashed mx-auto"
-          style="max-width: 600px"
+          class="text-center py-5 bg-white shadow-soft rounded-4 border border-dashed mx-auto empty-state-container"
         >
           <div class="mb-4">
             <i
@@ -224,6 +222,8 @@
     </div>
   </aside>
 </div>
+
+<app-footer></app-footer>
 
 <app-add-obligation-dialog
   *ngIf="showAddDialog()"

@@ -18,7 +18,7 @@ export class AddObligationDialog {
 
   @Output() close = new EventEmitter<void>();
 
-  selectedType = signal<'Fixed' | 'Installment' | 'Debt'>('Fixed');
+  selectedType = signal<'Fixed' | 'Installment' | 'Debt' | 'Savings'>('Fixed');
   loading = false;
   errorMessage = '';
 
@@ -43,6 +43,7 @@ export class AddObligationDialog {
         { key: 'Fixed', label: isAr ? 'ثابت' : 'Fixed' },
         { key: 'Installment', label: isAr ? 'قسط' : 'Installment' },
         { key: 'Debt', label: isAr ? 'دين' : 'Debt' },
+        { key: 'Savings', label: isAr ? 'توفير' : 'Savings' },
       ],
       labels: {
         title: isAr ? 'العنوان' : 'Title',
@@ -64,6 +65,8 @@ export class AddObligationDialog {
         return 'قسط';
       case 'Debt':
         return 'دين';
+      case 'Savings':
+        return 'توفير';
       default:
         return type;
     }
@@ -95,6 +98,9 @@ export class AddObligationDialog {
         break;
       case 'Debt':
         obs = this.obligationService.createDebtPayment(request);
+        break;
+      case 'Savings':
+        obs = this.obligationService.createSavings(request);
         break;
     }
 

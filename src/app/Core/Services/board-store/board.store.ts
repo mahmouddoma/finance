@@ -1,7 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { catchError, finalize, map, of, switchMap, tap } from 'rxjs';
-import { GetBoardDetailsResponse } from '../../Services/Board/board.models';
-import { BoardService } from '../../Services/Board/board.service';
+import { GetBoardDetailsResponse } from '../../Models/Board/board.models';
+import { BoardService } from '../Board/board.service';
 
 type LoadState = 'idle' | 'loading' | 'success' | 'error';
 

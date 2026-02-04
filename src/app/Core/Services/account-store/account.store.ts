@@ -1,6 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { catchError, finalize, of, tap } from 'rxjs';
-import { AccountApiService } from '../../Services/Account/account-api.service';
+import { AccountApiService } from '../Account/account-api.service';
 import { AccountUserResponse } from '../../Models/Account/account.models';
 
 type LoadState = 'idle' | 'loading' | 'success' | 'error';

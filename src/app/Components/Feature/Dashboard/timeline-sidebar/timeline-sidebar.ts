@@ -1,7 +1,8 @@
 import { Component, inject, signal, effect, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
-import { BoardStore } from '../../../../Core/state/board-store/board.store';
+import { BoardStore } from '../../../../Core/Services/board-store/board.store';
 
 @Component({
   selector: 'app-timeline-sidebar',
@@ -15,14 +16,15 @@ export class TimelineSidebar {
   @Output() toggleSidebar = new EventEmitter<void>();
   readonly langService = inject(LanguageService);
   private boardService = inject(BoardStore);
+  private router = inject(Router);
 
   currentYear = signal(2026);
-  selectedMonth = signal(1); 
+  selectedMonth = signal(1);
 
   constructor() {
-     effect(() => {
+    effect(() => {
       const year = this.currentYear();
-      const month = this.selectedMonth() + 1;  
+      const month = this.selectedMonth() + 1;
       this.boardService.loadBoard(year, month).subscribe();
     });
   }
@@ -73,5 +75,9 @@ export class TimelineSidebar {
 
   selectMonth(index: number) {
     this.selectedMonth.set(index);
+    // Navigate to monthly dashboard
+    const year = this.currentYear();
+    const month = index + 1;
+    this.router.navigate(['/dashboard', year, month]);
   }
 }

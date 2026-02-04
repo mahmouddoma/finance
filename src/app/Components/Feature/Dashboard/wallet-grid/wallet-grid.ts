@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
-import { WalletDto } from '../../../../Core/Services/Board/board.models';
+import { WalletDto } from '../../../../Core/Models/Board/board.models';
 
 @Component({
   selector: 'app-wallet-grid',

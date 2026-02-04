@@ -1,0 +1,103 @@
+<div class="modal-backdrop fade show"></div>
+<div class="modal fade show d-block" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow-lg p-3">
+      <div class="modal-header border-0 pb-0 d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="modal-title fw-bold fs-4">{{ getContent().title }}</h5>
+          <p class="text-secondary small m-0">{{ getContent().subtitle }}</p>
+        </div>
+        <button type="button" class="btn-close ms-0" (click)="close.emit()"></button>
+      </div>
+
+      <div class="modal-body py-4">
+        <!-- Item Summary -->
+        <div
+          class="item-summary bg-light p-3 rounded-3 mb-4 d-flex justify-content-between align-items-center"
+        >
+          <div>
+            <h6 class="fw-bold m-0 small">{{ data.item.title }}</h6>
+            <p class="tiny text-secondary m-0">
+              {{ langService.isAr() ? data.item.wallet.nameAr : data.item.wallet.nameEn }}
+            </p>
+          </div>
+          <div class="text-end">
+            <span class="fw-bold text-dark">{{ data.item.amount?.toLocaleString() }}</span>
+            <small class="ms-1 tiny text-secondary">{{ langService.isAr() ? 'ج.م' : 'EGP' }}</small>
+          </div>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #payForm="ngForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-secondary">{{
+                  getContent().labels.amount
+                }}</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    [ngClass]="langService.isAr() ? 'rounded-end-3' : 'rounded-start-3'"
+                    [(ngModel)]="fields.amount"
+                    name="amount"
+                    required
+                    min="1"
+                  />
+                  <span
+                    class="input-group-text bg-light"
+                    [ngClass]="langService.isAr() ? 'rounded-start-3' : 'rounded-end-3'"
+                  >
+                    {{ langService.isAr() ? 'ج.م' : 'EGP' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-secondary">{{
+                  getContent().labels.date
+                }}</label>
+                <input
+                  type="date"
+                  class="form-control rounded-3"
+                  [(ngModel)]="fields.occurredOn"
+                  name="occurredOn"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          @if (errorMessage) {
+            <div class="alert alert-danger tiny p-2 rounded-3 mb-3">
+              <i class="bi bi-exclamation-circle me-1"></i>
+              {{ errorMessage }}
+            </div>
+          }
+
+          <div class="d-flex gap-2">
+            <button
+              type="button"
+              class="btn btn-light-soft rounded-pill flex-grow-1 fw-bold"
+              (click)="close.emit()"
+            >
+              {{ getContent().labels.cancel }}
+            </button>
+            <button
+              type="submit"
+              class="btn rounded-pill px-4 flex-grow-1 fw-bold"
+              [ngClass]="isSafety() ? 'btn-success' : 'btn-dark-felosy'"
+              [disabled]="!payForm.valid || loading"
+            >
+              @if (loading) {
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+              }
+              {{ getContent().labels.confirm }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,12 +6,12 @@ import { SetupBasicInfo } from '../setup-basic-info/setup-basic-info';
 import { CommonModule } from '@angular/common';
 import { TimelineSidebar } from '../timeline-sidebar/timeline-sidebar';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
-import { BoardStore } from '../../../../Core/state/board-store/board.store';
+import { BoardStore } from '../../../../Core/Services/board-store/board.store';
 import { HeaderComponent } from '../../../shared/header/header';
 import { FooterComponent } from '../../../shared/footer/footer';
 import { WalletGrid } from '../wallet-grid/wallet-grid';
 import { AccountService } from '../../../../Core/Services/Account/account.service';
-import { ListObligationInstanceDto, WalletDto } from '../../../../Core/Services/Board/board.models';
+import { ListObligationInstanceDto, WalletDto } from '../../../../Core/Models/Board/board.models';
 import { ObligationView, AccountUserResponse } from '../../../../Core/Models/User/user.models';
 
 import { Router } from '@angular/router';
@@ -28,6 +28,7 @@ import { AuthService } from '../../../../Core/Services/Auth/auth.service';
     SetupBasicInfo,
     TimelineSidebar,
     HeaderComponent,
+    FooterComponent,
     WalletGrid,
   ],
   templateUrl: './dashboard-layout.html',

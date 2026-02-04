@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './month-selector.css',
 })
 export class MonthSelector {
-
+  
 }

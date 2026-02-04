@@ -1,0 +1,468 @@
+.dashboard-container {
+  padding: 1rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); */
+  min-height: 100vh;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Apply animations */
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.card-slide-in {
+  animation: slideInUp 0.5s ease-out backwards;
+}
+
+.card-fade-in {
+  animation: fadeIn 0.8s ease-out backwards;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  animation: slideInLeft 0.5s ease-out;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header button {
+  transition: all 0.3s ease;
+}
+
+.dashboard-header button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+.dashboard-header button:active {
+  transform: translateY(0);
+}
+
+/* Summary Cards */
+.summary-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.summary-card:hover::before {
+  left: 100%;
+}
+
+.summary-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.summary-card .icon-wrapper {
+  transition: all 0.3s ease;
+}
+
+.summary-card:hover .icon-wrapper {
+  transform: rotate(10deg) scale(1.1);
+}
+
+/* Status Group Section */
+.status-group {
+  animation: slideInUp 0.6s ease-out backwards;
+  background: white;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.status-group:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.status-indicator {
+  transition: all 0.3s ease;
+}
+
+.status-group:hover .status-indicator {
+  transform: scale(1.1);
+  animation: pulse 2s infinite;
+}
+
+/* Wallet Card */
+.wallet-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.wallet-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(66, 133, 244, 0.1) 0%, transparent 70%);
+  transform: translate(50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.wallet-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(66, 133, 244, 0.2) !important;
+}
+
+.wallet-card:hover::after {
+  transform: translate(50%, -50%) scale(1.5);
+}
+
+.wallet-icon {
+  transition: all 0.3s ease;
+}
+
+.wallet-card:hover .wallet-icon {
+  transform: rotate(-10deg) scale(1.15);
+}
+
+/* Obligation & Ticket Cards */
+.obligation-card,
+.ticket-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  background: white;
+  border-left: 4px solid transparent;
+}
+
+.obligation-card:hover,
+.ticket-card:hover {
+  transform: translateX(8px) translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+  border-left-color: var(--bs-primary);
+}
+
+.obligation-card::before,
+.ticket-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--bs-primary), var(--bs-info));
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.obligation-card:hover::before,
+.ticket-card:hover::before {
+  transform: scaleY(1);
+}
+
+/* Badge animations */
+.badge {
+  transition: all 0.2s ease;
+}
+
+.badge:hover {
+  transform: scale(1.1);
+}
+
+/* Wallet summaries section */
+.wallet-summaries-section {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Utilities */
+.bg-soft-gray {
+  background-color: #f1f3f5 !important;
+}
+
+.bg-soft-blue {
+  background-color: #e7f3ff !important;
+}
+
+.bg-soft-red {
+  background-color: #ffe7e7 !important;
+}
+
+.bg-soft-green {
+  background-color: #e7ffe7 !important;
+}
+
+.text-red {
+  color: #dc3545 !important;
+}
+
+/* Loading state */
+.spinner-border {
+  animation:
+    spin 0.75s linear infinite,
+    fadeIn 0.3s ease-out;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .monthly-dashboard-container {
+    padding: 1rem;
+  }
+
+  .summary-card,
+  .wallet-card,
+  .obligation-card,
+  .ticket-card {
+    margin-bottom: 1rem;
+  }
+
+  .status-group {
+    padding: 1.5rem;
+  }
+}
+
+/* RTL Support */
+[dir='rtl'] .obligation-card:hover,
+[dir='rtl'] .ticket-card:hover {
+  transform: translateX(-8px) translateY(-4px);
+}
+
+/* Loading container */
+.loading-container {
+  min-height: 400px;
+}
+
+/* Animation delays */
+.card-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.card-delay-2 {
+  animation-delay: 0.2s;
+}
+
+/* Status indicator size */
+.status-indicator-lg {
+  width: 44px;
+  height: 44px;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced hover states for interactive elements */
+button,
+.badge,
+.wallet-card,
+.obligation-card,
+.ticket-card {
+  cursor: pointer;
+}
+
+/* Focus states for accessibility */
+button:focus-visible,
+.card:focus-visible {
+  outline: 2px solid var(--bs-primary);
+  outline-offset: 2px;
+}
+/* View All Button Styling */
+.btn-view-all {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.btn-view-all:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.btn-view-all-primary {
+  background-color: rgba(13, 110, 253, 0.1);
+  color: #0d6efd;
+  border-color: rgba(13, 110, 253, 0.2);
+}
+.btn-view-all-primary:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.btn-view-all-success {
+  background-color: rgba(25, 135, 84, 0.1);
+  color: #198754;
+  border-color: rgba(25, 135, 84, 0.2);
+}
+.btn-view-all-success:hover {
+  background-color: #198754;
+  color: white;
+}
+
+.btn-view-all-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  border-color: rgba(220, 53, 69, 0.2);
+}
+.btn-view-all-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-view-all-secondary {
+  background-color: rgba(108, 117, 125, 0.1);
+  color: #6c757d;
+  border-color: rgba(108, 117, 125, 0.2);
+}
+.btn-view-all-secondary:hover {
+  color: white;
+}
+
+.ticket-card p .bi {
+  opacity: 0.7;
+}
+
+/* Ledger Movements Table Styles */
+.ledger-movements-section .table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.ledger-movements-section tbody tr {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.ledger-movements-section tbody tr:hover {
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: #f8fafc !important;
+}
+
+.ledger-movements-section td {
+  border: none;
+  padding: 0.75rem 0.5rem;
+}
+
+.ledger-movements-section td:first-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.ledger-movements-section td:last-child {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+[dir='rtl'] .ledger-movements-section td:first-child {
+  border-radius: 0 12px 12px 0;
+}
+
+[dir='rtl'] .ledger-movements-section td:last-child {
+  border-radius: 12px 0 0 12px;
+}
+
+.wallet-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.tiny {
+  font-size: 0.75rem;
+}
+
+.btn-view-all {
+  font-size: 0.75rem !important;
+}
+
+.btn-soft-dark {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #111;
+  border: none;
+}
+
+.btn-soft-dark:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+.btn-soft-success {
+  background-color: rgba(25, 135, 84, 0.1);
+  color: #198754;
+  border: none;
+}
+
+.btn-soft-success:hover {
+  background-color: rgba(25, 135, 84, 0.2);
+  color: #157347;
+}
+
+.tiny {
+  font-size: 0.75rem;
+}

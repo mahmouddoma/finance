@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
 import { AccountService } from '../../../../Core/Services/Account/account.service';
 import { ObligationView } from '../../../../Core/Models/User/user.models';
-import { BoardStore } from '../../../../Core/state/board-store/board.store';
+import { BoardStore } from '../../../../Core/Services/board-store/board.store';
 
 @Component({
   selector: 'app-obligation-list',
@@ -63,27 +63,41 @@ export class ObligationList implements OnInit {
     return isNaN(date.getTime()) ? '—' : date.getDate();
   }
 
-  private getTypeEn(type: number): string {
-    switch (type) {
-      case 1:
+  private getTypeEn(type: any): string {
+    const typeStr = String(type);
+    switch (typeStr) {
+      case '1':
+      case 'FixedPayment':
         return 'FixedPayment';
-      case 2:
+      case '2':
+      case 'Installment':
         return 'Installment';
-      case 3:
+      case '3':
+      case 'DebtPayment':
         return 'DebtPayment';
+      case '4':
+      case 'SafityPayment':
+        return 'SafityPayment';
       default:
         return 'FixedPayment';
     }
   }
 
-  private getTypeAr(type: number): string {
-    switch (type) {
-      case 1:
+  private getTypeAr(type: any): string {
+    const typeStr = String(type);
+    switch (typeStr) {
+      case '1':
+      case 'FixedPayment':
         return 'ثابت';
-      case 2:
+      case '2':
+      case 'Installment':
         return 'قسط';
-      case 3:
+      case '3':
+      case 'DebtPayment':
         return 'دين';
+      case '4':
+      case 'SafityPayment':
+        return 'توفير';
       default:
         return 'ثابت';
     }

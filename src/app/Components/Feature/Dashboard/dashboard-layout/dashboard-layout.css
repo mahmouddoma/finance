@@ -267,3 +267,14 @@
   margin-left: 0.5rem;
   margin-right: 0 !important;
 }
+
+/* Icon sizes */
+.icon-md {
+  width: 46px;
+  height: 46px;
+}
+
+/* Empty state */
+.empty-state-container {
+  max-width: 600px;
+}

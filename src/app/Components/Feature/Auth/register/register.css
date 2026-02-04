@@ -126,3 +126,8 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: white !important;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+/* Icon container */
+.icon-container {
+  width: 50px;
+}

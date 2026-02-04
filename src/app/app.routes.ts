@@ -3,6 +3,7 @@ import { DashboardLayout } from './Components/Feature/Dashboard/dashboard-layout
 import { LoginComponent } from './Components/Feature/Auth/login/login';
 import { RegisterComponent } from './Components/Feature/Auth/register/register';
 import { VerifyEmailComponent } from './Components/Feature/Auth/verify-email/verify-email';
+import { MonthlyDashboard } from './Components/Feature/Dashboard/monthly-dashboard/monthly-dashboard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -10,4 +11,5 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
   { path: 'dashboard', component: DashboardLayout },
+  { path: 'dashboard/:year/:month', component: MonthlyDashboard },
 ];

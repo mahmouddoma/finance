@@ -20,6 +20,7 @@
 }
 .progress {
   background-color: rgba(0, 0, 0, 0.05);
+  height: 6px;
 }
 .progress-bar {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);

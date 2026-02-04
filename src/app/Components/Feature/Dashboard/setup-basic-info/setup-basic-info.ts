@@ -1,4 +1,4 @@
-import { Component, inject, Output, EventEmitter } from '@angular/core';
+import { Component, inject, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
@@ -11,9 +11,10 @@ import { AccountService } from '../../../../Core/Services/Account/account.servic
   templateUrl: './setup-basic-info.html',
   styleUrl: './setup-basic-info.css',
 })
-export class SetupBasicInfo {
+export class SetupBasicInfo implements OnInit {
   readonly langService = inject(LanguageService);
   private accountService = inject(AccountService);
+  private cdr = inject(ChangeDetectorRef);
   @Output() close = new EventEmitter<void>();
 
   fields = [
@@ -35,6 +36,33 @@ export class SetupBasicInfo {
 
   loading = false;
   errorMessage = '';
+
+  ngOnInit() {
+    this.loading = true;
+    console.log('Fetching account user data...');
+    this.accountService.getAccountUser().subscribe({
+      next: (data) => {
+        console.log('Account User Data Received:', data);
+        this.loading = false;
+        if (data) {
+          this.fields.forEach((field) => {
+            const key = field.key as keyof typeof data;
+            // Check if property exists in data, allowing 0 values to be set
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
+              console.log(`Setting ${key} to ${data[key]}`);
+              field.value = data[key] as number;
+            }
+          });
+          this.cdr.detectChanges(); // Force view update
+        }
+      },
+      error: (err) => {
+        this.loading = false;
+        console.error('Failed to pre-fill settings', err);
+        this.cdr.detectChanges();
+      },
+    });
+  }
 
   onSubmit() {
     this.loading = true;

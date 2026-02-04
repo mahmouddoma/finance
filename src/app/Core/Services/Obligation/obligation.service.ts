@@ -22,4 +22,8 @@ export class ObligationService {
   createInstallment(request: CreateObligationRequest): Observable<any> {
     return this.http.post(`${this.baseUrl}/api/ObligationDefinition/CreateInstallment`, request);
   }
+
+  createSavings(request: CreateObligationRequest): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/ObligationDefinition/CreateSafity`, request);
+  }
 }
