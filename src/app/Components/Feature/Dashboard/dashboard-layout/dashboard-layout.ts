@@ -58,18 +58,6 @@ export class DashboardLayout implements OnInit {
     });
   }
 
-  protected get isFutureDate(): boolean {
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth() + 1;
-    const filter = this.boardService.lastFilter();
-
-    if (filter.year > currentYear) return true;
-    if (filter.year === currentYear && filter.month > currentMonth) return true;
-
-    return false;
-  }
-
   createBoard() {
     const board = this.boardService.currentBoard();
 

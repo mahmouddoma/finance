@@ -26,6 +26,11 @@ export class LoginComponent {
 
   loading = false;
   errorMessage = '';
+  showPassword = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   onSubmit() {
     this.loading = true;

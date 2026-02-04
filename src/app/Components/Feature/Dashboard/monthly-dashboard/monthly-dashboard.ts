@@ -7,14 +7,14 @@ import {
   GetBoardDetailsResponse,
   WalletPaidSummaryDto,
 } from '../../../../Core/Models/Board/board.models';
-import { HeaderComponent } from '../../../shared/header/header';
 import { AddTicketDialog } from '../add-ticket-dialog/add-ticket-dialog';
 import { PaymentDialog } from '../payment-dialog/payment-dialog';
+import { TimelineSidebar } from '../timeline-sidebar/timeline-sidebar';
 
 @Component({
   selector: 'app-monthly-dashboard',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, AddTicketDialog, PaymentDialog],
+  imports: [CommonModule, AddTicketDialog, PaymentDialog, TimelineSidebar],
   templateUrl: './monthly-dashboard.html',
   styleUrl: './monthly-dashboard.css',
 })
@@ -31,6 +31,7 @@ export class MonthlyDashboard implements OnInit {
   showAddTicketDialog = signal(false);
   showPayDialog = signal(false);
   selectedItem = signal<{ item: any; type: 'ticket' | 'obligation' } | null>(null);
+  isSidebarOpen = signal(true);
 
   readonly SAFETY_WALLET_ID = 'b2b8a18f-46cf-4a73-9b46-5bb586b49fe2';
 
@@ -190,5 +191,17 @@ export class MonthlyDashboard implements OnInit {
   openPayDialog(item: any, type: 'ticket' | 'obligation') {
     this.selectedItem.set({ item, type });
     this.showPayDialog.set(true);
+  }
+
+  createBoard() {
+    this.loading.set(true);
+    this.boardStore.createBoardForLastFilter().subscribe({
+      next: () => {
+        this.loadBoard(this.year(), this.month());
+      },
+      error: () => {
+        this.loading.set(false);
+      },
+    });
   }
 }

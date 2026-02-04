@@ -142,7 +142,7 @@
               </svg>
             </span>
             <input
-              type="password"
+              [type]="showPassword ? 'text' : 'password'"
               class="form-control bg-transparent border-0 text-white py-3 ps-2"
               name="password"
               [(ngModel)]="model.password"
@@ -150,6 +150,14 @@
               #password="ngModel"
               [placeholder]="getContent().passwordLabel"
             />
+            <button
+              type="button"
+              class="btn border-0 text-info opacity-75 shadow-none bg-transparent d-flex align-items-center justify-content-center pe-3 ms-n5"
+              (click)="togglePasswordVisibility()"
+              tabindex="-1"
+            >
+              <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            </button>
           </div>
         </div>
 

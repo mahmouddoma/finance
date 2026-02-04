@@ -162,48 +162,26 @@
           class="text-center py-5 bg-white shadow-soft rounded-4 border border-dashed mx-auto empty-state-container"
         >
           <div class="mb-4">
-            <i
-              class="bi"
-              [class.bi-calendar-x]="!isFutureDate"
-              [class.bi-calendar-event]="isFutureDate"
-              class="fs-1 text-secondary opacity-25"
-            ></i>
+            <i class="bi bi-calendar-event fs-1 text-secondary opacity-25"></i>
           </div>
 
-          @if (isFutureDate) {
-            <h4 class="fw-bold mb-3">
-              {{
-                langService.isAr()
-                  ? 'لا يمكن إنشاء لوحة تحكم لشهر مستقبلي'
-                  : 'Cannot create dashboard for future month'
-              }}
-            </h4>
-            <p class="text-secondary mb-0 px-4 small">
-              {{
-                langService.isAr()
-                  ? 'يرجى العودة في الوقت المناسب لبدء تتبع التزاماتك لهذا الشهر.'
-                  : 'Please come back at the right time to start tracking your obligations for this month.'
-              }}
-            </p>
-          } @else {
-            <h4 class="fw-bold mb-3">
-              {{ langService.isAr() ? 'لا يوجد لوحة تحكم لهذا الشهر' : 'No board for this month' }}
-            </h4>
-            <p class="text-secondary mb-4 px-4 small">
-              {{
-                langService.isAr()
-                  ? 'يمكنك إنشاء لوحة تحكم جديدة للبدء في تتبع التزاماتك المالية.'
-                  : 'You can create a new dashboard to start tracking your financial obligations.'
-              }}
-            </p>
-            <button
-              class="btn btn-dark-felosy btn-lg rounded-pill px-5 fw-bold d-inline-flex align-items-center gap-2 shadow-lg"
-              (click)="createBoard()"
-            >
-              <i class="bi bi-plus-lg"></i>
-              <span>{{ langService.isAr() ? 'إنشاء لوحة تحكم' : 'Create Board' }}</span>
-            </button>
-          }
+          <h4 class="fw-bold mb-3">
+            {{ langService.isAr() ? 'لا يوجد لوحة تحكم لهذا الشهر' : 'No board for this month' }}
+          </h4>
+          <p class="text-secondary mb-4 px-4 small">
+            {{
+              langService.isAr()
+                ? 'يمكنك إنشاء لوحة تحكم جديدة للبدء في تتبع التزاماتك المالية.'
+                : 'You can create a new dashboard to start tracking your financial obligations.'
+            }}
+          </p>
+          <button
+            class="btn btn-dark-felosy btn-lg rounded-pill px-5 fw-bold d-inline-flex align-items-center gap-2 shadow-lg"
+            (click)="createBoard()"
+          >
+            <i class="bi bi-plus-lg"></i>
+            <span>{{ langService.isAr() ? 'إنشاء لوحة تحكم' : 'Create Board' }}</span>
+          </button>
         </div>
       }
     </div>
