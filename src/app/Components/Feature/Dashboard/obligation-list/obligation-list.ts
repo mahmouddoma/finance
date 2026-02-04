@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
 import { AccountService } from '../../../../Core/Services/Account/account.service';
 import { ObligationView } from '../../../../Core/Models/User/user.models';
-import { BoardService } from '../../../../Core/Services/Board/board.service';
+import { BoardStore } from '../../../../Core/state/board-store/board.store';
 
 @Component({
   selector: 'app-obligation-list',
@@ -15,7 +15,7 @@ import { BoardService } from '../../../../Core/Services/Board/board.service';
 export class ObligationList implements OnInit {
   readonly langService = inject(LanguageService);
   private accountService = inject(AccountService);
-  protected boardService = inject(BoardService);
+  protected boardService = inject(BoardStore);
 
   obligationList = signal<any[]>([]);
 

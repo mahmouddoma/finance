@@ -1,27 +1,31 @@
-<div class="row g-4 mb-5">
+<div class="row g-4 mb-5" [dir]="langService.isAr() ? 'rtl' : 'ltr'">
   @for (card of cards(); track card.title; let first = $first) {
     <div class="col-xl-3 col-md-6">
       <div
         class="summary-card h-100 p-4 border-0 transition-all card-hover"
-        [class.bg-dark-felosy]="first"
-        [class.bg-white]="!first"
-        [class.text-white]="first"
-        [class.shadow-soft]="!first"
+        [class.bg-dark-felosy]="card.isDark"
+        [class.bg-white]="!card.isDark"
+        [class.text-white]="card.isDark"
+        [class.shadow-soft]="!card.isDark"
       >
         <div class="d-flex justify-content-between align-items-start mb-4">
           <div class="card-info">
-            <span class="fs-xs fw-bold text-uppercase opacity-75 d-block mb-1">{{
-              card.title
-            }}</span>
+            <span class="fs-xs fw-bold text-uppercase opacity-75 d-block mb-1">
+              {{ card.title }}
+            </span>
+
             <div class="amount-container d-flex align-items-baseline gap-1">
               <h2 class="fw-extrabold m-0 amount-text">{{ card.amountValue }}</h2>
               <span class="fs-xs opacity-75 currency-text">{{ card.currency }}</span>
             </div>
           </div>
+
           <div
             class="icon-wrapper p-3 rounded-4 shadow-sm"
-            [class.bg-white-10]="first"
-            [class]="'bg-soft-' + card.color + ' text-' + card.color"
+            [class.bg-white-10]="card.isDark"
+            [ngClass]="
+              !card.isDark && card.color ? ['bg-soft-' + card.color, 'text-' + card.color] : null
+            "
           >
             <i class="bi fs-4" [ngClass]="card.icon"></i>
           </div>
@@ -36,7 +40,6 @@
           </div>
         </div>
 
-        <!-- Background watermark -->
         <i class="bi watermark opacity-03" [ngClass]="card.icon"></i>
       </div>
     </div>

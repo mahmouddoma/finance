@@ -1,7 +1,7 @@
 import { Component, inject, signal, effect, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
-import { BoardService } from '../../../../Core/Services/Board/board.service';
+import { BoardStore } from '../../../../Core/state/board-store/board.store';
 
 @Component({
   selector: 'app-timeline-sidebar',
@@ -14,17 +14,16 @@ export class TimelineSidebar {
   @Input() isOpen = true;
   @Output() toggleSidebar = new EventEmitter<void>();
   readonly langService = inject(LanguageService);
-  private boardService = inject(BoardService);
+  private boardService = inject(BoardStore);
 
   currentYear = signal(2026);
-  selectedMonth = signal(1); // 0-indexed for MonthsAr/En? (0=Jan, 1=Feb)
+  selectedMonth = signal(1); 
 
   constructor() {
-    // Automatically fetch board when year or month changes
-    effect(() => {
+     effect(() => {
       const year = this.currentYear();
-      const month = this.selectedMonth() + 1; // API usually expects 1-12
-      this.boardService.getBoard(year, month).subscribe();
+      const month = this.selectedMonth() + 1;  
+      this.boardService.loadBoard(year, month).subscribe();
     });
   }
 

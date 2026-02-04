@@ -6,7 +6,7 @@ import { SetupBasicInfo } from '../setup-basic-info/setup-basic-info';
 import { CommonModule } from '@angular/common';
 import { TimelineSidebar } from '../timeline-sidebar/timeline-sidebar';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
-import { BoardService } from '../../../../Core/Services/Board/board.service';
+import { BoardStore } from '../../../../Core/state/board-store/board.store';
 import { HeaderComponent } from '../../../shared/header/header';
 import { FooterComponent } from '../../../shared/footer/footer';
 import { WalletGrid } from '../wallet-grid/wallet-grid';
@@ -35,7 +35,7 @@ import { AuthService } from '../../../../Core/Services/Auth/auth.service';
 })
 export class DashboardLayout implements OnInit {
   readonly langService = inject(LanguageService);
-  protected boardService = inject(BoardService);
+  protected boardService = inject(BoardStore);
   private accountService = inject(AccountService);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -61,7 +61,7 @@ export class DashboardLayout implements OnInit {
     const now = new Date();
     const currentYear = now.getFullYear();
     const currentMonth = now.getMonth() + 1;
-    const filter = this.boardService.lastFilter;
+    const filter = this.boardService.lastFilter();
 
     if (filter.year > currentYear) return true;
     if (filter.year === currentYear && filter.month > currentMonth) return true;
@@ -72,9 +72,9 @@ export class DashboardLayout implements OnInit {
   createBoard() {
     const board = this.boardService.currentBoard();
 
-    const filter = (this.boardService as any).lastFilter || { year: 2026, month: 2 };
+    const filter = this.boardService.lastFilter();
 
-    this.boardService.createBoard(filter.year, filter.month).subscribe();
+    this.boardService.createBoardForLastFilter().subscribe();
   }
 
   protected wallets = computed(() => {
@@ -103,7 +103,7 @@ export class DashboardLayout implements OnInit {
 
   getContent() {
     const isAr = this.langService.isAr();
-    const filter = this.boardService.lastFilter;
+    const filter = this.boardService.lastFilter();
 
     const monthsAr = [
       'يناير',

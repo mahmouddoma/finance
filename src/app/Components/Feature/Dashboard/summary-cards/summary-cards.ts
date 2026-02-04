@@ -2,8 +2,21 @@ import { Component, computed, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
 import { AccountService } from '../../../../Core/Services/Account/account.service';
-import { BoardService } from '../../../../Core/Services/Board/board.service';
+
 import { AccountUserResponse } from '../../../../Core/Models/User/user.models';
+
+type CardColor = 'red' | 'orange' | 'green';
+
+interface SummaryCardVm {
+  title: string;
+  amountValue: string;
+  currency: string;
+  icon: string;
+  color?: CardColor; // optional لأن أول كارت Dark
+  note: string;
+  isPositive: boolean;
+  isDark: boolean; // بدل first
+}
 
 @Component({
   selector: 'app-summary-cards',
@@ -14,69 +27,81 @@ import { AccountUserResponse } from '../../../../Core/Models/User/user.models';
 })
 export class SummaryCards implements OnInit {
   readonly langService = inject(LanguageService);
-  private accountService = inject(AccountService);
-  protected boardService = inject(BoardService);
+  private readonly accountService = inject(AccountService);
 
-  accountData = signal<AccountUserResponse | null>(null);
+  private readonly accountData = signal<AccountUserResponse | null>(null);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.accountService.getAccountUser().subscribe({
       next: (data) => this.accountData.set(data),
       error: (err) => console.error('Failed to fetch account data', err),
     });
   }
 
-  readonly cards = computed(() => {
+  private readonly currency = computed(() => (this.langService.isAr() ? 'ج.م' : 'EGP'));
+
+  private readonly fallbackCashBalance = computed(
+    () => this.accountData()?.monthlyCashBalance ?? 0,
+  );
+  private readonly fallbackTotalObligations = computed(
+    () => this.accountData()?.totalObligationsAmount ?? 0,
+  );
+
+  private readonly cashBalance = computed(() => {
+    return this.accountData()?.monthlyCashBalance ?? 0;
+  });
+
+  private readonly totalExpenses = computed(() => {
+    return this.accountData()?.totalObligationsAmount ?? 0;
+  });
+
+  private readonly safetyBalance = computed(() => this.accountData()?.bankBalance ?? 0);
+
+  private readonly netWealth = computed(() => this.accountData()?.netWealth ?? 0);
+
+  readonly cards = computed<SummaryCardVm[]>(() => {
     const isAr = this.langService.isAr();
-    const data = this.accountData();
-    const board = this.boardService.currentBoard();
-    const currency = isAr ? 'ج.م' : 'EGP';
+    const currency = this.currency();
 
     return [
       {
-        title: isAr ? 'المتاح الصافي' : 'Net Liquidity',
-        amountValue: board
-          ? board.monthlyCashBalance.toLocaleString()
-          : data
-            ? data.monthlyCashBalance.toLocaleString()
-            : '0',
-        currency: currency,
+        title: isAr ? 'الرصيد الشهري' : 'Monthly Cash Balance',
+        amountValue: this.cashBalance().toLocaleString(),
+        currency,
         icon: 'bi-briefcase-fill',
-        color: 'white',
         note: isAr ? 'إجمالي المتاح' : 'Total available',
         isPositive: true,
+        isDark: true,
       },
       {
-        title: isAr ? 'إجمالي المصروفات' : 'Total Expenses',
-        amountValue:
-          board?.totalObligationsAmount !== undefined
-            ? board.totalObligationsAmount?.toLocaleString()
-            : data
-              ? data.totalObligationsAmount.toLocaleString()
-              : '0',
-        currency: currency,
+        title: isAr ? 'إجمالي الالتزامات' : 'Total Obligations',
+        amountValue: this.totalExpenses().toLocaleString(),
+        currency,
         icon: 'bi-graph-down',
         color: 'red',
         note: isAr ? 'لهذا الشهر' : 'For this month',
         isPositive: false,
+        isDark: false,
       },
       {
-        title: isAr ? 'متوسط الصرف اليومي' : 'Daily Avg Spend',
-        amountValue: '350',
-        currency: currency,
-        icon: 'bi-clock-fill',
+        title: isAr ? 'صافي الثروة' : 'Net Wealth',
+        amountValue: this.netWealth().toLocaleString(),
+        currency,
+        icon: 'bi-pie-chart-fill',
         color: 'orange',
-        note: isAr ? 'تقديري' : 'Estimated',
+        note: isAr ? 'صافي الأصول' : 'Net assets value',
         isPositive: true,
+        isDark: false,
       },
       {
-        title: isAr ? 'رصيد الأمان' : 'Safety Balance',
-        amountValue: board?.restAmount ? board.restAmount.toLocaleString() : '0',
-        currency: currency,
+        title: isAr ? 'رصيد البنك' : 'Bank Balance',
+        amountValue: this.safetyBalance().toLocaleString(),
+        currency,
         icon: 'bi-shield-fill-check',
         color: 'green',
         note: isAr ? 'رصيد مؤمن' : 'Secured balance',
         isPositive: true,
+        isDark: false,
       },
     ];
   });
