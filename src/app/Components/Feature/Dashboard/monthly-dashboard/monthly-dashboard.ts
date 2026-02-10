@@ -5,22 +5,26 @@ import { LanguageService } from '../../../../Core/Services/Language/language.ser
 import { BoardStore } from '../../../../Core/Services/board-store/board.store';
 import {
   GetBoardDetailsResponse,
+  CancelTicketRequest,
   WalletPaidSummaryDto,
 } from '../../../../Core/Models/Board/board.models';
+import { BoardService } from '../../../../Core/Services/Board/board.service';
 import { AddTicketDialog } from '../add-ticket-dialog/add-ticket-dialog';
 import { PaymentDialog } from '../payment-dialog/payment-dialog';
 import { TimelineSidebar } from '../timeline-sidebar/timeline-sidebar';
+import { HeaderComponent } from '../../../shared/header/header';
 
 @Component({
   selector: 'app-monthly-dashboard',
   standalone: true,
-  imports: [CommonModule, AddTicketDialog, PaymentDialog, TimelineSidebar],
+  imports: [CommonModule, AddTicketDialog, PaymentDialog, TimelineSidebar, HeaderComponent],
   templateUrl: './monthly-dashboard.html',
   styleUrl: './monthly-dashboard.css',
 })
 export class MonthlyDashboard implements OnInit {
   readonly langService = inject(LanguageService);
   private readonly boardStore = inject(BoardStore);
+  private readonly boardService = inject(BoardService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
@@ -31,7 +35,24 @@ export class MonthlyDashboard implements OnInit {
   showAddTicketDialog = signal(false);
   showPayDialog = signal(false);
   selectedItem = signal<{ item: any; type: 'ticket' | 'obligation' } | null>(null);
-  isSidebarOpen = signal(true);
+  isSidebarOpen = signal(false); // Default to false for mobile-first, or check window
+
+  constructor() {
+    this.checkScreenSize();
+    window.addEventListener('resize', () => this.checkScreenSize());
+  }
+
+  checkScreenSize() {
+    if (window.innerWidth < 992) {
+      this.isSidebarOpen.set(false);
+    } else {
+      this.isSidebarOpen.set(true);
+    }
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen.update((v) => !v);
+  }
 
   readonly SAFETY_WALLET_ID = 'b2b8a18f-46cf-4a73-9b46-5bb586b49fe2';
 
@@ -170,6 +191,14 @@ export class MonthlyDashboard implements OnInit {
     );
   }
 
+  hasObligations(status: string): boolean {
+    return this.getObligationsByStatus(status).length > 0;
+  }
+
+  hasTickets(status: string, numStatus?: string): boolean {
+    return this.getTicketsByStatus(status, numStatus).length > 0;
+  }
+
   getStatusSections() {
     return [
       { key: 'Done', labelEn: 'Completed', labelAr: 'مكتمل', color: 'success', numKey: '2' },
@@ -181,6 +210,10 @@ export class MonthlyDashboard implements OnInit {
 
   isSafetyWallet(walletId: string): boolean {
     return walletId === this.SAFETY_WALLET_ID;
+  }
+
+  isIncomeWallet(walletCode: string): boolean {
+    return walletCode === 'Income';
   }
 
   canPay(status: string | number): boolean {
@@ -201,6 +234,35 @@ export class MonthlyDashboard implements OnInit {
       },
       error: () => {
         this.loading.set(false);
+      },
+    });
+  }
+
+  cancelTicket(ticket: any) {
+    if (
+      !confirm(
+        this.langService.isAr()
+          ? 'هل أنت متأكد من إلغاء هذه التذكرة؟'
+          : 'Are you sure you want to cancel this ticket?',
+      )
+    ) {
+      return;
+    }
+
+    this.loading.set(true);
+    const request: CancelTicketRequest = {
+      boardId: this.boardData()!.boardId,
+      ticketId: ticket.id,
+      occurredOn: new Date().toISOString().split('T')[0],
+    };
+
+    this.boardService.cancelTicket(request).subscribe({
+      next: () => {
+        this.loadBoard(this.year(), this.month());
+      },
+      error: (err) => {
+        this.loading.set(false);
+        console.error(err);
       },
     });
   }

@@ -21,4 +21,20 @@ export class AccountApiService {
   getAccountUser(): Observable<AccountUserResponse> {
     return this.http.get<AccountUserResponse>(`${this.baseUrl}/api/AccountUser`);
   }
+
+  createWish(command: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Wish/CreateWish`, command);
+  }
+
+  completeWish(command: {
+    wishId: string;
+    paidAmount: number;
+    paidAtUtc: string;
+  }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Wish/MarkDone`, command);
+  }
+
+  cancelWish(command: { wishId: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Wish/MarkCancel`, command);
+  }
 }

@@ -1,18 +1,18 @@
 <footer class="felosy-footer" [dir]="langService.isAr() ? 'rtl' : 'ltr'">
-  <div class="container py-5">
+  <div class="container py-3">
     <div class="row gy-4 align-items-start">
       <!-- Brand -->
-      <div class="col-lg-5">
-        <div class="footer-brand">
+      <div class="col-12 col-lg-5 text-center text-lg-start">
+        <div class="footer-brand justify-content-center justify-content-lg-start">
           <img src="assets/images/logo.jpeg" alt="Felosy Logo" class="footer-brand__logo" />
-          <div>
+          <div [class.text-start]="!langService.isAr()" [class.text-end]="langService.isAr()">
             <h3 class="footer-brand__name mb-1">
               {{ content().brand }}
             </h3>
             <p class="footer-brand__tagline mb-0">{{ content().tagline }}</p>
           </div>
         </div>
-        <div class="mt-4">
+        <div class="mt-4 d-flex flex-column align-items-center align-items-lg-start">
           <p class="text-white-50 mb-1 d-flex align-items-center gap-2">
             <i class="bi bi-envelope text-info"></i> {{ content().email }}
           </p>
@@ -23,9 +23,9 @@
       </div>
 
       <!-- Links -->
-      <div class="col-lg-3 col-md-6">
+      <div class="col-12 col-md-6 col-lg-3 text-center text-md-start">
         <h6 class="footer-title">{{ content().quickLinks }}</h6>
-        <ul class="footer-links" role="list">
+        <ul class="footer-links align-items-center align-items-md-start" role="list">
           <li>
             <a class="footer-link" routerLink="/">{{ content().about }}</a>
           </li>
@@ -45,10 +45,10 @@
       </div>
 
       <!-- Social -->
-      <div class="col-lg-4 col-md-6">
+      <div class="col-12 col-md-6 col-lg-4 text-center text-md-start">
         <h6 class="footer-title">{{ content().contact }}</h6>
 
-        <div class="socials mb-4">
+        <div class="socials mb-4 justify-content-center justify-content-md-start">
           @for (s of socials(); track s.label) {
             <a class="social-btn" [href]="s.href" [attr.aria-label]="s.label">
               <i class="bi" [class]="'bi-' + s.icon"></i>
@@ -56,37 +56,134 @@
           }
         </div>
 
-        <div class="mini-note">
+        <div class="mini-note d-flex justify-content-center justify-content-md-start">
           <span class="dot"></span>
           <span>Secure • Fast • Simple</span>
         </div>
       </div>
     </div>
 
-    <div
-      class="footer-bottom mt-4 pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2"
-    >
-      <p class="mb-0">{{ content().copyright }}</p>
-      <p class="mb-0 text-white-50 small">
-        {{ content().poweredBy }}
-        <a
-          href="#"
-          target="_blank"
-          class="text-info text-decoration-none fw-bold hover-glow d-inline-flex align-items-center gap-1"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            class="mb-1"
-          >
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-          </svg>
-          COREDEV
-        </a>
-      </p>
+    <!-- Built By Team Section -->
+    <div class="footer-bottom mt-5 pt-4 border-top border-secondary">
+      <div class="text-center mb-4">
+        <h6 class="text-white-50 fw-bold mb-3">
+          {{ content().builtBy }}
+        </h6>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <!-- Louay Saber -->
+        <div class="col-12 col-md-6 col-lg-5">
+          <div class="team-card bg-dark-subtle rounded-4 p-4 h-100">
+            <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
+              <img
+                src="assets/images/team/louay-saber.jpeg"
+                alt="Louay Saber"
+                class="team-photo rounded-circle"
+              />
+              <div class="flex-grow-1 text-center text-sm-start">
+                <h5 class="text-white fw-bold mb-1">Louay Saber</h5>
+                <p class="text-info small mb-2">Senior Backend Engineer (.NET)</p>
+                <p class="text-white-50 tiny mb-3">
+                  {{ content().louayDesc }}
+                </p>
+                <div class="d-flex gap-2 justify-content-center justify-content-sm-start flex-wrap">
+                  <a
+                    href="https://www.linkedin.com/in/louay-saber/"
+                    target="_blank"
+                    class="social-link btn btn-sm btn-outline-info rounded-pill px-3"
+                    aria-label="LinkedIn"
+                  >
+                    <i class="bi bi-linkedin"></i>
+                    <span class="d-none d-sm-inline ms-1">LinkedIn</span>
+                  </a>
+                  <a
+                    href="https://github.com/LoaiSaberC4r"
+                    target="_blank"
+                    class="social-link btn btn-sm btn-outline-light rounded-pill px-3"
+                    aria-label="GitHub"
+                  >
+                    <i class="bi bi-github"></i>
+                    <span class="d-none d-sm-inline ms-1">GitHub</span>
+                  </a>
+                  <a
+                    href="https://wa.me/201004117527"
+                    target="_blank"
+                    class="social-link btn btn-sm btn-outline-success rounded-pill px-3"
+                    aria-label="WhatsApp"
+                  >
+                    <i class="bi bi-whatsapp"></i>
+                    <span class="d-none d-sm-inline ms-1">WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mahmoud Doma -->
+        <div class="col-12 col-md-6 col-lg-5">
+          <div class="team-card bg-dark-subtle rounded-4 p-4 h-100">
+            <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
+              <img
+                src="assets/images/team/mahmoud-doma.jpeg"
+                alt="Mahmoud Doma"
+                class="team-photo rounded-circle"
+              />
+              <div class="flex-grow-1 text-center text-sm-start">
+                <h5 class="text-white fw-bold mb-1">Mahmoud Doma</h5>
+                <p class="text-info small mb-2">Mid-Level Frontend Developer</p>
+                <p class="text-white-50 tiny mb-3">
+                  {{ content().mahmoudDesc }}
+                </p>
+                <div class="d-flex gap-2 justify-content-center justify-content-sm-start flex-wrap">
+                  <a
+                    href="https://mahmouddoma.github.io/md-portfolioo/"
+                    target="_blank"
+                    class="social-link btn btn-sm btn-outline-warning rounded-pill px-3"
+                    aria-label="Portfolio"
+                  >
+                    <i class="bi bi-globe"></i>
+                    <span class="d-none d-sm-inline ms-1">Portfolio</span>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/mahmoud-doma-4520a222a"
+                    target="_blank"
+                    class="social-link btn btn-sm btn-outline-info rounded-pill px-3"
+                    aria-label="LinkedIn"
+                  >
+                    <i class="bi bi-linkedin"></i>
+                    <span class="d-none d-sm-inline ms-1">LinkedIn</span>
+                  </a>
+                  <a
+                    href="https://github.com/mahmouddoma"
+                    target="_blank"
+                    class="social-link btn btn-sm btn-outline-light rounded-pill px-3"
+                    aria-label="GitHub"
+                  >
+                    <i class="bi bi-github"></i>
+                    <span class="d-none d-sm-inline ms-1">GitHub</span>
+                  </a>
+                  <a
+                    href="https://wa.me/201093430526"
+                    target="_blank"
+                    class="social-link btn btn-sm btn-outline-success rounded-pill px-3"
+                    aria-label="WhatsApp"
+                  >
+                    <i class="bi bi-whatsapp"></i>
+                    <span class="d-none d-sm-inline ms-1">WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="text-center mt-4 pt-3">
+        <p class="mb-0 text-white-50 small">{{ content().copyright }}</p>
+      </div>
     </div>
   </div>
 </footer>

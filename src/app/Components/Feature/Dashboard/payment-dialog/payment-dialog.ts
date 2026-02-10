@@ -44,12 +44,32 @@ export class PaymentDialog implements OnInit {
     return this.data?.item?.wallet?.id === this.SAFETY_WALLET_ID;
   }
 
+  isIncome() {
+    return this.data?.item?.wallet?.code === 'Income';
+  }
+
   getContent() {
     const isAr = this.langService.isAr();
     const isTransfer = this.isSafety();
+    const isIncome = this.isIncome();
 
-    return {
-      title: isTransfer
+    let confirmLabel = isIncome
+      ? isAr
+        ? 'إيداع'
+        : 'Deposit'
+      : isTransfer
+        ? isAr
+          ? 'تحويل'
+          : 'Transfer'
+        : isAr
+          ? 'تأكيد الدفع'
+          : 'Confirm Payment';
+
+    let titleLabel = isIncome
+      ? isAr
+        ? 'إيداع دخل'
+        : 'Deposit Income'
+      : isTransfer
         ? isAr
           ? 'تحويل لمحفظة الأمان'
           : 'Transfer to Safety Wallet'
@@ -61,21 +81,19 @@ export class PaymentDialog implements OnInit {
               : 'Ticket'
             : isAr
               ? 'التزام'
-              : 'Obligation'),
+              : 'Obligation');
+
+    return {
+      title: titleLabel,
       subtitle: isAr
         ? 'تأكيد تفاصيل الدفع وسجل المعاملة.'
         : 'Confirm payment details and transaction record.',
       labels: {
         amount: isAr ? 'المبلغ المدفوع' : 'Paid Amount',
         date: isAr ? 'تاريخ المعاملة' : 'Transaction Date',
-        confirm: isTransfer
-          ? isAr
-            ? 'تحويل'
-            : 'Transfer'
-          : isAr
-            ? 'تأكيد الدفع'
-            : 'Confirm Payment',
+        confirm: confirmLabel,
         cancel: isAr ? 'إلغاء' : 'Cancel',
+        income: isAr ? 'دخل' : 'Income',
       },
     };
   }
@@ -88,6 +106,23 @@ export class PaymentDialog implements OnInit {
 
     const isSafety = this.isSafety();
     const isTicket = this.data.type === 'ticket';
+    const isIncome = this.isIncome();
+
+    if (isIncome && isTicket) {
+      const request: PayTicketRequest = {
+        boardId: this.boardId,
+        ticketId: this.data.item.id,
+        walletId: this.data.item.wallet.id,
+        paidAmount: this.fields.amount,
+        occurredOn: this.fields.occurredOn,
+      };
+
+      this.boardService.depositTicket(request).subscribe({
+        next: () => this.handleSuccess(),
+        error: (err) => this.handleError(err),
+      });
+      return;
+    }
 
     if (isSafety) {
       const request: TransferSafityRequest = {

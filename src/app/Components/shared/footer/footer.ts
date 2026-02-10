@@ -42,7 +42,13 @@ export class FooterComponent {
       copyright: isAr ? '© 2026 فلوسي. جميع الحقوق محفوظة.' : '© 2026 Felosy. All rights reserved.',
       email: 'support@felosy.com',
       phone: '+20 123 456 7890',
-      poweredBy: isAr ? 'مشغل بواسطة' : 'Powered by',
+      builtBy: isAr ? 'صُمم وطُور بواسطة' : 'Built By',
+      louayDesc: isAr
+        ? 'بناء أنظمة خلفية قابلة للتطوير ونظيفة وسهلة الصيانة مع التركيز على البنية والأداء.'
+        : 'Building scalable, clean, and maintainable backend systems with focus on architecture.',
+      mahmoudDesc: isAr
+        ? 'متخصص في Angular وJavaScript وHTML وCSS والتصميم المتجاوب.'
+        : 'Proficient in Angular, JavaScript, HTML, CSS & Responsive Design.',
     };
   });
 }

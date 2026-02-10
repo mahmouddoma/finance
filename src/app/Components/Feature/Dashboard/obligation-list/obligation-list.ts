@@ -1,9 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
-import { AccountService } from '../../../../Core/Services/Account/account.service';
-import { ObligationView } from '../../../../Core/Models/User/user.models';
-import { BoardStore } from '../../../../Core/Services/board-store/board.store';
+import { AccountStore } from '../../../../Core/Services/account-store/account.store';
 
 @Component({
   selector: 'app-obligation-list',
@@ -14,92 +12,43 @@ import { BoardStore } from '../../../../Core/Services/board-store/board.store';
 })
 export class ObligationList implements OnInit {
   readonly langService = inject(LanguageService);
-  private accountService = inject(AccountService);
-  protected boardService = inject(BoardStore);
+  protected accountStore = inject(AccountStore);
 
-  obligationList = signal<any[]>([]);
-
-  ngOnInit() {
-    // Initial fetch if needed, though Dashboard now manages board fetch via sidebar
-  }
+  ngOnInit() {}
 
   readonly obligations = computed(() => {
     const isAr = this.langService.isAr();
-    const board = this.boardService.currentBoard();
+    const account = this.accountStore.account();
 
-    if (!board) return [];
+    if (!account?.listObligation) return [];
 
     const currency = isAr ? 'ج.م' : 'EGP';
 
-    // Combine instances and tickets
-    const instances = board.obligationInstances.map((item) => ({
+    return account.listObligation.map((item) => ({
       title: item.title,
-      type: this.getTypeEn(item.type),
-      typeAr: this.getTypeAr(item.type),
+      type: item.type, // Keep original for styling checks
+      typeLabel: this.getTypeLabel(item.type),
       amount: `${item.amount.toLocaleString()} ${currency}`,
-      dueDay: this.parseDueDay(item.dueDate),
+      dueDay: item.dueDay,
       wallet: isAr ? item.wallet?.nameAr || 'غير محدد' : item.wallet?.nameEn || 'N/A',
-      period: item.dueDate,
-      status: item.status,
+      startDate: item.startDate,
+      endDate: item.endDate,
     }));
-
-    const tickets = board.tickets.map((item) => ({
-      title: item.title,
-      type: isAr ? 'تذكرة' : 'Ticket',
-      typeAr: 'تذكرة',
-      amount: item.amount ? `${item.amount.toLocaleString()} ${currency}` : '—',
-      dueDay: this.parseDueDay(item.dueDate),
-      wallet: isAr ? item.wallet?.nameAr || 'غير محدد' : item.wallet?.nameEn || 'N/A',
-      period: item.dueDate,
-      status: item.status,
-    }));
-
-    return [...instances, ...tickets];
   });
 
-  private parseDueDay(dateStr: string): string | number {
-    if (!dateStr) return '—';
-    const date = new Date(dateStr);
-    return isNaN(date.getTime()) ? '—' : date.getDate();
-  }
-
-  private getTypeEn(type: any): string {
-    const typeStr = String(type);
-    switch (typeStr) {
-      case '1':
+  private getTypeLabel(type: string): string {
+    const isAr = this.langService.isAr();
+    switch (type) {
       case 'FixedPayment':
-        return 'FixedPayment';
-      case '2':
+        return isAr ? 'ثابت' : 'Fixed';
       case 'Installment':
-        return 'Installment';
-      case '3':
+        return isAr ? 'قسط' : 'Installment';
       case 'DebtPayment':
-        return 'DebtPayment';
-      case '4':
+        return isAr ? 'دين' : 'Debt';
       case 'SafityPayment':
-        return 'SafityPayment';
+        return isAr ? 'توفير' : 'Savings';
       default:
-        return 'FixedPayment';
-    }
-  }
-
-  private getTypeAr(type: any): string {
-    const typeStr = String(type);
-    switch (typeStr) {
-      case '1':
-      case 'FixedPayment':
-        return 'ثابت';
-      case '2':
-      case 'Installment':
-        return 'قسط';
-      case '3':
-      case 'DebtPayment':
-        return 'دين';
-      case '4':
-      case 'SafityPayment':
-        return 'توفير';
-      default:
-        return 'ثابت';
+        return type;
     }
   }
 
@@ -111,7 +60,7 @@ export class ObligationList implements OnInit {
       isAr ? 'المبلغ' : 'Amount',
       isAr ? 'يوم الاستحقاق' : 'Due Day',
       isAr ? 'المحفظة' : 'Wallet',
-      isAr ? 'الفترة' : 'Period',
+      isAr ? 'يبدأ في' : 'Starts',
     ];
   }
 }

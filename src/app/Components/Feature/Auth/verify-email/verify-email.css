@@ -81,3 +81,40 @@
     opacity: 1;
   }
 }
+
+/* Responsive refinements */
+@media (max-width: 576px) {
+  .form-card {
+    padding: 1.25rem !important;
+    margin: 0.5rem;
+    border-radius: 1.25rem !important;
+  }
+
+  .logo-orb {
+    width: 45px;
+    height: 45px;
+  }
+
+  .logo-orb i {
+    font-size: 1.15rem !important;
+  }
+
+  h2 {
+    font-size: 1.15rem !important;
+  }
+
+  p.text-white-50 {
+    font-size: 0.75rem !important;
+  }
+
+  .letter-spacing-5 {
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+  }
+
+  .btn-info-felosy {
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+    font-size: 0.9rem !important;
+  }
+}

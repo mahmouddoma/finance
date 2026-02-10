@@ -1,11 +1,12 @@
 .summary-card {
   position: relative;
   overflow: hidden;
-  border-radius: 20px;
-  min-height: 160px;
+  border-radius: 16px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 1rem !important;
 }
 
 .bg-dark-felosy {
@@ -21,13 +22,13 @@
 }
 
 .card-hover:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
 }
 
 .amount-text {
-  font-size: 2.25rem;
-  letter-spacing: -1px;
+  font-size: 1.75rem;
+  letter-spacing: -0.5px;
 }
 
 .bg-white-10 {
@@ -94,4 +95,43 @@
 
 [dir='rtl'] .summary-card {
   text-align: right;
+}
+
+/* Responsive refinements */
+@media (max-width: 991.98px) {
+  .amount-text {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .summary-card {
+    min-height: 130px;
+    padding: 1.25rem !important;
+    border-radius: 16px;
+  }
+
+  .amount-text {
+    font-size: 1.6rem;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .watermark {
+    font-size: 3rem;
+  }
+
+  .card-info > .fs-xs {
+    font-size: 0.7rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .amount-text {
+    font-size: 1.4rem;
+  }
+
+  .summary-card {
+    min-height: 110px;
+    padding: 1rem !important;
+  }
 }

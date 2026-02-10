@@ -51,6 +51,7 @@
   border-radius: 16px;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden; /* Prevent autofill background from leaking */
 }
 
 .dark-input-group:focus-within {
@@ -117,14 +118,110 @@
   border-inline-start: 0;
   border-inline-end: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+/* Responsive refinements */
+@media (max-width: 991.98px) {
+  .marketing-section {
+    padding: 2rem 1rem !important;
+    border-inline-start: none;
+    border-inline-end: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .marketing-title {
+    font-size: 1.75rem;
+  }
+
+  .marketing-content p.fs-6 {
+    font-size: 0.85rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .benefit-card {
+    padding: 0.75rem !important;
+  }
+
+  .benefit-card h6 {
+    font-size: 0.9rem !important;
+  }
+
+  .form-section {
+    padding: 1.5rem 0.75rem !important;
+  }
+
+  .form-card {
+    padding: 1.25rem !important;
+  }
+
+  .max-w-600 {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .marketing-section {
+    display: block !important;
+    padding: 1.5rem 1rem !important;
+  }
+
+  .marketing-title {
+    font-size: 1.25rem;
+  }
+
+  .marketing-content p.fs-6 {
+    font-size: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .benefits-stack {
+    display: none !important; /* Hide benefits on small mobile */
+  }
+
+  .form-card {
+    padding: 1rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  h2 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  p.text-white-50.small {
+    font-size: 0.7rem !important;
+  }
+
+  .form-label {
+    font-size: 0.7rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .form-control {
+    font-size: 0.8rem !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+  }
+
+  .dark-input-group {
+    border-radius: 12px !important;
+  }
+
+  .btn-info-felosy {
+    font-size: 0.9rem !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+  }
+}
+
 /* Fix Autofill background */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #1a2236 inset !important;
+  -webkit-box-shadow: 0 0 0 50px #1a2236 inset !important;
   -webkit-text-fill-color: white !important;
   transition: background-color 5000s ease-in-out 0s;
+  border-radius: inherit;
 }
 
 /* Icon container */

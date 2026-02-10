@@ -15,10 +15,23 @@ export interface ObligationView {
   };
 }
 
+export interface WishView {
+  id: string;
+  name: string;
+  targetAmount: number;
+  paidAmount: number | null;
+  paidAtUtc: string | null;
+  priority: 'Low' | 'Medium' | 'High';
+  desiredOn: string | null;
+  notes: string | null;
+  status: 'Available' | 'Fulfilled' | 'Cancelled' | 'New';
+}
+
 export interface AccountUserResponse {
   bankBalance: number;
   monthlyCashBalance: number;
   netWealth: number;
   totalObligationsAmount: number;
   listObligation: ObligationView[];
+  wishes: WishView[];
 }

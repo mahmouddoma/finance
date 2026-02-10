@@ -1,0 +1,61 @@
+/* Global reset */
+:host {
+  pointer-events: none;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  mix-blend-mode: normal;
+}
+
+/* The Money Coin */
+.cursor-money {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: sans-serif;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  border: 2px solid #a7f3d0;
+
+  transition:
+    width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    transform 0.1s ease-out,
+    box-shadow 0.3s ease;
+  will-change: transform, width, height;
+}
+
+.cursor-money::after {
+  content: '$';
+  display: block;
+}
+.cursor-money.hovering {
+  width: 60px;
+  height: 60px;
+  font-size: 32px;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.6);
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translate(-50%, -50%) rotate(15deg);
+}
+
+.cursor-money.clicking {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+/* Hide on Touch */
+@media (hover: none) and (pointer: coarse) {
+  :host {
+    display: none;
+  }
+}

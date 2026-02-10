@@ -1,0 +1,106 @@
+<div class="wish-list-container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3 section-header">
+    <h5 class="fw-bold m-0 text-dark-felosy">
+      <i class="bi bi-stars me-2 text-warning"></i>My Wishes
+    </h5>
+    <button
+      class="btn btn-sm btn-dark-felosy rounded-pill px-3 btn-add-wish"
+      (click)="openAddDialog()"
+    >
+      <i class="bi bi-plus-lg me-1"></i> Add Wish
+    </button>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let wish of wishes()">
+      <div class="card wish-card h-100 border-0 shadow-sm">
+        <div class="card-body p-3 d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Status Badge -->
+            <span
+              class="badge rounded-pill fw-bold px-3 py-2"
+              [ngClass]="{
+                'bg-soft-success text-success': getWishStatus(wish) === 'Done',
+                'bg-soft-danger text-danger': getWishStatus(wish) === 'Overdue',
+                'bg-soft-primary text-primary': getWishStatus(wish) === 'Available',
+              }"
+            >
+              <i
+                class="bi me-1"
+                [class.bi-check-circle-fill]="getWishStatus(wish) === 'Done'"
+                [class.bi-exclamation-circle-fill]="getWishStatus(wish) === 'Overdue'"
+                [class.bi-stars]="getWishStatus(wish) === 'Available'"
+              >
+              </i>
+              {{ getWishStatus(wish) }}
+            </span>
+
+            <!-- Priority (Small) -->
+            <span
+              class="text-xs fw-bold text-uppercase text-{{
+                getStatusColor(wish.priority)
+              }} opacity-75"
+            >
+              {{ wish.priority }}
+            </span>
+          </div>
+
+          <!-- Buttons Row (Chic & Catchy) -->
+          <div
+            class="action-buttons-overlay d-flex gap-2 justify-content-end"
+            *ngIf="getWishStatus(wish) !== 'Done'"
+          >
+            <button
+              class="btn btn-chic-done rounded-pill px-3 py-1 shadow-sm d-flex align-items-center gap-1"
+              (click)="markAsDone(wish)"
+              title="Mark as Done"
+            >
+              <i class="bi bi-check2-circle"></i>
+              <span>Done</span>
+            </button>
+            <button
+              class="btn btn-chic-cancel rounded-pill px-3 py-1 shadow-sm d-flex align-items-center gap-1"
+              (click)="cancelWish(wish)"
+              title="Cancel Wish"
+            >
+              <i class="bi bi-x-circle"></i>
+              <span>Cancel</span>
+            </button>
+          </div>
+
+          <h6 class="fw-bold mb-1 text-truncate">{{ wish.name }}</h6>
+          <p class="text-muted small mb-2 text-truncate-2" *ngIf="wish.notes">{{ wish.notes }}</p>
+
+          <div class="mt-auto pt-2 border-top border-light">
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted tiny">Target</span>
+              <span class="fw-bold">{{ wish.targetAmount | number }} EGP</span>
+            </div>
+            <div
+              class="d-flex justify-content-between align-items-center mt-1"
+              *ngIf="wish.desiredOn"
+            >
+              <span class="text-muted tiny">Desired On</span>
+              <span class="tiny text-dark">{{ wish.desiredOn | date: 'mediumDate' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="col-12" *ngIf="wishes().length === 0">
+      <div class="text-center py-4 bg-white rounded-3 border border-dashed">
+        <i class="bi bi-stars text-muted fs-1 mb-2 d-block"></i>
+        <p class="text-muted mb-0">No active wishes yet. Start dreaming!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-add-wish-dialog
+  *ngIf="showAddDialog()"
+  (close)="showAddDialog.set(false)"
+  (saved)="accountStore.loadAccount().subscribe()"
+>
+</app-add-wish-dialog>

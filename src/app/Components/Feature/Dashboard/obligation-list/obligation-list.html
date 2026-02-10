@@ -4,24 +4,27 @@
       <thead class="bg-light">
         <tr>
           @for (header of getHeaders(); track header) {
-            <th class="py-3 px-4 text-secondary text-uppercase fs-xs fw-bold">{{ header }}</th>
+            <th class="py-2 py-md-3 px-2 px-md-4 text-secondary text-uppercase fs-xs fw-bold">
+              {{ header }}
+            </th>
           }
         </tr>
       </thead>
       <tbody>
         @for (item of obligations(); track item.title) {
           <tr>
-            <td class="py-4 px-4 fw-bold">{{ item.title }}</td>
-            <td class="py-4 px-4">
+            <td class="py-3 py-md-4 px-2 px-md-4 fw-bold small">{{ item.title }}</td>
+            <td class="py-3 py-md-4 px-2 px-md-4">
               <span
                 class="badge rounded-pill px-3 py-2 fw-medium"
                 [ngClass]="{
                   'bg-light text-secondary': item.type === 'FixedPayment',
                   'bg-soft-gray text-secondary': item.type === 'Installment',
-                  'bg-danger text-white': item.type === 'Debt',
+                  'bg-danger text-white': item.type === 'DebtPayment',
+                  'bg-success text-white': item.type === 'SafityPayment',
                 }"
               >
-                {{ langService.isAr() ? item.typeAr : item.type }}
+                {{ item.typeLabel }}
               </span>
             </td>
             <td class="py-4 px-4 fw-extrabold fs-5">{{ item.amount }}</td>
@@ -29,7 +32,9 @@
               <div class="due-day-circle">{{ item.dueDay }}</div>
             </td>
             <td class="py-4 px-4 text-secondary">{{ item.wallet }}</td>
-            <td class="py-4 px-4 text-secondary fs-xs">{{ item.period }}</td>
+            <td class="py-4 px-4 text-secondary fs-xs">
+              {{ item.startDate | date: 'MMM yyyy' }}
+            </td>
           </tr>
         }
       </tbody>

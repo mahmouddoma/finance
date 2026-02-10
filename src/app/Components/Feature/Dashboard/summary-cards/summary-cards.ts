@@ -1,9 +1,8 @@
 import { Component, computed, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
-import { AccountService } from '../../../../Core/Services/Account/account.service';
-
 import { AccountUserResponse } from '../../../../Core/Models/User/user.models';
+import { AccountStore } from '../../../../Core/Services/account-store/account.store';
 
 type CardColor = 'red' | 'orange' | 'green';
 
@@ -12,10 +11,10 @@ interface SummaryCardVm {
   amountValue: string;
   currency: string;
   icon: string;
-  color?: CardColor; // optional لأن أول كارت Dark
+  color?: CardColor;
   note: string;
   isPositive: boolean;
-  isDark: boolean; // بدل first
+  isDark: boolean;
 }
 
 @Component({
@@ -27,25 +26,15 @@ interface SummaryCardVm {
 })
 export class SummaryCards implements OnInit {
   readonly langService = inject(LanguageService);
-  private readonly accountService = inject(AccountService);
-
-  private readonly accountData = signal<AccountUserResponse | null>(null);
+  private readonly accountStore = inject(AccountStore);
 
   ngOnInit(): void {
-    this.accountService.getAccountUser().subscribe({
-      next: (data) => this.accountData.set(data),
-      error: (err) => console.error('Failed to fetch account data', err),
-    });
+    // Data is loaded by parent or store
   }
 
-  private readonly currency = computed(() => (this.langService.isAr() ? 'ج.م' : 'EGP'));
+  private readonly accountData = this.accountStore.account;
 
-  private readonly fallbackCashBalance = computed(
-    () => this.accountData()?.monthlyCashBalance ?? 0,
-  );
-  private readonly fallbackTotalObligations = computed(
-    () => this.accountData()?.totalObligationsAmount ?? 0,
-  );
+  private readonly currency = computed(() => (this.langService.isAr() ? 'ج.م' : 'EGP'));
 
   private readonly cashBalance = computed(() => {
     return this.accountData()?.monthlyCashBalance ?? 0;

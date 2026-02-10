@@ -7,6 +7,9 @@ type NavItem = {
   href: string;
 };
 
+import { Router } from '@angular/router';
+import { AuthService } from '../../../Core/Services/Auth/auth.service';
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -16,6 +19,8 @@ type NavItem = {
 })
 export class HeaderComponent {
   readonly langService = inject(LanguageService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
   readonly lang = this.langService.currentLang;
 
   // Mobile menu state (no bootstrap JS)
@@ -34,7 +39,7 @@ export class HeaderComponent {
       home: isAr ? 'الرئيسية' : 'Home',
       transactions: isAr ? 'التحويلات' : 'Transactions',
       reports: isAr ? 'التقارير' : 'Reports',
-      login: isAr ? 'دخول' : 'Login',
+      logout: isAr ? 'تسجيل الخروج' : 'Logout',
       langBtn: isAr ? 'English' : 'عربي',
       menu: isAr ? 'القائمة' : 'Menu',
       close: isAr ? 'إغلاق' : 'Close',
@@ -63,5 +68,10 @@ export class HeaderComponent {
       case 'reports':
         return c.reports;
     }
+  }
+  // LogOut
+  logOut() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

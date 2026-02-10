@@ -1,27 +1,59 @@
+.wallet-card {
+  padding: 1rem !important;
+  border-radius: 14px !important;
+}
+
 .wallet-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 .shadow-soft {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
 }
 .fs-xs {
-  font-size: 0.72rem;
-  letter-spacing: 0.3px;
+  font-size: 0.7rem;
+  letter-spacing: 0.2px;
 }
 .fw-extrabold {
   font-weight: 800;
+  font-size: 1.1rem;
 }
 .wallet-card h6 {
   color: #1e2025;
+  font-size: 0.95rem;
 }
 .wallet-card .text-secondary {
   color: #64748b !important;
 }
 .progress {
   background-color: rgba(0, 0, 0, 0.05);
-  height: 6px;
+  height: 4px;
 }
 .progress-bar {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive refinements */
+@media (max-width: 767.98px) {
+  .wallet-card {
+    padding: 1rem !important;
+    border-radius: 16px !important;
+  }
+
+  .wallet-card h6 {
+    font-size: 0.9rem !important;
+  }
+
+  .fs-xs {
+    font-size: 0.65rem !important;
+  }
+
+  .icon-md {
+    width: 36px;
+    height: 36px;
+  }
+
+  .fw-extrabold {
+    font-size: 1rem !important;
+  }
 }

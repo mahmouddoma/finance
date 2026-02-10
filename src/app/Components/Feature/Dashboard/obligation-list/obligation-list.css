@@ -11,42 +11,58 @@
 .fw-extrabold {
   font-weight: 800;
   color: #1a202c;
+  font-size: 1.1rem !important;
 }
 
 /* Badge Styles */
 .badge {
-  font-size: 0.75rem;
+  font-size: 0.65rem !important;
   letter-spacing: 0.3px;
+  padding: 0.4rem 0.75rem !important;
 }
 
 .badge.bg-light {
-  background-color: #f1f5f9 !important;
-  color: #475569 !important;
+  background-color: #f8fafc !important;
+  color: #64748b !important;
 }
 
 .badge.bg-soft-gray {
-  background-color: #e2e8f0 !important;
-  color: #334155 !important;
+  background-color: #f1f5f9 !important;
+  color: #64748b !important;
 }
 
 .badge.bg-danger {
-  background-color: #fee2e2 !important;
-  color: #ef4444 !important;
+  background-color: #fff1f2 !important;
+  color: #e11d48 !important;
 }
 
-/* Due Date Circle */
+.table-card {
+  border-color: #f1f5f9 !important;
+}
+
+.table th {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.5px;
+  padding: 0.75rem 1rem !important;
+}
+
+.table td {
+  padding: 0.75rem 1rem !important;
+  font-size: 0.85rem;
+}
+
 .due-day-circle {
-  width: 36px;
-  height: 36px;
-  background-color: #f8fafc;
+  width: 28px;
+  height: 28px;
+  background: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  color: #0f172a;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.75rem;
   font-weight: 700;
-  font-size: 0.9rem;
+  color: #1e293b;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
@@ -75,4 +91,46 @@
 
 [dir='rtl'] .table {
   text-align: right;
+}
+
+/* Responsive refinements */
+@media (max-width: 767.98px) {
+  .table-card {
+    border-radius: 16px !important;
+  }
+
+  .table thead th {
+    font-size: 0.7rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+
+  .table tbody td {
+    font-size: 0.75rem !important;
+    padding: 0.75rem 0.4rem !important;
+  }
+
+  .due-day-circle {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+  }
+
+  .badge {
+    font-size: 0.65rem !important;
+    padding: 0.35rem 0.5rem !important;
+  }
+
+  .fw-extrabold {
+    font-size: 0.85rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  /* For very small screens, maybe hide some columns if possible or just make text even smaller */
+  .table thead th,
+  .table tbody td {
+    font-size: 0.65rem !important;
+  }
 }

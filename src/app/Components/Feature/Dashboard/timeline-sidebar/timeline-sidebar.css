@@ -103,3 +103,21 @@ label {
 .btn-light-soft:hover {
   background: #f1f5f9;
 }
+
+/* Responsive refinements */
+@media (max-width: 767.98px) {
+  .month-item {
+    font-size: 0.85rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .mini-month {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .rotate-text {
+    font-size: 0.9rem !important;
+  }
+}

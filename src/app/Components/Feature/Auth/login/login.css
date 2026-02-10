@@ -9,7 +9,7 @@
 }
 
 .marketing-content {
-  max-width: 800px;
+  max-width: 500px;
 }
 
 .marketing-title {
@@ -17,7 +17,38 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  line-height: 1.2;
+  line-height: 1.1;
+  font-size: 2.5rem;
+  letter-spacing: -1px;
+}
+
+.marketing-content p {
+  font-size: 0.95rem !important;
+  line-height: 1.5;
+}
+
+.benefit-card {
+  padding: 0.85rem !important;
+}
+
+.benefit-card h5 {
+  font-size: 1rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.benefit-card p {
+  font-size: 0.8rem !important;
+  margin-bottom: 0 !important;
+}
+
+.icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.icon-box i {
+  font-size: 1.1rem;
 }
 
 .text-light-blue {
@@ -52,12 +83,12 @@
 }
 
 .max-w-450 {
-  max-width: 450px;
+  max-width: 400px;
 }
 
 .logo-orb {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
   border-radius: 50%;
   display: flex;
@@ -68,9 +99,10 @@
 
 .dark-input-group {
   background: rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
+  border-radius: 12px;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
 }
 
 .dark-input-group:focus-within {
@@ -155,14 +187,133 @@
   border-inline-end: 0;
   border-inline-start: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+/* Responsive refinements */
+@media (max-width: 991.98px) {
+  .marketing-section {
+    padding: 2rem 1rem !important;
+    border-inline-end: none;
+    border-inline-start: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .marketing-title {
+    font-size: 1.75rem;
+  }
+
+  .benefits-grid {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .benefit-card {
+    padding: 0.75rem !important;
+  }
+
+  .benefit-card h5 {
+    font-size: 1rem !important;
+  }
+
+  .benefit-card p {
+    font-size: 0.8rem !important;
+  }
+
+  .form-section {
+    padding: 1.5rem 0.75rem !important;
+  }
+
+  .form-card {
+    padding: 1.5rem !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .marketing-section {
+    display: block !important;
+    padding: 1.5rem 1rem !important;
+  }
+
+  .marketing-title {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .marketing-content p.fs-5 {
+    font-size: 0.8rem !important;
+    text-align: center;
+    margin-bottom: 1rem !important;
+  }
+
+  .benefits-grid {
+    display: none !important; /* Hide benefits on small mobile to save vertical space */
+  }
+
+  .why-different {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .why-different h6 {
+    font-size: 0.85rem !important;
+  }
+
+  .why-different p {
+    font-size: 0.75rem !important;
+  }
+
+  .logo-orb {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 1rem !important;
+  }
+
+  .logo-orb i {
+    font-size: 1.1rem !important;
+  }
+
+  .form-card {
+    padding: 1rem !important;
+    border-radius: 1.5rem !important;
+  }
+
+  h2 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  p.text-white-50.small {
+    font-size: 0.7rem !important;
+  }
+
+  .form-label {
+    font-size: 0.7rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .form-control {
+    font-size: 0.8rem !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+  }
+
+  .btn-info-felosy {
+    font-size: 0.9rem !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+  }
+  .after-login {
+    font-size: 0.7rem !important;
+  }
+}
+
 /* Fix Autofill background */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #1a2236 inset !important;
+  -webkit-box-shadow: 0 0 0 50px #1a2236 inset !important; /* Increased shadow size */
   -webkit-text-fill-color: white !important;
   transition: background-color 5000s ease-in-out 0s;
+  border-radius: inherit; /* Ensure it follows parent radius */
 }
 
 /* Icon container */

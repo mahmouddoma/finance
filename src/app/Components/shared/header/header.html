@@ -2,8 +2,8 @@
   <nav class="container felosy-nav" aria-label="Main navigation">
     <!-- Brand -->
     <a class="brand" href="#" (click)="closeMobile()">
-      <img src="assets/images/logo.jpeg" alt="Felosy Logo" class="brand__logo" />
-      <!-- <span class="brand__name d-none d-sm-inline">{{ content().title }}</span> -->
+      <img src="assets/images/logo.jpeg" alt="Felosy Logo" class="brand__logo icon-md" />
+      <span class="brand__name d-none d-sm-inline ms-2">{{ content().title }}</span>
     </a>
 
     <!-- Desktop Nav -->
@@ -16,10 +16,10 @@
     </ul> -->
 
     <!-- Actions -->
-    <div class="actions">
-      <button type="button" class="icon-btn d-none d-lg-inline-flex" (click)="toggleLang()">
+    <div class="actions px-3">
+      <button type="button" class="icon-btn d-none d-md-inline-flex px-3" (click)="toggleLang()">
         <i class="bi bi-translate"></i>
-        <span class="ms-2">{{ content().langBtn }}</span>
+        <span class="ms-2 small fw-bold">{{ content().langBtn }}</span>
       </button>
 
       <!-- <button type="button" class="btn felosy-btn d-none d-lg-inline-flex text-light">
@@ -29,13 +29,15 @@
       <!-- Mobile burger -->
       <button
         type="button"
-        class="icon-btn d-inline-flex d-lg-none"
+        class="icon-btn d-inline-flex d-lg-none px-3"
         (click)="toggleMobile()"
         [attr.aria-expanded]="mobileOpen()"
         aria-controls="mobileMenu"
       >
-        <i class="bi" [class.bi-list]="!mobileOpen()" [class.bi-x]="mobileOpen()"></i>
-        <span class="ms-2">{{ mobileOpen() ? content().close : content().menu }}</span>
+        <i class="bi fs-5" [class.bi-list]="!mobileOpen()" [class.bi-x]="mobileOpen()"></i>
+        <span class="ms-2 d-none d-sm-inline small fw-bold">{{
+          mobileOpen() ? content().close : content().menu
+        }}</span>
       </button>
     </div>
   </nav>
@@ -43,7 +45,7 @@
   <!-- Mobile Menu -->
   @if (mobileOpen()) {
     <div class="mobile-menu" id="mobileMenu">
-      <div class="container mobile-menu__inner">
+      <div class="container mobile-menu__inner p-3">
         <ul class="mobile-links" role="list">
           @for (item of navItems(); track item.key) {
             <li>
@@ -60,8 +62,8 @@
             <span class="ms-2 text-light">{{ content().langBtn }}</span>
           </button>
 
-          <button type="button" class="btn felosy-btn w-100 mt-2 text-light">
-            {{ content().login }}
+          <button type="button" class="btn btn-danger w-100 mt-2 text-light" (click)="logOut()">
+            {{ content().logout }}
           </button>
         </div>
       </div>

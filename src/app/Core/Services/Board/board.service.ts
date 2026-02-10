@@ -8,6 +8,7 @@ import {
   PayObligationRequest,
   PayTicketRequest,
   TransferSafityRequest,
+  CancelTicketRequest,
 } from '../../Models/Board/board.models';
 
 @Injectable({
@@ -40,5 +41,13 @@ export class BoardService {
 
   transferSafity(data: TransferSafityRequest): Observable<unknown> {
     return this.http.post(`${this.baseUrl}/api/Board/TransferSafity`, data);
+  }
+
+  depositTicket(data: PayTicketRequest): Observable<unknown> {
+    return this.http.post(`${this.baseUrl}/api/Board/IncomeTicket`, data);
+  }
+
+  cancelTicket(data: CancelTicketRequest): Observable<unknown> {
+    return this.http.post(`${this.baseUrl}/api/Board/CancelTicket`, data);
   }
 }

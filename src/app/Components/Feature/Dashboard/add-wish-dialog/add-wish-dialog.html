@@ -1,0 +1,65 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Make a Wish ✨</h5>
+        <button type="button" class="btn-close" (click)="close.emit()"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group mb-3">
+          <label class="form-label">Wish Name</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="name"
+            placeholder="E.g., New Laptop"
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Target Amount (EGP)</label>
+          <input type="number" class="form-control" [(ngModel)]="targetAmount" placeholder="0.00" />
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-6">
+            <label class="form-label">Priority</label>
+            <select class="form-select" [(ngModel)]="priority">
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label class="form-label">Desired Date</label>
+            <input type="date" class="form-control" [(ngModel)]="desiredOn" />
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Notes (Optional)</label>
+          <textarea
+            class="form-control"
+            rows="3"
+            [(ngModel)]="notes"
+            placeholder="Any details..."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="close.emit()">Cancel</button>
+        <button
+          type="button"
+          class="btn btn-dark-felosy"
+          [disabled]="!name() || targetAmount() <= 0 || isLoading()"
+          (click)="save()"
+        >
+          <span *ngIf="isLoading()" class="spinner-border spinner-border-sm me-2"></span>
+          Save Wish
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,9 @@
 <app-header></app-header>
 
-<div class="dashboard-layout-root d-flex position-relative min-vh-100">
+<div
+  class="dashboard-layout-root d-flex position-relative min-vh-100"
+  [dir]="langService.isAr() ? 'rtl' : 'ltr'"
+>
   <!-- Main Content -->
   <div
     class="content-area flex-grow-1 transition-all"
@@ -12,6 +15,13 @@
       class="utility-bar px-4 py-3 d-flex justify-content-between align-items-center bg-white border-bottom mb-4"
     >
       <div class="d-flex align-items-center gap-3">
+        <button
+          class="btn btn-dark-felosy rounded-circle shadow-sm d-lg-none p-2 d-flex align-items-center justify-content-center"
+          style="width: 40px; height: 40px"
+          (click)="toggleSidebar()"
+        >
+          <i class="bi bi-list fs-5"></i>
+        </button>
         <div class="d-flex flex-column justify-content-center">
           <h1 class="fw-bold m-0 h5">
             {{ langService.isAr() ? 'لوحة التحكم المالية' : 'Financial Dashboard' }}
@@ -32,8 +42,10 @@
       </div>
     </div>
 
-    <div class="container-fluid py-4 px-4 px-lg-5">
-      <div class="d-flex justify-content-between align-items-center mb-5">
+    <div class="container-fluid py-3 px-3 px-md-4 px-lg-5">
+      <div
+        class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 mb-md-5 gap-3"
+      >
         <div class="d-flex align-items-center gap-3">
           <div
             class="bg-dark rounded-3 p-2 d-flex align-items-center justify-content-center shadow-lg icon-md"
@@ -60,11 +72,14 @@
         <app-summary-cards></app-summary-cards>
 
         <!-- Wallets Section -->
-        <app-wallet-grid [wallets]="wallets()"></app-wallet-grid>
+        <!-- <app-wallet-grid [wallets]="wallets()"></app-wallet-grid> -->
+
+        <!-- Wish List Section -->
+        <app-wish-list></app-wish-list>
 
         <!-- Lower Sections (Alerts & Obligations) -->
         <div class="row g-5 mt-2">
-          <div class="col-lg-8">
+          <div class="col-lg-12">
             <!-- Upcoming Payments/Obligations -->
             <div class="section-label d-flex justify-content-between align-items-center mb-4">
               <h5 class="fw-bold m-0">
@@ -79,81 +94,6 @@
               </button>
             </div>
             <app-obligation-list></app-obligation-list>
-          </div>
-
-          <div class="col-lg-4">
-            <!-- System Alerts -->
-            <div class="alert-section">
-              <div class="section-label mb-4 d-flex align-items-center gap-2">
-                <i class="bi bi-shield-check text-secondary"></i>
-                <h5 class="fw-bold m-0">
-                  {{ langService.isAr() ? 'تنبيهات النظام' : 'System Alerts' }}
-                </h5>
-              </div>
-
-              <div class="alert-cards d-flex flex-column gap-3">
-                <div
-                  class="alert-item p-3 bg-white rounded-4 shadow-soft border-0 d-flex align-items-center gap-3"
-                >
-                  <div class="alert-icon bg-soft-red text-red p-2 rounded-circle">
-                    <i class="bi bi-exclamation-triangle"></i>
-                  </div>
-                  <div class="alert-text small">
-                    {{
-                      langService.isAr()
-                        ? 'في الأسبوع الأول تجاوزت ميزانية المشتريات'
-                        : 'In week 1, shopping budget was exceeded'
-                    }}
-                  </div>
-                </div>
-                <div
-                  class="alert-item p-3 bg-white rounded-4 shadow-soft border-0 d-flex align-items-center gap-3"
-                >
-                  <div class="alert-icon bg-soft-orange text-orange p-2 rounded-circle">
-                    <i class="bi bi-clock-history"></i>
-                  </div>
-                  <div class="alert-text small">
-                    {{
-                      langService.isAr()
-                        ? 'لديك التزام مستحق خلال 3 أيام'
-                        : 'You have an obligation due in 3 days'
-                    }}
-                  </div>
-                </div>
-              </div>
-
-              <!-- Decision Card -->
-              <div
-                class="decision-card mt-5 p-4 bg-dark-felosy text-white rounded-4 position-relative overflow-hidden"
-              >
-                <div class="decision-content position-relative z-1">
-                  <div class="d-flex justify-content-between mb-3 text-white-50">
-                    <span class="fs-xs fw-bold">{{
-                      langService.isAr() ? 'قرار النظام' : 'System Decision'
-                    }}</span>
-                    <i class="bi bi-cpu"></i>
-                  </div>
-                  <h5 class="fw-bold text-white mb-3">
-                    {{
-                      langService.isAr()
-                        ? 'تقليل المصاريف (Life/Flex)'
-                        : 'Tighten Spending (Life/Flex)'
-                    }}
-                  </h5>
-                  <p class="fs-xs text-white opacity-75 mb-4">
-                    {{
-                      langService.isAr()
-                        ? 'بناءً على سلوكك المالي هذا الشهر، نوصي بهذا الإجراء لضمان استدامة ميزانيتك.'
-                        : 'Based on your behavior, we recommend this for budget sustainability.'
-                    }}
-                  </p>
-                  <button class="btn btn-white w-100 rounded-pill fw-bold py-2 shadow-sm">
-                    {{ langService.isAr() ? 'تنفيذ القرار' : 'Execute Decision' }}
-                  </button>
-                </div>
-                <i class="bi bi-stars position-absolute top-0 end-0 opacity-10 fs-1 m-2"></i>
-              </div>
-            </div>
           </div>
         </div>
       } @else {
@@ -187,10 +127,16 @@
     </div>
   </div>
 
+  <!-- Mobile Backdrop -->
+  @if (isSidebarOpen()) {
+    <div class="sidebar-backdrop d-lg-none" (click)="toggleSidebar()"></div>
+  }
+
   <!-- Sidebar Wrapper -->
   <aside
     class="sidebar-wrapper transition-all bg-white border-start"
     [class.collapsed]="!isSidebarOpen()"
+    [class.mobile-open]="isSidebarOpen()"
   >
     <div class="sidebar-sticky py-4 px-1 px-md-3">
       <app-timeline-sidebar
@@ -200,8 +146,6 @@
     </div>
   </aside>
 </div>
-
-<app-footer></app-footer>
 
 <app-add-obligation-dialog
   *ngIf="showAddDialog()"

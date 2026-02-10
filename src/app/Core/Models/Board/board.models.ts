@@ -118,3 +118,9 @@ export interface TransferSafityRequest {
   paidAmount: number;
   occurredOn: string;
 }
+
+export interface CancelTicketRequest {
+  boardId: string;
+  ticketId: string;
+  occurredOn: string;
+}

@@ -1,14 +1,25 @@
-<div class="dashboard-layout-root d-flex position-relative min-vh-100">
+<!-- header -->
+<app-header />
+<div
+  class="dashboard-layout-root d-flex position-relative min-vh-100"
+  [dir]="langService.isAr() ? 'rtl' : 'ltr'"
+>
   <!-- Main Content -->
   <div
     class="content-area flex-grow-1 transition-all"
     [class.sidebar-offset]="isSidebarOpen()"
     [class.sidebar-collapsed]="!isSidebarOpen()"
   >
-    <div class="container-fluid py-4 px-4 px-lg-5">
+    <div class="container-fluid py-3 px-3 px-md-4 px-lg-5">
       <!-- Header Section - Always Visible -->
       <div class="dashboard-header mb-4 d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center gap-2">
+          <button
+            class="btn btn-white rounded-circle shadow-sm d-lg-none"
+            (click)="toggleSidebar()"
+          >
+            <i class="bi bi-list fs-5"></i>
+          </button>
           <button
             class="btn btn-dark-felosy rounded-pill px-3 py-1 shadow-sm d-flex align-items-center gap-2 bg-success text-white btn-sm"
             (click)="goBack()"
@@ -51,59 +62,61 @@
           </p>
         </div>
       } @else if (boardData()) {
-        <div class="dashboard-container" [dir]="langService.isAr() ? 'rtl' : 'ltr'">
+        <div class="dashboard-container">
           <!-- Summary Cards -->
           <div class="row g-2 mb-3">
-            <div class="col-md-4">
-              <div class="summary-card bg-dark text-white p-3 rounded-4 shadow-sm card-slide-in">
+            <div class="col-12 col-md-4">
+              <div
+                class="summary-card bg-dark text-white p-3 p-md-4 rounded-4 shadow-sm card-slide-in"
+              >
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="text-white-50 tiny fw-bold text-uppercase mb-1">
                       {{ langService.isAr() ? 'الرصيد الشهري' : 'Monthly Cash' }}
                     </p>
-                    <h4 class="fw-bold m-0">
+                    <h4 class="fw-bold m-0 amount-text">
                       {{ (boardData()?.monthlyCashBalance || 0).toLocaleString() }}
                     </h4>
                   </div>
-                  <div class="icon-wrapper bg-white bg-opacity-10 p-2 rounded-3">
+                  <div class="icon-wrapper bg-white bg-opacity-10 p-2 p-md-3 rounded-3">
                     <i class="bi bi-wallet2 fs-5"></i>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
               <div
-                class="summary-card bg-white p-3 rounded-4 shadow-sm border card-slide-in card-delay-1"
+                class="summary-card bg-white p-3 p-md-4 rounded-4 shadow-sm border card-slide-in card-delay-1"
               >
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="text-secondary tiny fw-bold text-uppercase mb-1">
                       {{ langService.isAr() ? 'إجمالي الالتزامات' : 'Total Obligations' }}
                     </p>
-                    <h4 class="fw-bold m-0 text-danger">
+                    <h4 class="fw-bold m-0 text-danger amount-text">
                       {{ (boardData()?.totalObligationsAmount || 0).toLocaleString() }}
                     </h4>
                   </div>
-                  <div class="icon-wrapper bg-soft-red text-red p-2 rounded-3">
+                  <div class="icon-wrapper bg-soft-red text-red p-2 p-md-3 rounded-3">
                     <i class="bi bi-graph-down fs-5"></i>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
               <div
-                class="summary-card bg-white p-3 rounded-4 shadow-sm border card-slide-in card-delay-2"
+                class="summary-card bg-white p-3 p-md-4 rounded-4 shadow-sm border card-slide-in card-delay-2"
               >
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="text-secondary tiny fw-bold text-uppercase mb-1">
                       {{ langService.isAr() ? 'المتبقي' : 'Rest Amount' }}
                     </p>
-                    <h4 class="fw-bold m-0 text-success">
+                    <h4 class="fw-bold m-0 text-success amount-text">
                       {{ (boardData()?.restAmount || 0).toLocaleString() }}
                     </h4>
                   </div>
-                  <div class="icon-wrapper bg-soft-green text-success p-2 rounded-3">
+                  <div class="icon-wrapper bg-soft-green text-success p-2 p-md-3 rounded-3">
                     <i class="bi bi-piggy-bank fs-5"></i>
                   </div>
                 </div>
@@ -117,10 +130,12 @@
               <h6 class="fw-bold mb-2">
                 {{ langService.isAr() ? 'ملخص المحافظ' : 'Wallet Summaries' }}
               </h6>
-              <div class="row g-2">
+              <div class="row g-3">
                 @for (summary of boardData()!.walletPaidSummaries; track summary.walletId) {
-                  <div class="col-md-4">
-                    <div class="wallet-card bg-white p-3 rounded-4 shadow-sm border card-fade-in">
+                  <div class="col-12 col-sm-6 col-lg-4">
+                    <div
+                      class="wallet-card bg-white p-3 p-md-4 rounded-4 shadow-sm border card-fade-in"
+                    >
                       <div class="d-flex align-items-center gap-2 mb-2">
                         <div class="wallet-icon bg-soft-blue text-primary p-2 rounded-3">
                           <i class="bi bi-wallet fs-6"></i>
@@ -148,74 +163,61 @@
             </div>
           }
 
-          <!-- Obligations & Tickets Sections -->
-          <div class="obligations-tickets-section">
+          <!-- Obligations Section -->
+          <div class="obligations-section mb-5">
+            <h5 class="fw-bold mb-4 d-flex align-items-center gap-2">
+              <i class="bi bi-receipt text-primary"></i>
+              {{ langService.isAr() ? 'الالتزامات الشهرية' : 'Monthly Obligations' }}
+            </h5>
+
             @for (statusSection of getStatusSections(); track statusSection.key) {
-              @if (hasStatus(statusSection.key) || hasStatus(statusSection.numKey)) {
+              @if (hasObligations(statusSection.key) || hasObligations(statusSection.numKey)) {
                 <div class="status-group mb-4">
+                  <!-- Status Header -->
                   <div class="d-flex align-items-center justify-content-between mb-3">
                     <div class="d-flex align-items-center gap-2">
                       <div
-                        class="status-indicator status-indicator-lg rounded-circle p-2 d-flex align-items-center justify-content-center shadow-lg"
+                        class="status-indicator rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm"
                         [ngClass]="{
-                          'bg-success': statusSection.color === 'success',
-                          'bg-primary': statusSection.color === 'primary',
-                          'bg-danger': statusSection.color === 'danger',
-                          'bg-secondary': statusSection.color === 'secondary',
+                          'bg-soft-success text-success': statusSection.color === 'success',
+                          'bg-soft-primary text-primary': statusSection.color === 'primary',
+                          'bg-soft-danger text-danger': statusSection.color === 'danger',
+                          'bg-soft-secondary text-secondary': statusSection.color === 'secondary',
                         }"
                       >
                         <i
-                          class="fs-6 text-white"
+                          class="bi fs-6 fw-bold"
                           [ngClass]="{
-                            'bi bi-check-circle-fill': statusSection.color === 'success',
-                            'bi bi-clock-fill': statusSection.color === 'primary',
-                            'bi bi-exclamation-triangle-fill': statusSection.color === 'danger',
-                            'bi bi-x-circle-fill': statusSection.color === 'secondary',
+                            'bi-check-lg': statusSection.color === 'success',
+                            'bi-hourglass-split': statusSection.color === 'primary',
+                            'bi-exclamation-lg': statusSection.color === 'danger',
+                            'bi-x-lg': statusSection.color === 'secondary',
                           }"
                         ></i>
                       </div>
-                      <div>
-                        <h5 class="fw-bold m-0 small">
-                          {{ langService.isAr() ? statusSection.labelAr : statusSection.labelEn }}
-                        </h5>
-                        <small class="text-secondary tiny">
-                          {{
-                            getObligationsByStatus(statusSection.key).length +
-                              getObligationsByStatus(statusSection.numKey).length +
-                              getTicketsByStatus(statusSection.key, statusSection.numKey).length
-                          }}
-                          {{ langService.isAr() ? 'عنصر' : 'items' }}
-                        </small>
-                      </div>
-                    </div>
-                    <div
-                      class="btn-view-all rounded-pill px-2 py-1 tiny shadow-sm d-flex align-items-center gap-1"
-                      [ngClass]="{
-                        'btn-view-all-success': statusSection.color === 'success',
-                        'btn-view-all-primary': statusSection.color === 'primary',
-                        'btn-view-all-danger': statusSection.color === 'danger',
-                        'btn-view-all-secondary': statusSection.color === 'secondary',
-                      }"
-                    >
-                      <span class="fw-bold">{{
-                        langService.isAr() ? 'عرض الكل' : 'View All'
-                      }}</span>
-                      <i class="bi bi-chevron-right tiny"></i>
+                      <span class="fw-bold text-secondary">
+                        {{ langService.isAr() ? statusSection.labelAr : statusSection.labelEn }}
+                      </span>
+                      <span class="badge bg-light text-secondary rounded-pill border ms-2">
+                        {{
+                          getObligationsByStatus(statusSection.key).length +
+                            getObligationsByStatus(statusSection.numKey).length
+                        }}
+                      </span>
                     </div>
                   </div>
 
-                  <div class="row g-2 mb-3">
-                    <!-- Obligations -->
+                  <div class="row g-3">
                     @for (
                       obligation of [
-                        ...getObligationsByStatus(statusSection.key),
-                        ...getObligationsByStatus(statusSection.numKey),
-                      ];
+                          ...getObligationsByStatus(statusSection.key),
+                          ...getObligationsByStatus(statusSection.numKey)
+                        ];
                       track obligation.id
                     ) {
-                      <div class="col-md-6">
+                      <div class="col-12 col-md-6">
                         <div
-                          class="obligation-card bg-white p-3 rounded-4 shadow-sm border-start border-3 card-fade-in"
+                          class="obligation-card bg-white p-3 p-md-4 rounded-4 shadow-sm border-start border-3 card-fade-in"
                           [ngClass]="{
                             'border-success': statusSection.color === 'success',
                             'border-primary': statusSection.color === 'primary',
@@ -247,11 +249,11 @@
                             </div>
                             @if (canPay(obligation.status)) {
                               <button
-                                class="btn btn-sm rounded-pill px-2 py-0 tiny fw-bold transition-all"
+                                class="btn btn-sm rounded-pill px-3 py-1 tiny fw-bold"
                                 [ngClass]="
                                   isSafetyWallet(obligation.wallet.id)
-                                    ? 'btn-soft-success'
-                                    : 'btn-soft-dark'
+                                    ? 'bg-success text-white'
+                                    : 'bg-dark text-white'
                                 "
                                 (click)="openPayDialog(obligation, 'obligation')"
                               >
@@ -271,97 +273,165 @@
                       </div>
                     }
                   </div>
-
-                  <!-- Tickets Grouped by Week -->
-                  @for (
-                    week of getUniqueWeeks(statusSection.key, statusSection.numKey);
-                    track week
-                  ) {
-                    <div class="week-group mt-3">
-                      <div class="d-flex align-items-center gap-2 mb-2">
-                        <span class="badge bg-dark rounded-pill tiny"
-                          >{{ langService.isAr() ? 'الأسبوع' : 'Week' }} {{ week }}</span
-                        >
-                        <hr class="flex-grow-1 my-0 opacity-10" />
-                      </div>
-                      <div class="row g-2">
-                        @for (
-                          ticket of getTicketsByStatusAndWeek(
-                            statusSection.key,
-                            statusSection.numKey,
-                            week
-                          );
-                          track ticket.id
-                        ) {
-                          <div class="col-md-6">
-                            <div
-                              class="ticket-card bg-white p-3 rounded-4 shadow-sm border-start border-3 card-fade-in"
-                              [ngClass]="{
-                                'border-success': statusSection.color === 'success',
-                                'border-primary': statusSection.color === 'primary',
-                                'border-danger': statusSection.color === 'danger',
-                                'border-secondary': statusSection.color === 'secondary',
-                              }"
-                            >
-                              <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center gap-2">
-                                  <i
-                                    class="bi bi-ticket-perforated small"
-                                    [ngClass]="'text-' + statusSection.color"
-                                  ></i>
-                                  <h6 class="fw-bold m-0 small">{{ ticket.title }}</h6>
-                                </div>
-                                <span class="tiny text-secondary fw-bold">
-                                  {{ (ticket.amount || 0).toLocaleString() }}
-                                </span>
-                              </div>
-                              <div class="d-flex justify-content-between align-items-center mt-1">
-                                <div class="tiny text-secondary">
-                                  <span>{{
-                                    langService.isAr() ? ticket.wallet.nameAr : ticket.wallet.nameEn
-                                  }}</span>
-                                  @if (
-                                    ticket.status === 'Done' ||
-                                    ticket.status === 2 ||
-                                    ticket.status === '2'
-                                  ) {
-                                    <span class="text-success ms-1"
-                                      ><i class="bi bi-check-all"></i
-                                    ></span>
-                                  }
-                                </div>
-                                @if (canPay(ticket.status)) {
-                                  <button
-                                    class="btn btn-sm rounded-pill px-2 py-0 tiny fw-bold transition-all"
-                                    [ngClass]="
-                                      isSafetyWallet(ticket.wallet.id)
-                                        ? 'btn-soft-success'
-                                        : 'btn-soft-dark'
-                                    "
-                                    (click)="openPayDialog(ticket, 'ticket')"
-                                  >
-                                    {{
-                                      isSafetyWallet(ticket.wallet.id)
-                                        ? langService.isAr()
-                                          ? 'تحويل'
-                                          : 'Transfer'
-                                        : langService.isAr()
-                                          ? 'تسديد'
-                                          : 'Pay'
-                                    }}
-                                  </button>
-                                }
-                              </div>
-                            </div>
-                          </div>
-                        }
-                      </div>
-                    </div>
-                  }
                 </div>
               }
             }
           </div>
+
+          <!-- Tickets Section -->
+          @if (boardData()?.tickets && boardData()!.tickets!.length > 0) {
+            <div class="tickets-section mb-4">
+              <h5 class="fw-bold mb-4 d-flex align-items-center gap-2">
+                <i class="bi bi-ticket-perforated text-primary"></i>
+                {{ langService.isAr() ? 'تذاكر المصروفات' : 'Spending Tickets' }}
+              </h5>
+
+              @for (statusSection of getStatusSections(); track statusSection.key) {
+                @if (hasTickets(statusSection.key, statusSection.numKey)) {
+                  <div class="status-group mb-4">
+                    <!-- Status Header -->
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                      <div class="d-flex align-items-center gap-2">
+                        <div
+                          class="status-indicator rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm"
+                          [ngClass]="{
+                            'bg-soft-success text-success': statusSection.color === 'success',
+                            'bg-soft-primary text-primary': statusSection.color === 'primary',
+                            'bg-soft-danger text-danger': statusSection.color === 'danger',
+                            'bg-soft-secondary text-secondary': statusSection.color === 'secondary',
+                          }"
+                        >
+                          <i
+                            class="bi fs-6 fw-bold"
+                            [ngClass]="{
+                              'bi-check-lg': statusSection.color === 'success',
+                              'bi-hourglass-split': statusSection.color === 'primary',
+                              'bi-exclamation-lg': statusSection.color === 'danger',
+                              'bi-x-lg': statusSection.color === 'secondary',
+                            }"
+                          ></i>
+                        </div>
+                        <span class="fw-bold text-secondary">
+                          {{ langService.isAr() ? statusSection.labelAr : statusSection.labelEn }}
+                        </span>
+                        <span class="badge bg-light text-secondary rounded-pill border ms-2">
+                          {{ getTicketsByStatus(statusSection.key, statusSection.numKey).length }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Tickets Grouped by Week -->
+                    @for (
+                      week of getUniqueWeeks(statusSection.key, statusSection.numKey);
+                      track week
+                    ) {
+                      <div class="week-group mt-3 ps-3 border-start">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                          <span class="badge bg-light text-dark border rounded-pill tiny fw-bold"
+                            >{{ langService.isAr() ? 'الأسبوع' : 'Week' }} {{ week }}</span
+                          >
+                        </div>
+                        <div class="row g-3">
+                          @for (
+                            ticket of getTicketsByStatusAndWeek(
+                              statusSection.key,
+                              statusSection.numKey,
+                              week
+                            );
+                            track ticket.id
+                          ) {
+                            <div class="col-12 col-md-6">
+                              <div
+                                class="ticket-card bg-white p-3 p-md-4 rounded-4 shadow-sm border-start border-3 card-fade-in"
+                                [ngClass]="{
+                                  'border-success': statusSection.color === 'success',
+                                  'border-primary': statusSection.color === 'primary',
+                                  'border-danger': statusSection.color === 'danger',
+                                  'border-secondary': statusSection.color === 'secondary',
+                                }"
+                              >
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <div class="d-flex align-items-center gap-2">
+                                    <i
+                                      class="bi bi-ticket-perforated small"
+                                      [ngClass]="'text-' + statusSection.color"
+                                    ></i>
+                                    <h6 class="fw-bold m-0 small">{{ ticket.title }}</h6>
+                                  </div>
+                                  <span class="tiny text-secondary fw-bold">
+                                    {{ (ticket.amount || 0).toLocaleString() }}
+                                  </span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-1">
+                                  <div class="tiny text-secondary">
+                                    <span>{{
+                                      langService.isAr()
+                                        ? ticket.wallet.nameAr
+                                        : ticket.wallet.nameEn
+                                    }}</span>
+                                    @if (
+                                      ticket.status === 'Done' ||
+                                      ticket.status === 2 ||
+                                      ticket.status === '2'
+                                    ) {
+                                      <span class="text-success ms-1"
+                                        ><i class="bi bi-check-all"></i
+                                      ></span>
+                                    }
+                                  </div>
+                                  <div class="d-flex align-items-center gap-2">
+                                    @if (
+                                      ticket.status === 'Open' ||
+                                      ticket.status === '1' ||
+                                      ticket.status === 1
+                                    ) {
+                                      <button
+                                        class="btn btn-sm rounded-pill px-3 py-1 tiny fw-bold btn-outline-danger"
+                                        (click)="cancelTicket(ticket)"
+                                      >
+                                        {{ langService.isAr() ? 'إلغاء' : 'Cancel' }}
+                                      </button>
+                                    }
+                                    @if (canPay(ticket.status)) {
+                                      <button
+                                        class="btn btn-sm rounded-pill px-3 py-1 tiny fw-bold"
+                                        [ngClass]="
+                                          isSafetyWallet(ticket.wallet.id)
+                                            ? 'bg-success text-white'
+                                            : isIncomeWallet(ticket.wallet.code)
+                                              ? 'bg-primary text-white'
+                                              : 'bg-dark text-white'
+                                        "
+                                        (click)="openPayDialog(ticket, 'ticket')"
+                                      >
+                                        {{
+                                          isSafetyWallet(ticket.wallet.id)
+                                            ? langService.isAr()
+                                              ? 'تحويل'
+                                              : 'Transfer'
+                                            : isIncomeWallet(ticket.wallet.code)
+                                              ? langService.isAr()
+                                                ? 'إيداع'
+                                                : 'Deposit'
+                                              : langService.isAr()
+                                                ? 'تسديد'
+                                                : 'Pay'
+                                        }}
+                                      </button>
+                                    }
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    }
+                  </div>
+                }
+              }
+            </div>
+          }
 
           <!-- Ledger Movements (Transactions) -->
           @if (boardData()?.ledgerMovements && boardData()!.ledgerMovements!.length > 0) {
@@ -391,22 +461,28 @@
                   <tbody>
                     @for (movement of boardData()!.ledgerMovements; track movement.id) {
                       <tr>
-                        <td class="px-3">
+                        <td
+                          class="px-3"
+                          [attr.data-label]="langService.isAr() ? 'التاريخ' : 'Date'"
+                        >
                           <span class="fw-bold small">{{
                             movement.occurredOn | date: 'MMM dd'
                           }}</span>
                         </td>
-                        <td>
+                        <td [attr.data-label]="langService.isAr() ? 'المحفظة' : 'Wallet'">
                           <span class="fw-semibold small">{{
                             langService.isAr() ? movement.wallet.nameAr : movement.wallet.nameEn
                           }}</span>
                         </td>
-                        <td>
+                        <td [attr.data-label]="langService.isAr() ? 'النوع' : 'Type'">
                           <span class="badge rounded-pill px-2 py-1 bg-soft-blue text-primary tiny">
                             {{ movement.type }}
                           </span>
                         </td>
-                        <td class="fw-bold text-dark small text-end">
+                        <td
+                          class="fw-bold text-dark small text-end"
+                          [attr.data-label]="langService.isAr() ? 'المبلغ' : 'Amount'"
+                        >
                           {{ movement.amount.toLocaleString() }}
                         </td>
                       </tr>
@@ -449,10 +525,16 @@
     </div>
   </div>
 
+  <!-- Mobile Backdrop -->
+  @if (isSidebarOpen()) {
+    <div class="sidebar-backdrop d-lg-none" (click)="toggleSidebar()"></div>
+  }
+
   <!-- Sidebar Wrapper -->
   <aside
     class="sidebar-wrapper transition-all bg-white border-start"
     [class.collapsed]="!isSidebarOpen()"
+    [class.mobile-open]="isSidebarOpen()"
   >
     <div class="sidebar-sticky py-4 px-1 px-md-3">
       <app-timeline-sidebar
@@ -461,21 +543,21 @@
       ></app-timeline-sidebar>
     </div>
   </aside>
+
+  @if (boardData()) {
+    <app-add-ticket-dialog
+      *ngIf="showAddTicketDialog()"
+      [boardId]="boardData()!.boardId"
+      (close)="showAddTicketDialog.set(false)"
+      (success)="loadBoard(year(), month())"
+    ></app-add-ticket-dialog>
+
+    <app-payment-dialog
+      *ngIf="showPayDialog()"
+      [boardId]="boardData()!.boardId"
+      [data]="selectedItem()!"
+      (close)="showPayDialog.set(false)"
+      (success)="loadBoard(year(), month())"
+    ></app-payment-dialog>
+  }
 </div>
-
-@if (boardData()) {
-  <app-add-ticket-dialog
-    *ngIf="showAddTicketDialog()"
-    [boardId]="boardData()!.boardId"
-    (close)="showAddTicketDialog.set(false)"
-    (success)="loadBoard(year(), month())"
-  ></app-add-ticket-dialog>
-
-  <app-payment-dialog
-    *ngIf="showPayDialog()"
-    [boardId]="boardData()!.boardId"
-    [data]="selectedItem()!"
-    (close)="showPayDialog.set(false)"
-    (success)="loadBoard(year(), month())"
-  ></app-payment-dialog>
-}

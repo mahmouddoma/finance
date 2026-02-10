@@ -10,12 +10,12 @@ import { BoardStore } from '../../../../Core/Services/board-store/board.store';
 import { HeaderComponent } from '../../../shared/header/header';
 import { FooterComponent } from '../../../shared/footer/footer';
 import { WalletGrid } from '../wallet-grid/wallet-grid';
-import { AccountService } from '../../../../Core/Services/Account/account.service';
-import { ListObligationInstanceDto, WalletDto } from '../../../../Core/Models/Board/board.models';
-import { ObligationView, AccountUserResponse } from '../../../../Core/Models/User/user.models';
-
-import { Router } from '@angular/router';
+import { WishList } from '../wish-list/wish-list';
+import { AccountStore } from '../../../../Core/Services/account-store/account.store';
 import { AuthService } from '../../../../Core/Services/Auth/auth.service';
+import { Router } from '@angular/router';
+import { WalletDto, ListObligationInstanceDto } from '../../../../Core/Models/Board/board.models';
+import { ObligationView } from '../../../../Core/Models/User/user.models';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -28,8 +28,8 @@ import { AuthService } from '../../../../Core/Services/Auth/auth.service';
     SetupBasicInfo,
     TimelineSidebar,
     HeaderComponent,
-    FooterComponent,
-    WalletGrid,
+    // WalletGrid,
+    WishList,
   ],
   templateUrl: './dashboard-layout.html',
   styleUrl: './dashboard-layout.css',
@@ -37,14 +37,35 @@ import { AuthService } from '../../../../Core/Services/Auth/auth.service';
 export class DashboardLayout implements OnInit {
   readonly langService = inject(LanguageService);
   protected boardService = inject(BoardStore);
-  private accountService = inject(AccountService);
+  // private accountService = inject(AccountService); // Removed
+  protected accountStore = inject(AccountStore); // Added
   private authService = inject(AuthService);
+
   private router = inject(Router);
 
   showAddDialog = signal(false);
   showSetupDialog = signal(false);
   isSidebarOpen = signal(true);
-  protected accountData = signal<AccountUserResponse | null>(null);
+
+  constructor() {
+    this.checkScreenSize();
+    window.addEventListener('resize', () => this.checkScreenSize());
+  }
+
+  checkScreenSize() {
+    if (window.innerWidth < 992) {
+      this.isSidebarOpen.set(false);
+    } else {
+      this.isSidebarOpen.set(true);
+    }
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen.update((v) => !v);
+  }
+
+  // Use store signal instead of local signal, or just verify usage
+  protected accountData = this.accountStore.account; // Map to store signal
 
   onLogout() {
     this.authService.logout();
@@ -52,10 +73,7 @@ export class DashboardLayout implements OnInit {
   }
 
   ngOnInit() {
-    this.accountService.getAccountUser().subscribe({
-      next: (data) => this.accountData.set(data),
-      error: (err) => console.error('Failed to fetch account data', err),
-    });
+    this.accountStore.loadAccount().subscribe();
   }
 
   createBoard() {
