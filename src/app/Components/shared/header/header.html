@@ -1,19 +1,19 @@
 <header class="felosy-header sticky-top">
   <nav class="container felosy-nav" aria-label="Main navigation">
     <!-- Brand -->
-    <a class="brand" href="#" (click)="closeMobile()">
+    <a class="brand" routerLink="/dashboard" (click)="closeMobile()">
       <img src="assets/images/logo.jpeg" alt="Felosy Logo" class="brand__logo icon-md" />
       <span class="brand__name d-none d-sm-inline ms-2">{{ content().title }}</span>
     </a>
 
     <!-- Desktop Nav -->
-    <!-- <ul class="nav-links d-none d-lg-flex" role="list">
+    <ul class="nav-links d-none d-lg-flex" role="list">
       @for (item of navItems(); track item.key) {
         <li>
-          <a class="nav-link" [href]="item.href">{{ labelFor(item.key) }}</a>
+          <a class="nav-link" [routerLink]="item.href">{{ labelFor(item.key) }}</a>
         </li>
       }
-    </ul> -->
+    </ul>
 
     <!-- Actions -->
     <div class="actions px-3">
@@ -21,10 +21,6 @@
         <i class="bi bi-translate"></i>
         <span class="ms-2 small fw-bold">{{ content().langBtn }}</span>
       </button>
-
-      <!-- <button type="button" class="btn felosy-btn d-none d-lg-inline-flex text-light">
-        {{ content().login }}
-      </button> -->
 
       <!-- Mobile burger -->
       <button
@@ -49,7 +45,7 @@
         <ul class="mobile-links" role="list">
           @for (item of navItems(); track item.key) {
             <li>
-              <a class="mobile-link" [href]="item.href" (click)="closeMobile()">
+              <a class="mobile-link" [routerLink]="item.href" (click)="closeMobile()">
                 {{ labelFor(item.key) }}
               </a>
             </li>

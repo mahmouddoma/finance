@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../../../Core/Services/Auth/auth.service';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
 import { LoginRequest } from '../../../../Core/Models/Auth/auth.models';
@@ -35,24 +36,29 @@ export class LoginComponent {
   onSubmit() {
     this.loading = true;
     this.errorMessage = '';
-    this.authService.login(this.model).subscribe({
-      next: (response) => {
-        this.loading = false;
-        if (!response.isVerified) {
-          this.router.navigate(['/verify-email']);
-        } else {
-          this.router.navigate(['/dashboard']);
-        }
-      },
-      error: (err) => {
-        this.loading = false;
-        this.errorMessage =
-          err.error?.message ||
-          (this.langService.isAr()
-            ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة'
-            : 'Invalid email or password');
-      },
-    });
+    this.authService
+      .login(this.model)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        }),
+      )
+      .subscribe({
+        next: (response) => {
+          if (!response.isVerified) {
+            this.router.navigate(['/verify-email']);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
+        },
+        error: (err) => {
+          this.errorMessage =
+            err.error?.message ||
+            (this.langService.isAr()
+              ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة'
+              : 'Invalid email or password');
+        },
+      });
   }
 
   getContent() {

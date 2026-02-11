@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
 import { AccountService } from '../../../../Core/Services/Account/account.service';
+import { AccountStore } from '../../../../Core/Services/account-store/account.store';
 
 @Component({
   selector: 'app-setup-basic-info',
@@ -14,6 +15,7 @@ import { AccountService } from '../../../../Core/Services/Account/account.servic
 export class SetupBasicInfo implements OnInit {
   readonly langService = inject(LanguageService);
   private accountService = inject(AccountService);
+  private accountStore = inject(AccountStore);
   private cdr = inject(ChangeDetectorRef);
   @Output() close = new EventEmitter<void>();
 
@@ -79,6 +81,8 @@ export class SetupBasicInfo implements OnInit {
     this.accountService.setBasicInfo(payload).subscribe({
       next: () => {
         this.loading = false;
+        // Reload account data to update the dashboard reactively
+        this.accountStore.loadAccount().subscribe();
         this.close.emit();
       },
       error: (err) => {

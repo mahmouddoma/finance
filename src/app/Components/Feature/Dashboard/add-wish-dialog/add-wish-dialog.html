@@ -1,65 +1,94 @@
-<div class="modal-overlay" (click)="close.emit()">
-  <div class="modal-dialog" (click)="$event.stopPropagation()">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold">Make a Wish ✨</h5>
-        <button type="button" class="btn-close" (click)="close.emit()"></button>
+<div class="modal fade show d-block" tabindex="-1" [dir]="langService.isAr() ? 'rtl' : 'ltr'">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow-lg p-3">
+      <div class="modal-header border-0 pb-0 d-flex justify-content-between">
+        <h5 class="modal-title fw-bold fs-5">{{ getContent().title }}</h5>
+        <button type="button" class="btn-close ms-0" (click)="close.emit()"></button>
       </div>
 
-      <div class="modal-body">
-        <div class="form-group mb-3">
-          <label class="form-label">Wish Name</label>
+      <div class="modal-body pt-2">
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-secondary">{{
+            getContent().labels.name
+          }}</label>
           <input
             type="text"
-            class="form-control"
+            class="form-control py-1 px-3 rounded-3 bg-light border-0 small shadow-none"
             [(ngModel)]="name"
-            placeholder="E.g., New Laptop"
+            [placeholder]="getContent().labels.name"
           />
         </div>
 
-        <div class="form-group mb-3">
-          <label class="form-label">Target Amount (EGP)</label>
-          <input type="number" class="form-control" [(ngModel)]="targetAmount" placeholder="0.00" />
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-secondary">{{
+            getContent().labels.targetAmount
+          }}</label>
+          <input
+            type="number"
+            class="form-control py-1 px-3 rounded-3 bg-light border-0 small shadow-none"
+            [(ngModel)]="targetAmount"
+            placeholder="0.00"
+          />
         </div>
 
-        <div class="row g-3 mb-3">
+        <div class="row g-2 mb-3">
           <div class="col-6">
-            <label class="form-label">Priority</label>
-            <select class="form-select" [(ngModel)]="priority">
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
+            <label class="form-label small fw-bold text-secondary">{{
+              getContent().labels.priority
+            }}</label>
+            <select
+              class="form-select py-1 px-3 rounded-3 bg-light border-0 small shadow-none"
+              [(ngModel)]="priority"
+            >
+              @for (p of getContent().priorities; track p.key) {
+                <option [value]="p.key">{{ p.label }}</option>
+              }
             </select>
           </div>
           <div class="col-6">
-            <label class="form-label">Desired Date</label>
-            <input type="date" class="form-control" [(ngModel)]="desiredOn" />
+            <label class="form-label small fw-bold text-secondary">{{
+              getContent().labels.date
+            }}</label>
+            <input
+              type="date"
+              class="form-control py-1 px-3 rounded-3 bg-light border-0 small shadow-none"
+              [(ngModel)]="desiredOn"
+            />
           </div>
         </div>
 
-        <div class="form-group mb-3">
-          <label class="form-label">Notes (Optional)</label>
+        <div class="mb-4">
+          <label class="form-label small fw-bold text-secondary">{{
+            getContent().labels.notes
+          }}</label>
           <textarea
-            class="form-control"
-            rows="3"
+            class="form-control py-2 px-3 rounded-3 bg-light border-0 small shadow-none"
+            rows="2"
             [(ngModel)]="notes"
-            placeholder="Any details..."
+            [placeholder]="getContent().labels.notes"
           ></textarea>
         </div>
-      </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="close.emit()">Cancel</button>
-        <button
-          type="button"
-          class="btn btn-dark-felosy"
-          [disabled]="!name() || targetAmount() <= 0 || isLoading()"
-          (click)="save()"
-        >
-          <span *ngIf="isLoading()" class="spinner-border spinner-border-sm me-2"></span>
-          Save Wish
-        </button>
+        <div class="d-flex gap-2">
+          <button
+            type="button"
+            class="btn btn-light rounded-pill flex-grow-1 fw-bold small py-2"
+            (click)="close.emit()"
+          >
+            {{ getContent().labels.cancel }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-dark-felosy rounded-pill flex-grow-1 fw-bold small py-2"
+            [disabled]="!name() || targetAmount() <= 0 || isLoading()"
+            (click)="save()"
+          >
+            <span *ngIf="isLoading()" class="spinner-border spinner-border-sm me-2"></span>
+            {{ getContent().labels.save }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<div class="modal-backdrop fade show"></div>

@@ -1,9 +1,13 @@
 <div class="modal-backdrop fade show"></div>
-<div class="modal fade show d-block" tabindex="-1">
+<div
+  class="modal fade show d-block"
+  tabindex="-1"
+  [dir]="langService.currentLang() === 'ar' ? 'rtl' : 'ltr'"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 rounded-4 shadow-lg p-3">
       <div class="modal-header border-0 pb-0 d-flex justify-content-between">
-        <h5 class="modal-title fw-bold fs-4">{{ getContent().title }}</h5>
+        <h5 class="modal-title fw-bold fs-5">{{ getContent().title }}</h5>
         <button
           type="button"
           class="btn-close ms-0 d-flex justify-content-between"
@@ -11,7 +15,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <p class="text-secondary mb-4">{{ getContent().subtitle }}</p>
+        <p class="text-secondary small mb-3">{{ getContent().subtitle }}</p>
 
         <form (ngSubmit)="onSubmit()">
           @for (field of fields; track field.key) {
@@ -20,13 +24,25 @@
                 langService.isAr() ? field.labelAr : field.labelEn
               }}</label>
               <div class="input-group">
-                <input
-                  type="number"
-                  class="form-control rounded-3 py-2 bg-light border-0 shadow-none text-muted"
-                  [(ngModel)]="field.value"
-                  [name]="field.key"
-                  placeholder="0.00"
-                />
+                @if (langService.isAr()) {
+                  <span class="input-group-text bg-light border-0 small rounded-start-3">ج.م</span>
+                  <input
+                    type="number"
+                    class="form-control py-1 bg-light border-0 shadow-none text-muted small rounded-end-3"
+                    [(ngModel)]="field.value"
+                    [name]="field.key"
+                    placeholder="0.00"
+                  />
+                } @else {
+                  <input
+                    type="number"
+                    class="form-control py-1 bg-light border-0 shadow-none text-muted small rounded-start-3"
+                    [(ngModel)]="field.value"
+                    [name]="field.key"
+                    placeholder="0.00"
+                  />
+                  <span class="input-group-text bg-light border-0 small rounded-end-3">EGP</span>
+                }
               </div>
             </div>
           }
@@ -37,7 +53,7 @@
 
           <button
             type="submit"
-            class="btn btn-dark w-100 rounded-pill py-3 mt-3 fw-bold shadow-sm"
+            class="btn btn-dark w-100 rounded-pill py-2 mt-3 fw-bold shadow-sm small"
             [disabled]="loading"
           >
             <span *ngIf="!loading">{{ getContent().submit }}</span>

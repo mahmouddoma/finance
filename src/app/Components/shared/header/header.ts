@@ -2,18 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { LanguageService } from '../../../Core/Services/Language/language.service';
 
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../Core/Services/Auth/auth.service';
+
 type NavItem = {
-  key: 'home' | 'transactions' | 'reports';
+  key: 'home';
   href: string;
 };
-
-import { Router } from '@angular/router';
-import { AuthService } from '../../../Core/Services/Auth/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -26,19 +26,13 @@ export class HeaderComponent {
   // Mobile menu state (no bootstrap JS)
   readonly mobileOpen = signal(false);
 
-  readonly navItems = signal<NavItem[]>([
-    { key: 'home', href: '#' },
-    { key: 'transactions', href: '#transactions' },
-    { key: 'reports', href: '#reports' },
-  ]);
+  readonly navItems = signal<NavItem[]>([{ key: 'home', href: '/dashboard' }]);
 
   readonly content = computed(() => {
     const isAr = this.langService.isAr();
     return {
       title: isAr ? 'فلوسي' : 'Felosy',
       home: isAr ? 'الرئيسية' : 'Home',
-      transactions: isAr ? 'التحويلات' : 'Transactions',
-      reports: isAr ? 'التقارير' : 'Reports',
       logout: isAr ? 'تسجيل الخروج' : 'Logout',
       langBtn: isAr ? 'English' : 'عربي',
       menu: isAr ? 'القائمة' : 'Menu',
@@ -63,10 +57,6 @@ export class HeaderComponent {
     switch (key) {
       case 'home':
         return c.home;
-      case 'transactions':
-        return c.transactions;
-      case 'reports':
-        return c.reports;
     }
   }
   // LogOut

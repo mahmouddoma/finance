@@ -1,6 +1,19 @@
 .modal-content {
-  max-width: 480px;
+  max-width: 400px;
   margin: auto;
+  font-size: 0.9rem;
+}
+
+.small {
+  font-size: 0.8rem !important;
+}
+
+.tiny {
+  font-size: 0.7rem !important;
+}
+
+.modal-body {
+  padding-top: 0.5rem !important;
 }
 
 .item-summary {

@@ -29,7 +29,7 @@
         <button class="btn btn-outline-secondary border-0 btn-sm" (click)="changeYear(-1)">
           <i class="bi" [ngClass]="langService.isAr() ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
         </button>
-        <span class="fw-bold fs-5">{{ currentYear() }}</span>
+        <span class="fw-bold fs-6">{{ currentYear() }}</span>
         <button class="btn btn-outline-secondary border-0 btn-sm" (click)="changeYear(1)">
           <i class="bi" [ngClass]="langService.isAr() ? 'bi-chevron-left' : 'bi-chevron-right'"></i>
         </button>
@@ -41,7 +41,7 @@
       <div class="month-list d-flex flex-column gap-1">
         @for (month of getContent().months; track month; let i = $index) {
           <button
-            class="month-item btn d-flex align-items-center justify-content-between py-2 px-3 rounded-3"
+            class="month-item btn d-flex align-items-center justify-content-between py-1 px-3 rounded-3"
             [class.active]="selectedMonth() === i"
             (click)="selectMonth(i)"
           >

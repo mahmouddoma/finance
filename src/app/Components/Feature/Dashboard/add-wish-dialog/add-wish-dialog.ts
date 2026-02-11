@@ -2,6 +2,7 @@ import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AccountApiService } from '../../../../Core/Services/Account/account-api.service';
+import { LanguageService } from '../../../../Core/Services/Language/language.service';
 
 @Component({
   selector: 'app-add-wish-dialog',
@@ -14,7 +15,29 @@ export class AddWishDialog {
   @Output() close = new EventEmitter<void>();
   @Output() saved = new EventEmitter<void>();
 
+  readonly langService = inject(LanguageService);
   private readonly accountApi = inject(AccountApiService);
+
+  getContent() {
+    const isAr = this.langService.isAr();
+    return {
+      title: isAr ? 'تمنّى أمنية ✨' : 'Make a Wish ✨',
+      labels: {
+        name: isAr ? 'اسم الأمنية' : 'Wish Name',
+        targetAmount: isAr ? 'المبلغ المستهدف (ج.م)' : 'Target Amount (EGP)',
+        priority: isAr ? 'الأولوية' : 'Priority',
+        date: isAr ? 'التاريخ المطلوب' : 'Desired Date',
+        notes: isAr ? 'ملاحظات (اختياري)' : 'Notes (Optional)',
+        save: isAr ? 'حفظ الأمنية' : 'Save Wish',
+        cancel: isAr ? 'إلغاء' : 'Cancel',
+      },
+      priorities: [
+        { key: 'Low', label: isAr ? 'منخفضة' : 'Low' },
+        { key: 'Medium', label: isAr ? 'متوسطة' : 'Medium' },
+        { key: 'High', label: isAr ? 'عالية' : 'High' },
+      ],
+    };
+  }
 
   name = signal('');
   targetAmount = signal<number>(0);

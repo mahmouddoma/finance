@@ -1,6 +1,19 @@
 .modal-content {
-  max-width: 480px;
+  max-width: 400px;
   margin: auto;
+  font-size: 0.9rem;
+}
+
+.small {
+  font-size: 0.82rem !important;
+}
+
+.tiny {
+  font-size: 0.75rem !important;
+}
+
+.modal-body {
+  padding-top: 0.5rem !important;
 }
 
 .transition-all {
@@ -18,5 +31,14 @@
 }
 
 [dir='rtl'] .modal-header .btn-close {
+  margin: -0.5rem auto -0.5rem -0.5rem;
+}
+.input-group {
+  &.bg-light {
+    background-color: #f3f4f6 !important;
+  }
+}
+
+:host-context([dir='rtl']) .modal-header .btn-close {
   margin: -0.5rem auto -0.5rem -0.5rem;
 }

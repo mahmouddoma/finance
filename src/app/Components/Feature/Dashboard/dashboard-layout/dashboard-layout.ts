@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal, OnInit } from '@angular/core';
+import { Component, computed, inject, signal, OnInit, effect } from '@angular/core';
 import { SummaryCards } from '../summary-cards/summary-cards';
 import { ObligationList } from '../obligation-list/obligation-list';
 import { AddObligationDialog } from '../add-obligation-dialog/add-obligation-dialog';
@@ -37,8 +37,7 @@ import { ObligationView } from '../../../../Core/Models/User/user.models';
 export class DashboardLayout implements OnInit {
   readonly langService = inject(LanguageService);
   protected boardService = inject(BoardStore);
-  // private accountService = inject(AccountService); // Removed
-  protected accountStore = inject(AccountStore); // Added
+  protected accountStore = inject(AccountStore);
   private authService = inject(AuthService);
 
   private router = inject(Router);
@@ -47,9 +46,27 @@ export class DashboardLayout implements OnInit {
   showSetupDialog = signal(false);
   isSidebarOpen = signal(true);
 
+  private hasAutoOpenedSetup = false;
+
   constructor() {
     this.checkScreenSize();
     window.addEventListener('resize', () => this.checkScreenSize());
+
+    // Auto-open Account Setup dialog if monthlyCashBalance is 0/null/undefined (new user)
+    effect(() => {
+      const accountData = this.accountStore.account();
+
+      if (
+        !this.hasAutoOpenedSetup &&
+        accountData &&
+        (accountData.monthlyCashBalance === 0 ||
+          accountData.monthlyCashBalance === null ||
+          accountData.monthlyCashBalance === undefined)
+      ) {
+        this.hasAutoOpenedSetup = true;
+        this.showSetupDialog.set(true);
+      }
+    });
   }
 
   checkScreenSize() {
@@ -64,8 +81,7 @@ export class DashboardLayout implements OnInit {
     this.isSidebarOpen.update((v) => !v);
   }
 
-  // Use store signal instead of local signal, or just verify usage
-  protected accountData = this.accountStore.account; // Map to store signal
+  protected accountData = this.accountStore.account;
 
   onLogout() {
     this.authService.logout();

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { AuthHeader } from '../../../shared/auth-header/auth-header';
   templateUrl: './verify-email.html',
   styleUrl: './verify-email.css',
 })
-export class VerifyEmailComponent {
+export class VerifyEmailComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   readonly langService = inject(LanguageService);
@@ -23,6 +23,11 @@ export class VerifyEmailComponent {
   resending = false;
   errorMessage = '';
   successMessage = '';
+
+  ngOnInit() {
+    // Automatically send OTP when component loads
+    this.resendOTP();
+  }
 
   onVerify() {
     this.loading = true;

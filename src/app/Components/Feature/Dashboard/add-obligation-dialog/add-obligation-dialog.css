@@ -1,6 +1,20 @@
 .modal-content {
-  max-width: 480px;
+  max-width: 400px;
   margin: auto;
+  font-size: 0.9rem;
+}
+
+.modal-body {
+  padding-top: 0.5rem;
+}
+
+.small {
+  font-size: 0.8rem !important;
+}
+
+.form-label {
+  margin-bottom: 0.3rem;
+  color: #4b5563;
 }
 
 .transition-all {
@@ -27,4 +41,8 @@
 
 [dir='rtl'] .modal-header .btn-close {
   margin: -0.5rem auto -0.5rem -0.5rem;
+}
+.dueDay {
+  font-size: 12px !important;
+  font-weight: bold !important;
 }

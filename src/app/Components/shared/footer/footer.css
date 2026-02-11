@@ -1,11 +1,15 @@
 .felosy-footer {
   /* Using a glassmorphism style that works on both dark (Auth) and light (Dashboard) backgrounds */
-  background: rgba(15, 23, 42, 0.95);
-  color: rgba(255, 255, 255, 0.9);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.98);
+  color: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
   position: relative;
   z-index: 10;
+}
+
+.border-white-05 {
+  border-color: rgba(255, 255, 255, 0.05) !important;
 }
 
 .footer-brand {
@@ -15,18 +19,17 @@
 }
 
 .footer-brand__logo {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-brand__name {
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.5px;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
 }
 
 .sep {
@@ -36,9 +39,9 @@
 
 .footer-brand__tagline {
   max-width: 400px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.5);
   line-height: 1.5;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .footer-title {
@@ -73,9 +76,26 @@
   transform: translateX(-8px);
 }
 
+.footer-link-compact {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer-link-compact:hover {
+  color: #00e676; /* primary green */
+}
+
 .socials {
   display: flex;
   gap: 10px;
+}
+
+.socials-minimal {
+  display: flex;
+  gap: 12px;
 }
 
 .social-btn {
@@ -97,6 +117,26 @@
   transform: translateY(-2px);
 }
 
+.social-icon-btn {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.1rem;
+  transition: all 0.2s;
+}
+
+.social-icon-btn:hover {
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.managed-by-label {
+  font-size: 0.7rem !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.ls-1 {
+  letter-spacing: 1.5px;
+}
+
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.4);
@@ -105,50 +145,58 @@
   margin-top: 24px;
 }
 
-/* Team Section Styles */
-.team-card {
-  background: rgba(30, 41, 59, 0.6) !important;
-  border: 1px solid rgba(56, 189, 248, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
-  padding: 1rem !important;
+/* Team Mini Styles */
+.team-mini {
+  padding: 8px;
+  transition: all 0.2s;
 }
 
-.team-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(56, 189, 248, 0.3);
-  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
+.team-mini__photo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2px;
 }
 
-.team-photo {
-  width: 60px;
-  height: 60px;
-  flex-shrink: 0;
-  object-fit: cover;
-  border: 2px solid rgba(56, 189, 248, 0.2);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+.team-mini__name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f3f4f6;
 }
 
-.team-card:hover .team-photo {
-  border-color: rgba(56, 189, 248, 0.5);
-  transform: scale(1.05);
+.team-mini__role {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
 }
 
-.social-link {
-  transition: all 0.2s ease;
-  font-size: 0.8rem;
-  border-width: 1px;
+.team-mini__link {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+  transition: color 0.2s;
 }
 
-.social-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+.team-mini__link:hover {
+  color: #00e676;
+}
+
+.team-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  align-self: center;
 }
 
 .tiny {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .team-mini {
+    width: 200px;
+    justify-content: center;
+  }
 }
 
 .dot {

@@ -1,188 +1,113 @@
 <footer class="felosy-footer" [dir]="langService.isAr() ? 'rtl' : 'ltr'">
-  <div class="container py-3">
-    <div class="row gy-4 align-items-start">
-      <!-- Brand -->
-      <div class="col-12 col-lg-5 text-center text-lg-start">
-        <div class="footer-brand justify-content-center justify-content-lg-start">
+  <div class="container py-4">
+    <div class="row gy-4 align-items-center">
+      <!-- Brand & Tagline -->
+      <div class="col-12 col-md-4 text-center text-md-start">
+        <div class="footer-brand justify-content-center justify-content-md-start mb-2">
           <img src="assets/images/logo.jpeg" alt="Felosy Logo" class="footer-brand__logo" />
-          <div [class.text-start]="!langService.isAr()" [class.text-end]="langService.isAr()">
-            <h3 class="footer-brand__name mb-1">
-              {{ content().brand }}
-            </h3>
-            <p class="footer-brand__tagline mb-0">{{ content().tagline }}</p>
-          </div>
+          <h3 class="footer-brand__name mb-0 ms-2">{{ content().brand }}</h3>
         </div>
-        <div class="mt-4 d-flex flex-column align-items-center align-items-lg-start">
-          <p class="text-white-50 mb-1 d-flex align-items-center gap-2">
-            <i class="bi bi-envelope text-info"></i> {{ content().email }}
-          </p>
-          <p class="text-white-50 mb-0 d-flex align-items-center gap-2">
-            <i class="bi bi-telephone text-info"></i> {{ content().phone }}
-          </p>
-        </div>
+        <p class="footer-brand__tagline mb-0 small opacity-75">{{ content().tagline }}</p>
       </div>
 
       <!-- Links -->
-      <div class="col-12 col-md-6 col-lg-3 text-center text-md-start">
-        <h6 class="footer-title">{{ content().quickLinks }}</h6>
-        <ul class="footer-links align-items-center align-items-md-start" role="list">
-          <li>
-            <a class="footer-link" routerLink="/">{{ content().about }}</a>
-          </li>
-          <li>
-            <a class="footer-link" routerLink="/">{{ content().features }}</a>
-          </li>
-          <li>
-            <a class="footer-link" routerLink="/">{{ content().contactLink }}</a>
-          </li>
-          <li>
-            <a class="footer-link" routerLink="/">{{ content().privacy }}</a>
-          </li>
-          <li>
-            <a class="footer-link" routerLink="/">{{ content().terms }}</a>
-          </li>
-        </ul>
+      <div class="col-12 col-md-4">
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a class="footer-link-compact" routerLink="/">{{ content().about }}</a>
+          <a class="footer-link-compact" routerLink="/">{{ content().features }}</a>
+          <a class="footer-link-compact" routerLink="/">{{ content().privacy }}</a>
+          <a class="footer-link-compact" routerLink="/">{{ content().terms }}</a>
+        </div>
       </div>
 
-      <!-- Social -->
-      <div class="col-12 col-md-6 col-lg-4 text-center text-md-start">
-        <h6 class="footer-title">{{ content().contact }}</h6>
-
-        <div class="socials mb-4 justify-content-center justify-content-md-start">
+      <!-- Contact & Social -->
+      <div class="col-12 col-md-4 text-center text-md-end">
+        <div class="socials-minimal justify-content-center justify-content-md-end mb-2">
           @for (s of socials(); track s.label) {
-            <a class="social-btn" [href]="s.href" [attr.aria-label]="s.label">
+            <a class="social-icon-btn" [href]="s.href" [attr.aria-label]="s.label">
               <i class="bi" [class]="'bi-' + s.icon"></i>
             </a>
           }
         </div>
-
-        <div class="mini-note d-flex justify-content-center justify-content-md-start">
-          <span class="dot"></span>
-          <span>Secure • Fast • Simple</span>
+        <div class="contact-info-minimal small opacity-75">
+          <span>{{ content().email }}</span>
+          <span class="mx-2 opacity-25">|</span>
+          <span>{{ content().phone }}</span>
         </div>
       </div>
     </div>
 
-    <!-- Built By Team Section -->
-    <div class="footer-bottom mt-5 pt-4 border-top border-secondary">
-      <div class="text-center mb-4">
-        <h6 class="text-white-50 fw-bold mb-3">
+    <!-- Powered By Section (Minimal) -->
+    <div class="managed-by-section mt-5 pt-4 border-top border-white-05">
+      <div class="d-flex flex-column align-items-center">
+        <span class="managed-by-label small mb-3 opacity-50 text-uppercase fw-bold ls-1">
           {{ content().builtBy }}
-        </h6>
-      </div>
+        </span>
 
-      <div class="row g-4 justify-content-center">
-        <!-- Louay Saber -->
-        <div class="col-12 col-md-6 col-lg-5">
-          <div class="team-card bg-dark-subtle rounded-4 p-4 h-100">
-            <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
-              <img
-                src="assets/images/team/louay-saber.jpeg"
-                alt="Louay Saber"
-                class="team-photo rounded-circle"
-              />
-              <div class="flex-grow-1 text-center text-sm-start">
-                <h5 class="text-white fw-bold mb-1">Louay Saber</h5>
-                <p class="text-info small mb-2">Senior Backend Engineer (.NET)</p>
-                <p class="text-white-50 tiny mb-3">
-                  {{ content().louayDesc }}
-                </p>
-                <div class="d-flex gap-2 justify-content-center justify-content-sm-start flex-wrap">
-                  <a
-                    href="https://www.linkedin.com/in/louay-saber/"
-                    target="_blank"
-                    class="social-link btn btn-sm btn-outline-info rounded-pill px-3"
-                    aria-label="LinkedIn"
-                  >
-                    <i class="bi bi-linkedin"></i>
-                    <span class="d-none d-sm-inline ms-1">LinkedIn</span>
-                  </a>
-                  <a
-                    href="https://github.com/LoaiSaberC4r"
-                    target="_blank"
-                    class="social-link btn btn-sm btn-outline-light rounded-pill px-3"
-                    aria-label="GitHub"
-                  >
-                    <i class="bi bi-github"></i>
-                    <span class="d-none d-sm-inline ms-1">GitHub</span>
-                  </a>
-                  <a
-                    href="https://wa.me/201004117527"
-                    target="_blank"
-                    class="social-link btn btn-sm btn-outline-success rounded-pill px-3"
-                    aria-label="WhatsApp"
-                  >
-                    <i class="bi bi-whatsapp"></i>
-                    <span class="d-none d-sm-inline ms-1">WhatsApp</span>
-                  </a>
-                </div>
+        <div class="d-flex flex-wrap justify-content-center gap-4">
+          <!-- Louay Saber -->
+          <div class="team-mini d-flex align-items-center gap-2">
+            <img src="assets/images/team/louay-saber.jpeg" alt="Louay" class="team-mini__photo" />
+            <div class="text-start">
+              <div class="team-mini__name">Louay Saber</div>
+              <div class="team-mini__role">Senior Backend</div>
+              <div class="d-flex gap-2 mt-1">
+                <a
+                  href="https://www.linkedin.com/in/louay-saber/"
+                  target="_blank"
+                  class="team-mini__link"
+                  ><i class="bi bi-linkedin"></i
+                ></a>
+                <a href="https://github.com/LoaiSaberC4r" target="_blank" class="team-mini__link"
+                  ><i class="bi bi-github"></i
+                ></a>
+                <a href="https://wa.me/201004117527" target="_blank" class="team-mini__link"
+                  ><i class="bi bi-whatsapp"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="team-divider d-none d-md-block"></div>
+
+          <!-- Mahmoud Doma -->
+          <div class="team-mini d-flex align-items-center gap-2">
+            <img
+              src="assets/images/team/mahmoud-doma.jpeg"
+              alt="Mahmoud"
+              class="team-mini__photo"
+            />
+            <div class="text-start">
+              <div class="team-mini__name">Mahmoud Doma</div>
+              <div class="team-mini__role">Mid Front-End Developer</div>
+              <div class="d-flex gap-2 mt-1">
+                <a
+                  href="https://mahmouddoma.github.io/md-portfolioo/"
+                  target="_blank"
+                  class="team-mini__link"
+                  ><i class="bi bi-globe"></i
+                ></a>
+                <a
+                  href="https://www.linkedin.com/in/mahmoud-doma-4520a222a"
+                  target="_blank"
+                  class="team-mini__link"
+                  ><i class="bi bi-linkedin"></i
+                ></a>
+                <a href="https://github.com/mahmouddoma" target="_blank" class="team-mini__link"
+                  ><i class="bi bi-github"></i
+                ></a>
+                <a href="https://wa.me/201093430526" target="_blank" class="team-mini__link"
+                  ><i class="bi bi-whatsapp"></i
+                ></a>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Mahmoud Doma -->
-        <div class="col-12 col-md-6 col-lg-5">
-          <div class="team-card bg-dark-subtle rounded-4 p-4 h-100">
-            <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
-              <img
-                src="assets/images/team/mahmoud-doma.jpeg"
-                alt="Mahmoud Doma"
-                class="team-photo rounded-circle"
-              />
-              <div class="flex-grow-1 text-center text-sm-start">
-                <h5 class="text-white fw-bold mb-1">Mahmoud Doma</h5>
-                <p class="text-info small mb-2">Mid-Level Frontend Developer</p>
-                <p class="text-white-50 tiny mb-3">
-                  {{ content().mahmoudDesc }}
-                </p>
-                <div class="d-flex gap-2 justify-content-center justify-content-sm-start flex-wrap">
-                  <a
-                    href="https://mahmouddoma.github.io/md-portfolioo/"
-                    target="_blank"
-                    class="social-link btn btn-sm btn-outline-warning rounded-pill px-3"
-                    aria-label="Portfolio"
-                  >
-                    <i class="bi bi-globe"></i>
-                    <span class="d-none d-sm-inline ms-1">Portfolio</span>
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/mahmoud-doma-4520a222a"
-                    target="_blank"
-                    class="social-link btn btn-sm btn-outline-info rounded-pill px-3"
-                    aria-label="LinkedIn"
-                  >
-                    <i class="bi bi-linkedin"></i>
-                    <span class="d-none d-sm-inline ms-1">LinkedIn</span>
-                  </a>
-                  <a
-                    href="https://github.com/mahmouddoma"
-                    target="_blank"
-                    class="social-link btn btn-sm btn-outline-light rounded-pill px-3"
-                    aria-label="GitHub"
-                  >
-                    <i class="bi bi-github"></i>
-                    <span class="d-none d-sm-inline ms-1">GitHub</span>
-                  </a>
-                  <a
-                    href="https://wa.me/201093430526"
-                    target="_blank"
-                    class="social-link btn btn-sm btn-outline-success rounded-pill px-3"
-                    aria-label="WhatsApp"
-                  >
-                    <i class="bi bi-whatsapp"></i>
-                    <span class="d-none d-sm-inline ms-1">WhatsApp</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="mt-4 pt-2">
+          <p class="copyright-minimal tiny opacity-50">{{ content().copyright }}</p>
         </div>
-      </div>
-
-      <!-- Copyright -->
-      <div class="text-center mt-4 pt-3">
-        <p class="mb-0 text-white-50 small">{{ content().copyright }}</p>
       </div>
     </div>
   </div>

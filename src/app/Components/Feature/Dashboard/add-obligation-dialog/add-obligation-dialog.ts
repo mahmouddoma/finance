@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../../Core/Services/Language/language.service';
 import { ObligationService } from '../../../../Core/Services/Obligation/obligation.service';
 import { CreateObligationRequest } from '../../../../Core/Models/Obligation/obligation.models';
+import { AccountStore } from '../../../../Core/Services/account-store/account.store';
+import { BoardStore } from '../../../../Core/Services/board-store/board.store';
 
 @Component({
   selector: 'app-add-obligation-dialog',
@@ -15,6 +17,8 @@ import { CreateObligationRequest } from '../../../../Core/Models/Obligation/obli
 export class AddObligationDialog {
   readonly langService = inject(LanguageService);
   private obligationService = inject(ObligationService);
+  private accountStore = inject(AccountStore);
+  private boardStore = inject(BoardStore);
 
   @Output() close = new EventEmitter<void>();
 
@@ -46,7 +50,7 @@ export class AddObligationDialog {
         { key: 'Savings', label: isAr ? 'توفير' : 'Savings' },
       ],
       labels: {
-        title: isAr ? 'العنوان' : 'Title',
+        title: isAr ? 'اسم الالتزام' : 'Obligation Name',
         amount: isAr ? 'المبلغ' : 'Amount',
         dueDay: isAr ? 'يوم الاستحقاق (1-31)' : 'Due Day (1-31)',
         startDate: isAr ? 'تاريخ البدء' : 'Start Date',
@@ -108,6 +112,10 @@ export class AddObligationDialog {
       obs.subscribe({
         next: () => {
           this.loading = false;
+          // Refresh both account and board data
+          this.accountStore.loadAccount().subscribe();
+          const filter = this.boardStore.lastFilter();
+          this.boardStore.loadBoard(filter.year, filter.month).subscribe();
           this.close.emit();
         },
         error: (err) => {
