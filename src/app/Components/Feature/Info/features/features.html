@@ -1,0 +1,38 @@
+<div class="info-page" [dir]="langService.isAr() ? 'rtl' : 'ltr'">
+  <!-- Hero Section -->
+  <section class="info-hero text-center py-5 mb-5">
+    <div class="container animate-fade-in">
+      <h1 class="display-4 fw-bold mb-3 text-gradient">
+        {{ langService.isAr() ? 'مميزات فلوسي' : 'Felosy Features' }}
+      </h1>
+      <p class="lead opacity-75 mx-auto" style="max-width: 600px">
+        {{
+          langService.isAr()
+            ? 'كل الأدوات اللي محتاجها عشان تدير حياتك المالية بذكاء'
+            : 'All the tools you need to manage your financial life smartly'
+        }}
+      </p>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="container mb-5">
+    <div class="row g-4">
+      @for (f of features(); track f.title; let i = $index) {
+        <div class="col-md-6 col-lg-3 animate-slide-up" [style.animation-delay]="i * 0.1 + 's'">
+          <div class="feature-card p-4 rounded-4 shadow-sm h-100 text-center">
+            <div
+              class="feature-icon mb-4 mx-auto"
+              [style.background-color]="f.color + '15'"
+              [style.color]="f.color"
+            >
+              <i class="bi" [class]="f.icon"></i>
+            </div>
+            <h3 class="h4 fw-bold mb-3">{{ f.title }}</h3>
+            <p class="opacity-75 small mb-0">{{ f.desc }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+</div>

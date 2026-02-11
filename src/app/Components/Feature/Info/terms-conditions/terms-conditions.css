@@ -1,0 +1,57 @@
+.info-page {
+  min-height: 100vh;
+  background: #0f172a;
+  color: #fff;
+  padding-bottom: 3rem;
+}
+
+.info-hero {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.05) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #38bdf8, #00e676);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.legal-content {
+  background: rgba(30, 41, 59, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.border-white-05 {
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

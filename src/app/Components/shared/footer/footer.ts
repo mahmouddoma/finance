@@ -41,8 +41,8 @@ export class FooterComponent {
       contact: isAr ? 'تواصل معنا' : 'Contact',
       copyright: isAr ? '© 2026 فلوسي. جميع الحقوق محفوظة.' : '© 2026 Felosy. All rights reserved.',
       email: 'support@felosy.com',
-      phone: '+20 123 456 7890',
-      builtBy: isAr ? 'صُمم وطُور بواسطة' : 'Built By',
+      phone: '+201004117527',
+      builtBy: isAr ? 'صُمم وطُور بواسطة' : 'Powered By',
       louayDesc: isAr
         ? 'بناء أنظمة خلفية قابلة للتطوير ونظيفة وسهلة الصيانة مع التركيز على البنية والأداء.'
         : 'Building scalable, clean, and maintainable backend systems with focus on architecture.',

@@ -1,0 +1,95 @@
+.info-page {
+  min-height: 100vh;
+  background: #0f172a; /* matches app background */
+  color: #fff;
+  padding-bottom: 3rem;
+}
+
+.info-hero {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.05) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #38bdf8, #00e676);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.info-card {
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-banner {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(0, 230, 118, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s infinite ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
+  }
+}

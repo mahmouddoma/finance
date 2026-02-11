@@ -157,6 +157,7 @@
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 2px;
+  object-fit: cover;
 }
 
 .team-mini__name {

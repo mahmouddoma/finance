@@ -1,0 +1,33 @@
+<div class="info-page" [dir]="langService.isAr() ? 'rtl' : 'ltr'">
+  <section class="info-hero text-center py-5 mb-5">
+    <div class="container animate-fade-in">
+      <h1 class="display-4 fw-bold mb-2 text-gradient">{{ content().title }}</h1>
+      <p class="small opacity-50">{{ content().lastUpdate }}</p>
+    </div>
+  </section>
+
+  <section class="container mb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 animate-slide-up">
+        <div class="legal-content p-4 p-md-5 rounded-4 border border-white-05">
+          <p class="lead mb-5 opacity-75">{{ content().intro }}</p>
+
+          @for (s of content().sections; track s.title) {
+            <div class="mb-5">
+              <h2 class="h4 fw-bold mb-3 text-info">{{ s.title }}</h2>
+              <p class="opacity-75 lh-lg">{{ s.text }}</p>
+            </div>
+          }
+
+          <div class="alert alert-info bg-transparent border-info opacity-75 small">
+            {{
+              langService.isAr()
+                ? 'بإستخدامك لـ فلوسي، فأنت توافق على سياسة الخصوصية الخاصة بنا.'
+                : 'By using Felosy, you agree to our privacy policy.'
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
