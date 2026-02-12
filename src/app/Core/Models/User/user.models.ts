@@ -43,3 +43,13 @@ export interface AccountUserResponse {
   listObligation: ObligationView[];
   wishes: WishView[];
 }
+
+export enum TransferNetWealthType {
+  BalanceBank,
+  Obligation,
+}
+
+export interface TransferNetWealthCommand {
+  type: TransferNetWealthType;
+  amountPaid: number;
+}

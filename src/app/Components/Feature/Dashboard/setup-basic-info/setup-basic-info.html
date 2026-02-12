@@ -24,25 +24,16 @@
                 langService.isAr() ? field.labelAr : field.labelEn
               }}</label>
               <div class="input-group">
-                @if (langService.isAr()) {
-                  <span class="input-group-text bg-light border-0 small rounded-start-3">ج.م</span>
-                  <input
-                    type="number"
-                    class="form-control py-1 bg-light border-0 shadow-none text-muted small rounded-end-3"
-                    [(ngModel)]="field.value"
-                    [name]="field.key"
-                    placeholder="0.00"
-                  />
-                } @else {
-                  <input
-                    type="number"
-                    class="form-control py-1 bg-light border-0 shadow-none text-muted small rounded-start-3"
-                    [(ngModel)]="field.value"
-                    [name]="field.key"
-                    placeholder="0.00"
-                  />
-                  <span class="input-group-text bg-light border-0 small rounded-end-3">EGP</span>
-                }
+                <input
+                  type="number"
+                  class="form-control py-1 bg-light border-0 shadow-none text-muted small rounded-start-3"
+                  [(ngModel)]="field.value"
+                  [name]="field.key"
+                  placeholder="0.00"
+                />
+                <span class="input-group-text bg-light border-0 small rounded-end-3">{{
+                  langService.isAr() ? 'ج.م' : 'EGP'
+                }}</span>
               </div>
             </div>
           }

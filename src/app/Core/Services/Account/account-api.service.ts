@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Environment } from '../../../../environment/environment';
 import { BasicInfoRequest, RegisterRequest } from '../../Models/Auth/auth.models';
-import { AccountUserResponse } from '../../Models/User/user.models';
+import { AccountUserResponse, TransferNetWealthCommand } from '../../Models/User/user.models';
 
 @Injectable({ providedIn: 'root' })
 export class AccountApiService {
@@ -36,5 +36,9 @@ export class AccountApiService {
 
   cancelWish(command: { wishId: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/api/Wish/MarkCancel`, command);
+  }
+
+  transferNetWealth(command: TransferNetWealthCommand): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/api/AccountUser/TransferNetWealth`, command);
   }
 }

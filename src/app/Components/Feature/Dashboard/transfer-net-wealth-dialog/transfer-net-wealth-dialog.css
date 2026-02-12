@@ -1,0 +1,19 @@
+.btn-light-soft {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid transparent;
+}
+
+.btn-light-soft:hover {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.btn-check:checked + .btn {
+  border: 2px solid var(--bs-primary) !important;
+  background-color: #eef2ff !important;
+}
+
+.tiny {
+  font-size: 0.75rem;
+}

@@ -1,0 +1,110 @@
+<div class="modal-backdrop fade show"></div>
+<div class="modal fade show d-block" tabindex="-1" [dir]="langService.isAr() ? 'rtl' : 'ltr'">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow-lg p-3">
+      <div class="modal-header border-0 pb-0 d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="modal-title fw-bold fs-5">{{ getContent().title }}</h5>
+          <p class="text-secondary small m-0">{{ getContent().subtitle }}</p>
+        </div>
+        <button type="button" class="btn-close ms-0" (click)="close.emit()"></button>
+      </div>
+
+      <div class="modal-body py-4">
+        <form (ngSubmit)="onSubmit()" #transferForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-secondary">{{
+              getContent().labels.amount
+            }}</label>
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control py-2 rounded-start-3"
+                [(ngModel)]="amount"
+                name="amount"
+                required
+                min="0.01"
+              />
+              <span class="input-group-text bg-light rounded-end-3 small">{{
+                langService.isAr() ? 'ج.م' : 'EGP'
+              }}</span>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label small fw-bold text-secondary">{{
+              getContent().labels.type
+            }}</label>
+            <div class="d-flex gap-2">
+              <div class="flex-grow-1">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="transferType"
+                  id="typeBalanceBank"
+                  [value]="TransferType.BalanceBank"
+                  [(ngModel)]="type"
+                />
+                <label
+                  class="btn btn-outline-light text-dark w-100 border-0 bg-light p-3 rounded-3 text-start"
+                  for="typeBalanceBank"
+                >
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-bank fs-5 text-primary"></i>
+                    <span class="fw-bold small">{{ getContent().labels.balanceBank }}</span>
+                  </div>
+                </label>
+              </div>
+              <div class="flex-grow-1">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="transferType"
+                  id="typeObligation"
+                  [value]="TransferType.Obligation"
+                  [(ngModel)]="type"
+                />
+                <label
+                  class="btn btn-outline-light text-dark w-100 border-0 bg-light p-3 rounded-3 text-start"
+                  for="typeObligation"
+                >
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-file-earmark-text fs-5 text-danger"></i>
+                    <span class="fw-bold small">{{ getContent().labels.obligation }}</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          @if (errorMessage) {
+            <div class="alert alert-danger tiny p-2 rounded-3 mb-3">
+              <i class="bi bi-exclamation-circle me-1"></i>
+              {{ errorMessage }}
+            </div>
+          }
+
+          <div class="d-flex gap-2">
+            <button
+              type="button"
+              class="btn btn-light-soft rounded-pill flex-grow-1 fw-bold"
+              (click)="close.emit()"
+            >
+              {{ getContent().labels.cancel }}
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary rounded-pill px-4 flex-grow-1 fw-bold"
+              [disabled]="!transferForm.valid || loading || !amount || amount <= 0"
+            >
+              @if (loading) {
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+              }
+              {{ getContent().labels.confirm }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

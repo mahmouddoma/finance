@@ -31,13 +31,24 @@
           </div>
         </div>
 
-        <div class="card-footer-info d-flex align-items-center gap-2">
+        <div class="card-footer-info d-flex align-items-center justify-content-between gap-2 w-100">
           <div
             class="trend-badge d-flex align-items-center gap-1"
             [class.positive]="card.isPositive"
           >
             <span class="fs-xs fw-bold opacity-75">{{ card.note }}</span>
           </div>
+
+          @if (card.id === 'net-wealth') {
+            <button
+              class="btn btn-sm btn-icon btn-light-soft rounded-circle shadow-sm position-relative z-2"
+              style="width: 32px; height: 32px"
+              (click)="card.action && card.action()"
+              [title]="langService.isAr() ? 'تحويل' : 'Transfer'"
+            >
+              <i class="bi bi-arrow-left-right fs-xs"></i>
+            </button>
+          }
         </div>
 
         <i class="bi watermark opacity-03" [ngClass]="card.icon"></i>
@@ -45,3 +56,10 @@
     </div>
   }
 </div>
+
+@if (showTransferDialog()) {
+  <app-transfer-net-wealth-dialog
+    (close)="showTransferDialog.set(false)"
+    (success)="onTransferSuccess()"
+  ></app-transfer-net-wealth-dialog>
+}

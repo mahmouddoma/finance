@@ -4,9 +4,12 @@ import { LanguageService } from '../../../../Core/Services/Language/language.ser
 import { AccountUserResponse } from '../../../../Core/Models/User/user.models';
 import { AccountStore } from '../../../../Core/Services/account-store/account.store';
 
+import { TransferNetWealthDialog } from '../transfer-net-wealth-dialog/transfer-net-wealth-dialog';
+
 type CardColor = 'red' | 'orange' | 'green';
 
 interface SummaryCardVm {
+  id?: string;
   title: string;
   amountValue: string;
   currency: string;
@@ -15,18 +18,26 @@ interface SummaryCardVm {
   note: string;
   isPositive: boolean;
   isDark: boolean;
+  action?: () => void;
 }
 
 @Component({
   selector: 'app-summary-cards',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TransferNetWealthDialog],
   templateUrl: './summary-cards.html',
   styleUrl: './summary-cards.css',
 })
 export class SummaryCards implements OnInit {
   readonly langService = inject(LanguageService);
   private readonly accountStore = inject(AccountStore);
+
+  showTransferDialog = signal(false);
+
+  onTransferSuccess() {
+    this.showTransferDialog.set(false);
+    this.accountStore.loadAccount().subscribe();
+  }
 
   ngOnInit(): void {
     // Data is loaded by parent or store
@@ -73,6 +84,7 @@ export class SummaryCards implements OnInit {
         isDark: false,
       },
       {
+        id: 'net-wealth',
         title: isAr ? 'صافي الثروة' : 'Net Wealth',
         amountValue: this.netWealth().toLocaleString(),
         currency,
@@ -81,6 +93,7 @@ export class SummaryCards implements OnInit {
         note: isAr ? 'صافي الأصول' : 'Net assets value',
         isPositive: true,
         isDark: false,
+        action: () => this.showTransferDialog.set(true),
       },
       {
         title: isAr ? 'رصيد البنك' : 'Bank Balance',
