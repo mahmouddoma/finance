@@ -17,6 +17,8 @@ export interface ObligationView {
   wallet: WalletView;
 }
 
+import { WishStatus } from '../User/user.models';
+
 export interface WishView {
   id: string;
   name: string;
@@ -26,7 +28,7 @@ export interface WishView {
   priority: 'Low' | 'Medium' | 'High';
   desiredOn: string | null;
   notes: string | null;
-  status: 'Available' | 'Fulfilled' | 'Cancelled' | 'New';
+  status: WishStatus;
 }
 
 export interface AccountUserResponse {

@@ -2,7 +2,8 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountStore } from '../../../../Core/Services/account-store/account.store';
 import { AccountApiService } from '../../../../Core/Services/Account/account-api.service';
-import { WishView } from '../../../../Core/Models/User/user.models';
+import { WishStatus, WishView } from '../../../../Core/Models/User/user.models';
+
 import { AddWishDialog } from '../add-wish-dialog/add-wish-dialog';
 
 @Component({
@@ -13,6 +14,7 @@ import { AddWishDialog } from '../add-wish-dialog/add-wish-dialog';
   styleUrl: './wish-list.css',
 })
 export class WishList {
+  protected readonly WishStatus = WishStatus;
   protected readonly accountStore = inject(AccountStore);
   private readonly accountApi = inject(AccountApiService);
 
@@ -24,21 +26,34 @@ export class WishList {
 
   readonly showAddDialog = signal(false);
 
-  getWishStatus(wish: WishView): 'Available' | 'Done' | 'Overdue' {
-    if (wish.status === 'Fulfilled') {
-      return 'Done';
+  getWishStatus(wish: WishView): WishStatus {
+    const status = wish.status as any;
+
+    if (status === WishStatus.Done || status === 'Done' || status === 'Fulfilled') {
+      return WishStatus.Done;
     }
+
+    if (status === WishStatus.Cancelled || status === 'Cancelled') {
+      return WishStatus.Cancelled;
+    }
+
     if (wish.desiredOn && new Date(wish.desiredOn) < new Date()) {
-      return 'Overdue';
+      return WishStatus.Overdue;
     }
-    return 'Available';
+
+    if (status === 'New') return WishStatus.New;
+    if (status === 'Available') return WishStatus.Available;
+    if (status === 'Overdue') return WishStatus.Overdue;
+
+    return status;
   }
 
-  getStatusColor(statusOrPriority: string): string {
+  getStatusColor(statusOrPriority: string | WishStatus): string {
     // Handle Status Colors
-    if (statusOrPriority === 'Done') return 'success';
-    if (statusOrPriority === 'Overdue') return 'danger';
-    if (statusOrPriority === 'Available') return 'primary';
+    if (statusOrPriority === WishStatus.Done) return 'success';
+    if (statusOrPriority === WishStatus.Overdue) return 'danger';
+    if (statusOrPriority === WishStatus.Available || statusOrPriority === WishStatus.New)
+      return 'primary';
 
     // Handle Priority Colors
     switch (statusOrPriority) {

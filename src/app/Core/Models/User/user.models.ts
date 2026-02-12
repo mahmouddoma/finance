@@ -15,6 +15,14 @@ export interface ObligationView {
   };
 }
 
+export enum WishStatus {
+  New = 1,
+  Cancelled = 2,
+  Done = 3,
+  Available = 4,
+  Overdue = 5,
+}
+
 export interface WishView {
   id: string;
   name: string;
@@ -24,7 +32,7 @@ export interface WishView {
   priority: 'Low' | 'Medium' | 'High';
   desiredOn: string | null;
   notes: string | null;
-  status: 'Available' | 'Fulfilled' | 'Cancelled' | 'New';
+  status: WishStatus;
 }
 
 export interface AccountUserResponse {

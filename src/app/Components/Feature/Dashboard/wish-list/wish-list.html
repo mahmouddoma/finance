@@ -20,19 +20,48 @@
             <span
               class="badge rounded-pill fw-bold px-2 py-1 tiny"
               [ngClass]="{
-                'bg-soft-success text-success': getWishStatus(wish) === 'Done',
-                'bg-soft-danger text-danger': getWishStatus(wish) === 'Overdue',
-                'bg-soft-primary text-primary': getWishStatus(wish) === 'Available',
+                'bg-soft-success text-success': getWishStatus(wish) === WishStatus.Done,
+                'bg-soft-danger text-danger': getWishStatus(wish) === WishStatus.Overdue,
+                'bg-soft-primary text-primary':
+                  getWishStatus(wish) === WishStatus.Available ||
+                  getWishStatus(wish) === WishStatus.New,
+                'bg-soft-secondary text-secondary': getWishStatus(wish) === WishStatus.Cancelled,
               }"
             >
               <i
                 class="bi me-1"
-                [class.bi-check-circle-fill]="getWishStatus(wish) === 'Done'"
-                [class.bi-exclamation-circle-fill]="getWishStatus(wish) === 'Overdue'"
-                [class.bi-stars]="getWishStatus(wish) === 'Available'"
+                [class.bi-check-circle-fill]="getWishStatus(wish) === WishStatus.Done"
+                [class.bi-exclamation-circle-fill]="getWishStatus(wish) === WishStatus.Overdue"
+                [class.bi-stars]="
+                  getWishStatus(wish) === WishStatus.Available ||
+                  getWishStatus(wish) === WishStatus.New
+                "
+                [class.bi-question-circle]="
+                  getWishStatus(wish) !== WishStatus.Done &&
+                  getWishStatus(wish) !== WishStatus.Overdue &&
+                  getWishStatus(wish) !== WishStatus.Available &&
+                  getWishStatus(wish) !== WishStatus.New &&
+                  getWishStatus(wish) !== WishStatus.Cancelled
+                "
               >
               </i>
-              {{ getWishStatus(wish) }}
+              <span *ngIf="getWishStatus(wish) === WishStatus.Done">Done</span>
+              <span *ngIf="getWishStatus(wish) === WishStatus.Overdue">Overdue</span>
+              <span *ngIf="getWishStatus(wish) === WishStatus.Available">Available</span>
+              <span *ngIf="getWishStatus(wish) === WishStatus.New">New</span>
+              <span *ngIf="getWishStatus(wish) === WishStatus.Cancelled">Cancelled</span>
+              <!-- Fallback to show raw status if none match -->
+              <span
+                *ngIf="
+                  getWishStatus(wish) !== WishStatus.Done &&
+                  getWishStatus(wish) !== WishStatus.Overdue &&
+                  getWishStatus(wish) !== WishStatus.Available &&
+                  getWishStatus(wish) !== WishStatus.New &&
+                  getWishStatus(wish) !== WishStatus.Cancelled
+                "
+              >
+                {{ wish.status }}
+              </span>
             </span>
 
             <!-- Priority (Small) -->
@@ -48,7 +77,10 @@
           <!-- Buttons Row (Chic & Catchy) -->
           <div
             class="action-buttons-overlay d-flex gap-2 justify-content-end"
-            *ngIf="getWishStatus(wish) !== 'Done'"
+            *ngIf="
+              getWishStatus(wish) !== WishStatus.Done &&
+              getWishStatus(wish) !== WishStatus.Cancelled
+            "
           >
             <button
               class="btn btn-chic-done rounded-pill px-3 py-1 shadow-sm d-flex align-items-center gap-1"
